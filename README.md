@@ -80,6 +80,7 @@ Berikut adalah beberapa tampilan utama antarmuka pengguna pada sistem **ASMA**:
   * **Langkah 2 (Detail & Bukti Pendukung):** Uraian Lengkap Kejadian, Tanggal & Waktu, **Unggah Bukti Pendukung (Maksimal 5 berkas foto/dokumen hingga 10MB/berkas)**, **Tautan Google Drive/Cloud Storage** untuk bukti tambahan berukuran besar, serta Konfirmasi Tanggung Jawab.
 * **Kode Tiket Unik:** Format resmi `ASP-YYYY-XXXXXX` yang diterbitkan otomatis saat submit berhasil.
 * **Dashboard Mahasiswa:** Memantau riwayat laporan sendiri, berkas bukti, tautan Google Drive, timeline status penanganan, dan tanggapan akademisi secara real-time.
+* **Fitur Hapus Aspirasi Mandiri:** Mahasiswa dapat membatalkan/menghapus laporan miliknya sewaktu-waktu langsung dari dashboard dengan konfirmasi modal yang aman, serta pembersihan berkas lampiran otomatis dari server (Anti-IDOR).
 
 ### 2. Publik (Tanpa Perlu Login)
 * **Pelacakan Status Aspirasi Terbuka:** Melacak progres penanganan laporan kapan saja secara publik melalui halaman `/lacak` cukup dengan memasukkan kode tiket resmi.

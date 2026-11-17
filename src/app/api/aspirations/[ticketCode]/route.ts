@@ -3,6 +3,8 @@ import { getSession } from '@/lib/auth';
 import prisma from '@/lib/prisma';
 import { AspirationStatus } from '@prisma/client';
 import { sanitizeText } from '@/lib/security';
+import fs from 'fs';
+import path from 'path';
 
 export async function GET(
   request: NextRequest,
@@ -180,6 +182,83 @@ export async function PATCH(
     console.error('Update aspiration error:', error);
     return NextResponse.json(
       { error: 'Gagal memperbarui status aspirasi.' },
+      { status: 500 }
+    );
+  }
+}
+
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: Promise<{ ticketCode: string }> }
+) {
+  try {
+    const { ticketCode } = await params;
+    const cleanTicketCode = sanitizeText(ticketCode).toUpperCase();
+    const session = await getSession();
+
+    if (!session) {
+      return NextResponse.json({ error: 'Tidak terautentikasi.' }, { status: 401 });
+    }
+
+    const aspiration = await prisma.aspiration.findUnique({
+      where: { ticket_code: cleanTicketCode },
+      include: { attachments: true },
+    });
+
+    if (!aspiration) {
+      return NextResponse.json(
+        { error: 'Aspirasi tidak ditemukan.' },
+        { status: 404 }
+      );
+    }
+
+    // Role check & Anti-IDOR:
+    // Mahasiswa can only delete their OWN aspiration
+    // Admin can delete any aspiration
+    if (session.role === 'MAHASISWA' && aspiration.user_id !== session.id) {
+      return NextResponse.json(
+        { error: 'Akses ditolak: Anda hanya dapat menghapus aspirasi milik Anda sendiri.' },
+        { status: 403 }
+      );
+    }
+
+    if (session.role !== 'MAHASISWA' && session.role !== 'ADMIN') {
+      return NextResponse.json(
+        { error: 'Hanya mahasiswa pemilik aspirasi atau admin yang dapat menghapus aspirasi.' },
+        { status: 403 }
+      );
+    }
+
+    // Delete uploaded files on disk
+    if (aspiration.attachments && aspiration.attachments.length > 0) {
+      for (const att of aspiration.attachments) {
+        try {
+          if (att.file_path && att.file_path.startsWith('/uploads/')) {
+            const fileName = path.basename(att.file_path);
+            const fullPath = path.join(process.cwd(), 'public', 'uploads', fileName);
+            if (fs.existsSync(fullPath)) {
+              fs.unlinkSync(fullPath);
+            }
+          }
+        } catch (unlinkErr) {
+          console.error('Failed to unlink file:', unlinkErr);
+        }
+      }
+    }
+
+    // Delete from database
+    await prisma.aspiration.delete({
+      where: { id: aspiration.id },
+    });
+
+    return NextResponse.json({
+      success: true,
+      message: 'Aspirasi berhasil dihapus.',
+    });
+  } catch (error) {
+    console.error('Delete aspiration error:', error);
+    return NextResponse.json(
+      { error: 'Gagal menghapus aspirasi.' },
       { status: 500 }
     );
   }

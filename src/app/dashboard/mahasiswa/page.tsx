@@ -16,6 +16,9 @@ import {
   ExternalLink,
   KeyRound,
   Link as LinkIcon,
+  Trash2,
+  AlertCircle,
+  CheckCircle2,
 } from 'lucide-react';
 import { StatusBadge } from '@/components/StatusBadge';
 import { Timeline } from '@/components/Timeline';
@@ -31,6 +34,10 @@ export default function MahasiswaDashboard() {
   const [selectedStatus, setSelectedStatus] = useState('ALL');
   const [selectedAspiration, setSelectedAspiration] = useState<any | null>(null);
   const [showPasswordModal, setShowPasswordModal] = useState(false);
+  const [aspirationToDelete, setAspirationToDelete] = useState<any | null>(null);
+  const [deleting, setDeleting] = useState(false);
+  const [deleteError, setDeleteError] = useState<string | null>(null);
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   useEffect(() => {
     fetchData();
@@ -56,6 +63,32 @@ export default function MahasiswaDashboard() {
       console.error('Fetch student dashboard error:', err);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleDeleteAspiration = async (ticketCode: string) => {
+    setDeleting(true);
+    setDeleteError(null);
+    try {
+      const res = await fetch(`/api/aspirations/${ticketCode}`, {
+        method: 'DELETE',
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || 'Gagal menghapus aspirasi.');
+      }
+
+      setAspirations((prev) => prev.filter((a) => a.ticket_code !== ticketCode));
+      if (selectedAspiration?.ticket_code === ticketCode) {
+        setSelectedAspiration(null);
+      }
+      setAspirationToDelete(null);
+      setToastMessage(`Aspirasi ${ticketCode} berhasil dihapus.`);
+      setTimeout(() => setToastMessage(null), 4000);
+    } catch (err: any) {
+      setDeleteError(err.message || 'Terjadi kesalahan sistem saat menghapus.');
+    } finally {
+      setDeleting(false);
     }
   };
 
@@ -93,6 +126,23 @@ export default function MahasiswaDashboard() {
           </Link>
         </div>
       </div>
+
+      {/* Toast Notification */}
+      {toastMessage && (
+        <div className="mb-6 p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs flex items-center justify-between animate-in fade-in">
+          <div className="flex items-center gap-2">
+            <CheckCircle2 size={15} className="text-emerald-600 shrink-0" />
+            <span>{toastMessage}</span>
+          </div>
+          <button
+            type="button"
+            onClick={() => setToastMessage(null)}
+            className="text-emerald-600 hover:text-emerald-900 p-1"
+          >
+            <X size={14} />
+          </button>
+        </div>
+      )}
 
       {/* Password Change Reminder Banner if user still uses default password */}
       {user?.must_change_pwd && (
@@ -241,10 +291,23 @@ export default function MahasiswaDashboard() {
                         <Calendar size={13} className="text-zinc-400" />
                         <span>{formatDate(asp.created_at)}</span>
                       </div>
-                      <span className="text-zinc-900 font-medium group-hover:translate-x-0.5 transition-transform inline-flex items-center gap-1">
-                        <span>Detail</span>
-                        <ChevronRight size={13} />
-                      </span>
+                      <div className="flex items-center gap-2">
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setAspirationToDelete(asp);
+                          }}
+                          title="Hapus aspirasi ini"
+                          className="p-1.5 rounded-md text-zinc-400 hover:text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer"
+                        >
+                          <Trash2 size={13} />
+                        </button>
+                        <span className="text-zinc-900 font-medium group-hover:translate-x-0.5 transition-transform inline-flex items-center gap-1">
+                          <span>Detail</span>
+                          <ChevronRight size={13} />
+                        </span>
+                      </div>
                     </div>
                   </div>
                 );
@@ -424,6 +487,81 @@ export default function MahasiswaDashboard() {
                 responses={selectedAspiration.responses || []}
                 currentStatus={selectedAspiration.current_status}
               />
+            </div>
+
+            {/* Modal Actions: Hapus & Tutup */}
+            <div className="pt-4 mt-6 border-t border-zinc-200 flex items-center justify-between">
+              <button
+                type="button"
+                onClick={() => setAspirationToDelete(selectedAspiration)}
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-rose-600 hover:text-rose-700 hover:bg-rose-50 border border-rose-200 text-xs font-medium transition-colors cursor-pointer"
+              >
+                <Trash2 size={13} />
+                <span>Hapus aspirasi ini</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setSelectedAspiration(null)}
+                className="px-4 py-2 rounded-lg border border-zinc-200 hover:bg-zinc-100 text-zinc-700 text-xs font-medium transition-colors cursor-pointer"
+              >
+                Tutup
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modal Konfirmasi Hapus Aspirasi */}
+      {aspirationToDelete && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-zinc-950/50 backdrop-blur-xs animate-in fade-in duration-200">
+          <div className="bg-white rounded-2xl max-w-md w-full p-6 border border-zinc-200 shadow-2xl">
+            <div className="w-10 h-10 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center mx-auto mb-3">
+              <Trash2 size={20} />
+            </div>
+
+            <div className="text-center mb-4">
+              <h3 className="text-base font-semibold text-zinc-950">
+                Hapus Aspirasi Ini?
+              </h3>
+              <p className="text-xs text-zinc-600 mt-1 leading-relaxed">
+                Aspirasi dengan kode <span className="font-mono font-medium text-zinc-900">{aspirationToDelete.ticket_code}</span> (&quot;{aspirationToDelete.title}&quot;) beserta seluruh file bukti lampiran akan dihapus secara permanen dari sistem.
+              </p>
+            </div>
+
+            {deleteError && (
+              <div className="mb-4 p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs flex items-center gap-2">
+                <AlertCircle size={14} className="shrink-0" />
+                <span>{deleteError}</span>
+              </div>
+            )}
+
+            <div className="flex items-center gap-2 pt-2">
+              <button
+                type="button"
+                onClick={() => {
+                  setAspirationToDelete(null);
+                  setDeleteError(null);
+                }}
+                disabled={deleting}
+                className="flex-1 py-2.5 px-3 rounded-xl border border-zinc-200 text-zinc-700 hover:bg-zinc-100 text-xs font-medium transition-colors cursor-pointer"
+              >
+                Batal
+              </button>
+              <button
+                type="button"
+                onClick={() => handleDeleteAspiration(aspirationToDelete.ticket_code)}
+                disabled={deleting}
+                className="flex-1 py-2.5 px-3 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-medium transition-colors disabled:opacity-50 flex items-center justify-center gap-1.5 cursor-pointer"
+              >
+                {deleting ? (
+                  <span>Menghapus...</span>
+                ) : (
+                  <>
+                    <Trash2 size={13} />
+                    <span>Ya, Hapus</span>
+                  </>
+                )}
+              </button>
             </div>
           </div>
         </div>
