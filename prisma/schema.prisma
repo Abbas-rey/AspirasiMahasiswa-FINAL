@@ -1,0 +1,106 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  MAHASISWA
+  AKADEMISI
+  ADMIN
+}
+
+enum TargetLevel {
+  JURUSAN
+  FAKULTAS
+  UNIVERSITAS
+}
+
+enum AspirationStatus {
+  DITERIMA
+  DIPROSES
+  DITINDAKLANJUTI
+  SELESAI
+}
+
+model User {
+  id                 String       @id @default(uuid())
+  nim_nip            String       @unique
+  name               String
+  email              String?      @unique
+  password_hash      String
+  role               Role         @default(MAHASISWA)
+  scope_level        TargetLevel? // Opsional untuk Akademisi (Jurusan/Fakultas/Universitas)
+  must_change_pwd    Boolean      @default(true)
+  created_at         DateTime     @default(now())
+  updated_at         DateTime     @updatedAt
+
+  aspirations        Aspiration[]
+  responses          Response[]
+}
+
+model Category {
+  id            Int          @id @default(autoincrement())
+  category_name String       @unique
+  description   String?
+  aspirations   Aspiration[]
+}
+
+model Aspiration {
+  id             String           @id @default(uuid())
+  ticket_code    String           @unique // Format: ASP-YYYY-XXXXXX
+  user_id        String
+  category_id    Int
+  target_level   TargetLevel      @default(JURUSAN)
+  is_anonymous   Boolean          @default(false)
+  title          String           @db.VarChar(120)
+  description    String           @db.Text
+  incident_date  DateTime
+  incident_time  String
+  current_status AspirationStatus @default(DITERIMA)
+  created_at     DateTime         @default(now())
+  updated_at     DateTime         @updatedAt
+
+  user           User             @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  category       Category         @relation(fields: [category_id], references: [id])
+  attachments    Attachment[]
+  status_logs    StatusLog[]
+  responses      Response[]
+}
+
+model Attachment {
+  id            String     @id @default(uuid())
+  aspiration_id String
+  file_name     String
+  file_path     String
+  file_type     String
+  file_size     Int
+  uploaded_at   DateTime   @default(now())
+
+  aspiration    Aspiration @relation(fields: [aspiration_id], references: [id], onDelete: Cascade)
+}
+
+model StatusLog {
+  id              String           @id @default(uuid())
+  aspiration_id   String
+  status          AspirationStatus
+  note            String?          @db.Text
+  updated_by_name String
+  changed_at      DateTime         @default(now())
+
+  aspiration      Aspiration       @relation(fields: [aspiration_id], references: [id], onDelete: Cascade)
+}
+
+model Response {
+  id            String     @id @default(uuid())
+  aspiration_id String
+  responder_id  String
+  response_text String     @db.Text
+  responded_at  DateTime   @default(now())
+
+  aspiration    Aspiration @relation(fields: [aspiration_id], references: [id], onDelete: Cascade)
+  responder     User       @relation(fields: [responder_id], references: [id])
+}
