@@ -1,27 +1,45 @@
 import { NextRequest, NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import prisma from '@/lib/prisma';
-import { getSession, signToken, setSessionCookie, TokenPayload } from '@/lib/auth';
+import { getSession, signToken, verifyToken, setSessionCookie, TokenPayload } from '@/lib/auth';
 import { checkRateLimit, getClientIp } from '@/lib/security';
 import { validatePasswordRules } from '@/lib/utils';
 
 export async function POST(request: NextRequest) {
   try {
-    const session = await getSession();
-    if (!session) {
-      return NextResponse.json({ error: 'Sesi tidak valid. Silakan login kembali.' }, { status: 401 });
+    const body = await request.json();
+    const { new_password, current_password, temp_token } = body;
+
+    let userId = '';
+    let isFirstLogin = false;
+
+    // Check authentication: either via temp_token (during first-login prompt) or active session cookie
+    if (temp_token && typeof temp_token === 'string') {
+      const tempPayload = await verifyToken(temp_token);
+      if (!tempPayload || !tempPayload.id || !tempPayload.temp_auth) {
+        return NextResponse.json(
+          { error: 'Sesi login sementara telah kedaluwarsa. Silakan login kembali.' },
+          { status: 401 }
+        );
+      }
+      userId = tempPayload.id;
+      isFirstLogin = true;
+    } else {
+      const session = await getSession();
+      if (!session) {
+        return NextResponse.json({ error: 'Sesi tidak valid. Silakan login kembali.' }, { status: 401 });
+      }
+      userId = session.id;
     }
 
     const clientIp = getClientIp(request.headers);
-    const rateCheck = checkRateLimit(`pwd_change_${session.id}_${clientIp}`, 5, 300);
+    const rateCheck = checkRateLimit(`pwd_change_${userId}_${clientIp}`, 5, 300);
     if (!rateCheck.allowed) {
       return NextResponse.json(
         { error: `Terlalu banyak permintaan perubahan password. Tunggu ${rateCheck.retryAfterSeconds} detik.` },
         { status: 429 }
       );
     }
-
-    const { new_password, current_password } = await request.json();
 
     if (!new_password || typeof new_password !== 'string') {
       return NextResponse.json(
@@ -47,7 +65,7 @@ export async function POST(request: NextRequest) {
     }
 
     const user = await prisma.user.findUnique({
-      where: { id: session.id },
+      where: { id: userId },
     });
 
     if (!user) {
@@ -55,8 +73,9 @@ export async function POST(request: NextRequest) {
     }
 
     // Authorization verification:
-    // If must_change_pwd is false, current_password is MANDATORY and must match.
-    if (!user.must_change_pwd) {
+    // If user is already on a custom password (not first login / must_change_pwd: false),
+    // current_password is mandatory and must match.
+    if (!user.must_change_pwd && !isFirstLogin) {
       if (!current_password || typeof current_password !== 'string') {
         return NextResponse.json(
           { error: 'Password saat ini wajib diisi untuk verifikasi keamanan.' },
@@ -85,7 +104,7 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    // Re-sign token with must_change_pwd: false
+    // Re-sign official session token with must_change_pwd: false
     const newPayload: TokenPayload = {
       id: updatedUser.id,
       nim_nip: updatedUser.nim_nip,
@@ -96,7 +115,7 @@ export async function POST(request: NextRequest) {
       must_change_pwd: false,
     };
 
-    const token = await signToken(newPayload);
+    const token = await signToken(newPayload, '7d');
     const response = NextResponse.json({
       success: true,
       message: 'Password berhasil diperbarui.',

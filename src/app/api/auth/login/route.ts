@@ -95,9 +95,29 @@ export async function POST(request: NextRequest) {
       must_change_pwd: Boolean(isUsingDefault),
     };
 
-    const token = await signToken(payload);
+    // If user is still using default password:
+    // DO NOT set the session cookie yet!
+    // Return a short-lived temporary token so that if the user refreshes /login,
+    // they remain completely logged out on the login page without any active session.
+    if (isUsingDefault) {
+      const tempToken = await signToken(
+        { ...payload, temp_auth: true },
+        '15m'
+      );
+
+      return NextResponse.json({
+        success: true,
+        require_change_pwd: true,
+        temp_token: tempToken,
+        user: payload,
+      });
+    }
+
+    // Normal login: issue permanent session cookie
+    const token = await signToken(payload, '7d');
     const response = NextResponse.json({
       success: true,
+      require_change_pwd: false,
       message: 'Login berhasil.',
       user: payload,
     });

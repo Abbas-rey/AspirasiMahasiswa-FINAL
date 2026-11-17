@@ -9,6 +9,7 @@ interface FirstLoginPasswordModalProps {
   onSuccess: () => void;
   onSkip?: () => void;
   userName?: string;
+  tempToken?: string;
 }
 
 export function FirstLoginPasswordModal({
@@ -16,6 +17,7 @@ export function FirstLoginPasswordModal({
   onSuccess,
   onSkip,
   userName = 'Pengguna',
+  tempToken,
 }: FirstLoginPasswordModalProps) {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -50,7 +52,10 @@ export function FirstLoginPasswordModal({
       const res = await fetch('/api/auth/change-password', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ new_password: newPassword }),
+        body: JSON.stringify({
+          new_password: newPassword,
+          ...(tempToken && { temp_token: tempToken }),
+        }),
       });
 
       const data = await res.json();
@@ -63,6 +68,33 @@ export function FirstLoginPasswordModal({
       setError(err.message || 'Terjadi kesalahan sistem.');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleSkip = async () => {
+    if (tempToken) {
+      setLoading(true);
+      setError(null);
+      try {
+        const res = await fetch('/api/auth/skip-first-change', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ temp_token: tempToken }),
+        });
+
+        const data = await res.json();
+        if (!res.ok) {
+          throw new Error(data.error || 'Gagal memproses sesi login.');
+        }
+
+        if (onSkip) onSkip();
+      } catch (err: any) {
+        setError(err.message || 'Terjadi kesalahan sistem.');
+      } finally {
+        setLoading(false);
+      }
+    } else {
+      if (onSkip) onSkip();
     }
   };
 
@@ -199,7 +231,7 @@ export function FirstLoginPasswordModal({
             {onSkip && (
               <button
                 type="button"
-                onClick={onSkip}
+                onClick={handleSkip}
                 disabled={loading}
                 className="w-full sm:w-auto py-2.5 px-4 rounded-xl border border-slate-300 hover:bg-slate-100 text-slate-700 hover:text-slate-900 text-xs font-medium transition cursor-pointer"
               >

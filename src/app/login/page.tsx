@@ -34,6 +34,7 @@ function LoginForm() {
   // First Login Modal State
   const [showFirstLoginModal, setShowFirstLoginModal] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState<any | null>(null);
+  const [tempToken, setTempToken] = useState<string | null>(null);
 
   // Forgot password helper modal
   const [showForgotModal, setShowForgotModal] = useState(false);
@@ -82,8 +83,9 @@ function LoginForm() {
       const user = data.user;
       setLoggedInUser(user);
 
-      // If user must change password, open modal
-      if (user.must_change_pwd) {
+      // If user must change password, open modal and store temporary token without creating a permanent session
+      if (data.require_change_pwd) {
+        setTempToken(data.temp_token);
         setShowFirstLoginModal(true);
         setLoading(false);
         return;
@@ -125,6 +127,7 @@ function LoginForm() {
         <FirstLoginPasswordModal
           isOpen={showFirstLoginModal}
           userName={loggedInUser.name}
+          tempToken={tempToken || undefined}
           onSuccess={() => {
             setShowFirstLoginModal(false);
             proceedToDashboard(loggedInUser.role);
