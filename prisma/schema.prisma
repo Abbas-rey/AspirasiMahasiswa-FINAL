@@ -61,6 +61,7 @@ model Aspiration {
   incident_date  DateTime
   incident_time  String
   current_status AspirationStatus @default(DITERIMA)
+  drive_link     String?          @db.Text
   created_at     DateTime         @default(now())
   updated_at     DateTime         @updatedAt
 

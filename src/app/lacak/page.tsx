@@ -8,6 +8,9 @@ import {
   FileSearch,
   AlertCircle,
   Calendar,
+  FileText,
+  ExternalLink,
+  Link as LinkIcon,
 } from 'lucide-react';
 import { StatusBadge } from '@/components/StatusBadge';
 import { Timeline } from '@/components/Timeline';
@@ -147,6 +150,49 @@ function LacakStatusContent() {
             <div className="p-4 rounded-lg bg-zinc-50 border border-zinc-200 text-xs text-zinc-800 leading-relaxed whitespace-pre-wrap">
               {aspiration.description}
             </div>
+
+            {/* Lampiran Bukti */}
+            {aspiration.attachments && aspiration.attachments.length > 0 && (
+              <div>
+                <span className="text-xs font-mono text-zinc-500 uppercase tracking-wider block mb-2">
+                  Lampiran bukti ({aspiration.attachments.length} berkas)
+                </span>
+                <div className="flex flex-wrap gap-2">
+                  {aspiration.attachments.map((att: any) => (
+                    <a
+                      key={att.id}
+                      href={att.file_path}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-100 hover:bg-zinc-200 text-zinc-800 text-xs font-medium border border-zinc-200 transition-colors"
+                    >
+                      <FileText size={13} />
+                      <span className="max-w-[200px] truncate">{att.file_name}</span>
+                      <ExternalLink size={11} className="text-zinc-400" />
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Google Drive Link */}
+            {aspiration.drive_link && (
+              <div>
+                <span className="text-xs font-mono text-zinc-500 uppercase tracking-wider block mb-2">
+                  Tautan Bukti Google Drive / Cloud
+                </span>
+                <a
+                  href={aspiration.drive_link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-zinc-50 hover:bg-zinc-100 text-zinc-900 text-xs font-medium border border-zinc-200 transition-colors group"
+                >
+                  <LinkIcon size={13} className="text-zinc-500 group-hover:text-zinc-950" />
+                  <span className="max-w-[260px] sm:max-w-md truncate">{aspiration.drive_link}</span>
+                  <ExternalLink size={11} className="text-zinc-400" />
+                </a>
+              </div>
+            )}
 
             {/* Timeline */}
             <div className="pt-4 border-t border-zinc-200">

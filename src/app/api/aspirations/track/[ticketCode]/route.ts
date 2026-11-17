@@ -42,6 +42,16 @@ export async function GET(
         created_at: true,
         updated_at: true,
         is_anonymous: true,
+        drive_link: true,
+        attachments: {
+          select: {
+            id: true,
+            file_name: true,
+            file_path: true,
+            file_type: true,
+            file_size: true,
+          },
+        },
         category: {
           select: {
             id: true,

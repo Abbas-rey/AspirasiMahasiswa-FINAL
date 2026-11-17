@@ -169,7 +169,8 @@ export async function POST(request: NextRequest) {
     let target_level: TargetLevel = 'JURUSAN';
     let category_id = 1;
     let is_anonymous = false;
-    let uploadedFile: { name: string; path: string; type: string; size: number } | null = null;
+    let drive_link = '';
+    const uploadedFiles: Array<{ name: string; path: string; type: string; size: number }> = [];
 
     if (contentType.includes('multipart/form-data')) {
       const formData = await request.formData();
@@ -177,6 +178,7 @@ export async function POST(request: NextRequest) {
       description = (formData.get('description') as string) || '';
       incident_date_raw = (formData.get('incident_date') as string) || '';
       incident_time = (formData.get('incident_time') as string) || '';
+      drive_link = (formData.get('drive_link') as string) || '';
       const rawTarget = (formData.get('target_level') as string) || 'JURUSAN';
       if (['JURUSAN', 'FAKULTAS', 'UNIVERSITAS'].includes(rawTarget)) {
         target_level = rawTarget as TargetLevel;
@@ -184,12 +186,31 @@ export async function POST(request: NextRequest) {
       category_id = parseInt((formData.get('category_id') as string) || '1', 10);
       is_anonymous = formData.get('is_anonymous') === 'true';
 
-      const file = formData.get('file') as File | null;
-      if (file && file.size > 0) {
-        // Enforce 5MB size limit
-        if (file.size > 5 * 1024 * 1024) {
+      // Support multiple files from 'files' or 'file' keys
+      const rawFiles = [
+        ...formData.getAll('files'),
+        ...formData.getAll('file'),
+      ].filter((item): item is File => item instanceof File && item.size > 0);
+
+      // Max 5 files
+      if (rawFiles.length > 5) {
+        return NextResponse.json(
+          { error: 'Maksimal 5 file bukti yang dapat diunggah.' },
+          { status: 400 }
+        );
+      }
+
+      // Max size per file: 10MB
+      const MAX_FILE_SIZE = 10 * 1024 * 1024;
+      const uploadDir = path.join(process.cwd(), 'public', 'uploads');
+      if (!fs.existsSync(uploadDir)) {
+        fs.mkdirSync(uploadDir, { recursive: true });
+      }
+
+      for (const file of rawFiles) {
+        if (file.size > MAX_FILE_SIZE) {
           return NextResponse.json(
-            { error: 'Ukuran file bukti melebihi batas maksimal 5MB.' },
+            { error: `Ukuran file "${file.name}" melebihi batas maksimal 10MB.` },
             { status: 400 }
           );
         }
@@ -201,29 +222,24 @@ export async function POST(request: NextRequest) {
         const magicValidation = validateFileMagicBytes(buffer);
         if (!magicValidation.isValid) {
           return NextResponse.json(
-            { error: magicValidation.error || 'Format file bukti tidak valid. Hanya JPG, PNG, atau PDF asli yang diperbolehkan.' },
+            { error: `Format file "${file.name}" tidak valid. Hanya JPG, PNG, PDF, atau WEBP asli yang diperbolehkan.` },
             { status: 400 }
           );
         }
 
-        // Canonical extension derived exclusively from validated magic bytes (prevents extension spoofing / XSS)
+        // Canonical extension derived exclusively from validated magic bytes
         const safeExt = magicValidation.ext;
         const sanitizedOriginalName = sanitizeFileName(file.name);
-        // Cryptographically secure random filename
         const uniqueFileName = `${generateSecureId()}${safeExt}`;
-        const uploadDir = path.join(process.cwd(), 'public', 'uploads');
-        if (!fs.existsSync(uploadDir)) {
-          fs.mkdirSync(uploadDir, { recursive: true });
-        }
         const fullPath = path.join(uploadDir, uniqueFileName);
         fs.writeFileSync(fullPath, buffer);
 
-        uploadedFile = {
+        uploadedFiles.push({
           name: sanitizedOriginalName,
           path: `/uploads/${uniqueFileName}`,
           type: magicValidation.mime,
           size: file.size,
-        };
+        });
       }
     } else {
       const body = await request.json();
@@ -231,6 +247,7 @@ export async function POST(request: NextRequest) {
       description = body.description || '';
       incident_date_raw = body.incident_date || '';
       incident_time = body.incident_time || '';
+      drive_link = body.drive_link || '';
       if (['JURUSAN', 'FAKULTAS', 'UNIVERSITAS'].includes(body.target_level)) {
         target_level = body.target_level as TargetLevel;
       }
@@ -271,6 +288,13 @@ export async function POST(request: NextRequest) {
       exists = await prisma.aspiration.findUnique({ where: { ticket_code } });
     }
 
+    let cleanDriveLink = sanitizeText(drive_link);
+    if (cleanDriveLink) {
+      if (!/^https?:\/\//i.test(cleanDriveLink)) {
+        cleanDriveLink = `https://${cleanDriveLink}`;
+      }
+    }
+
     const incidentDate = incident_date_raw ? new Date(incident_date_raw) : new Date();
 
     const newAspiration = await prisma.aspiration.create({
@@ -285,6 +309,7 @@ export async function POST(request: NextRequest) {
         incident_date: incidentDate,
         incident_time: cleanIncidentTime || 'Waktu tidak dispesifikasikan',
         current_status: 'DITERIMA',
+        drive_link: cleanDriveLink || null,
         status_logs: {
           create: {
             status: 'DITERIMA',
@@ -292,14 +317,14 @@ export async function POST(request: NextRequest) {
             updated_by_name: 'Sistem ASMA',
           },
         },
-        ...(uploadedFile && {
+        ...(uploadedFiles.length > 0 && {
           attachments: {
-            create: {
-              file_name: uploadedFile.name,
-              file_path: uploadedFile.path,
-              file_type: uploadedFile.type,
-              file_size: uploadedFile.size,
-            },
+            create: uploadedFiles.map((f) => ({
+              file_name: f.name,
+              file_path: f.path,
+              file_type: f.type,
+              file_size: f.size,
+            })),
           },
         }),
       },

@@ -15,6 +15,7 @@ import {
   X,
   ExternalLink,
   KeyRound,
+  Link as LinkIcon,
 } from 'lucide-react';
 import { StatusBadge } from '@/components/StatusBadge';
 import { Timeline } from '@/components/Timeline';
@@ -374,7 +375,7 @@ export default function MahasiswaDashboard() {
             {selectedAspiration.attachments && selectedAspiration.attachments.length > 0 && (
               <div className="mb-5">
                 <span className="text-xs font-mono text-zinc-500 uppercase tracking-wider block mb-2">
-                  Lampiran bukti
+                  Lampiran bukti ({selectedAspiration.attachments.length} berkas)
                 </span>
                 <div className="flex flex-wrap gap-2">
                   {selectedAspiration.attachments.map((att: any) => (
@@ -391,6 +392,25 @@ export default function MahasiswaDashboard() {
                     </a>
                   ))}
                 </div>
+              </div>
+            )}
+
+            {/* Google Drive Link if present */}
+            {selectedAspiration.drive_link && (
+              <div className="mb-5">
+                <span className="text-xs font-mono text-zinc-500 uppercase tracking-wider block mb-2">
+                  Tautan Bukti Google Drive / Cloud
+                </span>
+                <a
+                  href={selectedAspiration.drive_link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-zinc-50 hover:bg-zinc-100 text-zinc-900 text-xs font-medium border border-zinc-200 transition-colors group"
+                >
+                  <LinkIcon size={13} className="text-zinc-500 group-hover:text-zinc-950" />
+                  <span className="max-w-[260px] sm:max-w-md truncate">{selectedAspiration.drive_link}</span>
+                  <ExternalLink size={11} className="text-zinc-400" />
+                </a>
               </div>
             )}
 

@@ -13,6 +13,7 @@ import {
   FileText,
   ExternalLink,
   ShieldAlert,
+  Link as LinkIcon,
 } from 'lucide-react';
 import { StatusBadge } from '@/components/StatusBadge';
 import { Timeline } from '@/components/Timeline';
@@ -225,7 +226,7 @@ export default function AkademisiAspirasiDetailPage() {
             {aspiration.attachments && aspiration.attachments.length > 0 && (
               <div className="mt-5 pt-5 border-t border-zinc-200">
                 <span className="text-xs font-mono text-zinc-500 uppercase tracking-wider block mb-2">
-                  Bukti pendukung terlampir
+                  Bukti pendukung terlampir ({aspiration.attachments.length} berkas)
                 </span>
                 <div className="space-y-2">
                   {aspiration.attachments.map((att: any) => (
@@ -253,6 +254,36 @@ export default function AkademisiAspirasiDetailPage() {
                     </a>
                   ))}
                 </div>
+              </div>
+            )}
+
+            {/* Google Drive / Cloud Link */}
+            {aspiration.drive_link && (
+              <div className="mt-5 pt-5 border-t border-zinc-200">
+                <span className="text-xs font-mono text-zinc-500 uppercase tracking-wider block mb-2">
+                  Tautan Bukti Eksternal (Google Drive / Cloud)
+                </span>
+                <a
+                  href={aspiration.drive_link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-3 rounded-lg bg-zinc-50 border border-zinc-200 hover:border-zinc-400 flex items-center justify-between transition-colors group"
+                >
+                  <div className="flex items-center gap-2.5 overflow-hidden">
+                    <div className="w-7 h-7 rounded-md bg-zinc-900 text-white flex items-center justify-center shrink-0">
+                      <LinkIcon size={14} />
+                    </div>
+                    <div className="truncate">
+                      <p className="text-xs font-medium text-zinc-900 group-hover:underline truncate max-w-xs sm:max-w-md">
+                        {aspiration.drive_link}
+                      </p>
+                      <p className="text-[10px] font-mono text-zinc-500">
+                        Buka tautan bukti di tab baru
+                      </p>
+                    </div>
+                  </div>
+                  <ExternalLink size={13} className="text-zinc-400 group-hover:text-zinc-800 shrink-0" />
+                </a>
               </div>
             )}
           </div>

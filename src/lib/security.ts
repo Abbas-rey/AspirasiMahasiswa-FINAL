@@ -48,11 +48,26 @@ export function validateFileMagicBytes(buffer: Buffer): ValidatedFile {
     return { isValid: true, ext: '.pdf', mime: 'application/pdf' };
   }
 
+  // WEBP: Starts with RIFF (52 49 46 46) and WEBP (57 45 42 50) at offset 8
+  if (
+    buffer.length >= 12 &&
+    buffer[0] === 0x52 &&
+    buffer[1] === 0x49 &&
+    buffer[2] === 0x46 &&
+    buffer[3] === 0x46 &&
+    buffer[8] === 0x57 &&
+    buffer[9] === 0x45 &&
+    buffer[10] === 0x42 &&
+    buffer[11] === 0x50
+  ) {
+    return { isValid: true, ext: '.webp', mime: 'image/webp' };
+  }
+
   return {
     isValid: false,
     ext: '',
     mime: '',
-    error: 'File signature tidak sesuai. Hanya file JPG, PNG, atau PDF asli yang diperbolehkan.',
+    error: 'File signature tidak sesuai. Hanya file JPG, PNG, PDF, atau WEBP asli yang diperbolehkan.',
   };
 }
 

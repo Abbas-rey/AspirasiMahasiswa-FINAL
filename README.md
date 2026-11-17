@@ -75,12 +75,11 @@ Berikut adalah beberapa tampilan utama antarmuka pengguna pada sistem **ASMA**:
 ## 🌟 Fitur Unggulan Berdasarkan Peran
 
 ### 1. Mahasiswa (Pelapor)
-* **Formulir Multi-Step Interaktif (3 Langkah):**
-  * **Langkah 1:** Identitas Pengirim & Pilihan Mode Privasi (**Transparan** dengan nama/NIM resmi, atau **Anonim Total** untuk perlindungan identitas penuh).
-  * **Langkah 2:** Rincian Aspirasi (Tingkat Tujuan: Jurusan/Fakultas/Universitas, Kategori, Judul, Tanggal, Waktu Kejadian, dan Deskripsi).
-  * **Langkah 3:** Unggah Bukti Pendukung (Validasi berkas format JPG, PNG, atau PDF hingga 5MB) & Konfirmasi Ringkasan.
+* **Formulir Terpadu 2 Langkah (Efisiensi Alur):**
+  * **Langkah 1 (Mode & Kategori):** Identitas Pengirim & Pilihan Mode Privasi (**Transparan** dengan nama/NIM resmi, atau **Anonim Total** untuk perlindungan identitas penuh), Tingkat Tujuan (Jurusan/Fakultas/Universitas), dan Kategori.
+  * **Langkah 2 (Detail & Bukti Pendukung):** Uraian Lengkap Kejadian, Tanggal & Waktu, **Unggah Bukti Pendukung (Maksimal 5 berkas foto/dokumen hingga 10MB/berkas)**, **Tautan Google Drive/Cloud Storage** untuk bukti tambahan berukuran besar, serta Konfirmasi Tanggung Jawab.
 * **Kode Tiket Unik:** Format resmi `ASP-YYYY-XXXXXX` yang diterbitkan otomatis saat submit berhasil.
-* **Dashboard Mahasiswa:** Memantau riwayat laporan sendiri, timeline status penanganan, dan tanggapan akademisi secara real-time.
+* **Dashboard Mahasiswa:** Memantau riwayat laporan sendiri, berkas bukti, tautan Google Drive, timeline status penanganan, dan tanggapan akademisi secara real-time.
 
 ### 2. Publik (Tanpa Perlu Login)
 * **Pelacakan Status Aspirasi Terbuka:** Melacak progres penanganan laporan kapan saja secara publik melalui halaman `/lacak` cukup dengan memasukkan kode tiket resmi.
@@ -116,7 +115,7 @@ Berikut adalah beberapa tampilan utama antarmuka pengguna pada sistem **ASMA**:
 | **A02:2025** | **Security Misconfiguration** | Seluruh kredensial diisolasi via environment variables. File `.env` terdaftar di `.gitignore`. Headers keamanan HTTP aktif (`X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`). |
 | **A03:2025** | **Supply Chain Failures** | Dependensi dikunci pada versi stabil teruji, rutin diaudit melalui `npm audit`, bebas dari library usang berisiko tinggi. |
 | **A04:2025** | **Cryptographic Failures** | Token JWT ditandatangani dengan algoritma `HS256` eksplisit via library `jose` dengan secret key minimal 32 karakter. Hashing password menggunakan `bcryptjs` dengan salt rounds teruji (10 rounds). |
-| **A05:2025** | **Injection & File Upload** | Menggunakan Prisma ORM parameterized queries (bebas SQL Injection). Validasi upload berkas memeriksa **Magic Bytes (File Signature)** asli di server (mencegah manipulasi header/ekstensi), pembatasan 5MB, serta pengacakan nama file (UUID) untuk mencegah *Path Traversal*. |
+| **A05:2025** | **Injection & File Upload** | Menggunakan Prisma ORM parameterized queries (bebas SQL Injection). Validasi upload berkas memeriksa **Magic Bytes (File Signature)** asli di server untuk JPG, PNG, PDF, dan WEBP, batas hingga 5 file @ 10MB, enkapsulasi tautan Google Drive / Cloud Storage, serta pengacakan nama file (UUID) untuk mencegah *Path Traversal*. |
 | **A07:2025** | **Authentication Failures** | Cookie sesi disimpan dengan atribut `HttpOnly`, `SameSite: Lax`, dan `Secure` (pada production). Dilengkapi proteksi *rate-limiting* berbasis memori pada rute login untuk mencegah serangan brute-force. |
 | **A10:2025** | **Mishandling Exceptional Conditions** | Penanganan blok `try-catch` terstandarisasi di semua endpoint tanpa membocorkan stack trace mentah atau database schema ke antarmuka client. |
 
@@ -156,6 +155,7 @@ erDiagram
         datetime incident_date
         string incident_time
         enum current_status
+        string drive_link
     }
 
     CATEGORY {
