@@ -15,14 +15,15 @@
 ## 📌 Daftar Isi
 1. [Evolusi Arsitektur](#-evolusi-arsitektur)
 2. [Teknologi & Arsitektur Stack](#-teknologi--arsitektur-stack)
-3. [Fitur Unggulan Berdasarkan Peran](#-fitur-unggulan-berdasarkan-peran)
-4. [Implementasi Keamanan OWASP Top 10:2025](#-implementasi-keamanan-owasp-top-102025)
-5. [Skema Basis Data (Prisma ORM)](#-skema-basis-data-prisma-orm)
-6. [Struktur Direktori Proyek](#-struktur-direktori-proyek)
-7. [Panduan Instalasi & Menjalankan](#-panduan-instalasi--menjalankan)
-8. [Akun Uji Coba Default](#-akun-uji-coba-default)
-9. [Skrip Otomasi Lokal (Windows)](#-skrip-otomasi-lokal-windows)
-10. [Lisensi & Penulis](#-lisensi--penulis)
+3. [Tangkapan Layar Antarmuka (UI Preview)](#-tangkapan-layar-antarmuka-ui-preview)
+4. [Fitur Unggulan Berdasarkan Peran](#-fitur-unggulan-berdasarkan-peran)
+5. [Implementasi Keamanan OWASP Top 10:2025](#-implementasi-keamanan-owasp-top-102025)
+6. [Skema Basis Data (Prisma ORM)](#-skema-basis-data-prisma-orm)
+7. [Struktur Direktori Proyek](#-struktur-direktori-proyek)
+8. [Panduan Instalasi & Menjalankan](#-panduan-instalasi--menjalankan)
+9. [Akun Uji Coba Default](#-akun-uji-coba-default)
+10. [Skrip Otomasi Lokal (Windows)](#-skrip-otomasi-lokal-windows)
+11. [Lisensi & Penulis](#-lisensi--penulis)
 
 ---
 
@@ -44,6 +45,30 @@ Proyek ini bermula dari implementasi modul tugas praktik Rekayasa Perangkat Luna
 * **Basis Data & ORM:** [PostgreSQL 18](https://www.postgresql.org/) dengan [Prisma ORM 6.3.1](https://www.prisma.io/)
 * **Autentikasi & Sesi:** Custom JWT menggunakan [`jose`](https://github.com/panva/jose) (`HS256`, HttpOnly, Secure, Lax Cookies) & [`bcryptjs`](https://github.com/dcodeIO/bcrypt.js)
 * **Validasi Skema:** [Zod 3.24.2](https://zod.dev/) & [React Hook Form 7.54.2](https://react-hook-form.com/)
+
+---
+
+## 📸 Tangkapan Layar Antarmuka (UI Preview)
+
+Berikut adalah beberapa tampilan utama antarmuka pengguna pada sistem **ASMA**:
+
+### 1. Halaman Beranda & Pelacakan Instan (Hero Section)
+![Halaman Beranda ASMA](docs/images/01-hero-section.png)
+> **Deskripsi:** Halaman utama (*Landing Page*) dirancang modern, elegan, dan informatif. Dilengkapi dengan bilah pencarian tiket instan (`ASP-2026-XXXXXX`) untuk pelacakan langsung tanpa login, tombol aksi pengajuan aspirasi baru, indikator metrik transparansi penanganan pengaduan (89.4% ditindaklanjuti dari ~25k civitas akademika aktif), serta kartu status interaktif alur penanganan laporan.
+
+---
+
+### 2. Pilihan Mode Transparansi & Privasi (Anonim Total)
+![Mode Transparansi & Privasi](docs/images/02-mode-privasi.png)
+> **Deskripsi:** Antarmuka pengajuan langkah pertama yang memberikan kebebasan dan rasa aman penuh kepada mahasiswa. Tersedia dua pilihan mode:
+> - **Pakai Nama Saya (Transparan):** Identitas resmi (Nama & NIM) disertakan untuk memudahkan klarifikasi tindak lanjut langsung dari dosen/staf (cocok untuk administrasi akademik dan fasilitas perkuliahan harian).
+> - **Kirim Anonim (Privasi 100%):** Sistem secara otomatis menyensor nama, NIM, dan email mahasiswa dari tampilan peninjau maupun publik. Dosen/peninjau hanya melihat label *Mahasiswa (Anonim)* untuk melindungi mahasiswa dari risiko intimidasi atau bias penilaian akademik.
+
+---
+
+### 3. Kategori Aspirasi Terstruktur
+![Kategori Aspirasi Terstruktur](docs/images/03-kategori-aspirasi.png)
+> **Deskripsi:** Sistem menyediakan 6 kanal kategori terstruktur: **Akademik** (KRS, kurikulum, ujian), **Dosen** (kedisiplinan, bimbingan tugas akhir), **Fasilitas** (AC, proyektor, lab komputer), **Administrasi** (tata usaha, legalisir, surat pengantar), **Sarana Prasarana** (musholla, toilet, parkir, kebersihan), dan **Lainnya**. Setiap kategori secara otomatis didisposisikan kepada pejabat peninjau yang berwenang sesuai tingkat wewenang (Jurusan, Fakultas, atau Universitas).
 
 ---
 
