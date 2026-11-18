@@ -203,8 +203,13 @@ export async function POST(request: NextRequest) {
       // Max size per file: 10MB
       const MAX_FILE_SIZE = 10 * 1024 * 1024;
       const uploadDir = path.join(process.cwd(), 'public', 'uploads');
-      if (!fs.existsSync(uploadDir)) {
-        fs.mkdirSync(uploadDir, { recursive: true });
+      let isFilesystemWritable = true;
+      try {
+        if (!fs.existsSync(uploadDir)) {
+          fs.mkdirSync(uploadDir, { recursive: true });
+        }
+      } catch {
+        isFilesystemWritable = false;
       }
 
       for (const file of rawFiles) {
@@ -231,12 +236,24 @@ export async function POST(request: NextRequest) {
         const safeExt = magicValidation.ext;
         const sanitizedOriginalName = sanitizeFileName(file.name);
         const uniqueFileName = `${generateSecureId()}${safeExt}`;
-        const fullPath = path.join(uploadDir, uniqueFileName);
-        fs.writeFileSync(fullPath, buffer);
+        let filePath = `/uploads/${uniqueFileName}`;
+
+        if (isFilesystemWritable) {
+          try {
+            const fullPath = path.join(uploadDir, uniqueFileName);
+            fs.writeFileSync(fullPath, buffer);
+          } catch {
+            // Fallback for serverless environments with read-only filesystems (Vercel)
+            filePath = `data:${magicValidation.mime};base64,${buffer.toString('base64')}`;
+          }
+        } else {
+          // Direct fallback to data URI on read-only environments
+          filePath = `data:${magicValidation.mime};base64,${buffer.toString('base64')}`;
+        }
 
         uploadedFiles.push({
           name: sanitizedOriginalName,
-          path: `/uploads/${uniqueFileName}`,
+          path: filePath,
           type: magicValidation.mime,
           size: file.size,
         });
