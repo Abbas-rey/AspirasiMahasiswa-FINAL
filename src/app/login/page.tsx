@@ -13,6 +13,7 @@ import {
   ArrowRight,
   AlertCircle,
   LogOut,
+  Clock,
 } from 'lucide-react';
 import { FirstLoginPasswordModal } from '@/components/FirstLoginPasswordModal';
 
@@ -20,6 +21,7 @@ function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get('callbackUrl') || '';
+  const reason = searchParams.get('reason') || '';
 
   const [nimNip, setNimNip] = useState('');
   const [password, setPassword] = useState('');
@@ -100,6 +102,10 @@ function LoginForm() {
   };
 
   const proceedToDashboard = (role: string) => {
+    try {
+      localStorage.setItem('asma_last_activity', Date.now().toString());
+    } catch {}
+
     if (callbackUrl) {
       router.push(callbackUrl);
       return;
@@ -211,6 +217,19 @@ function LoginForm() {
                     <LogOut size={12} />
                     <span>Keluar</span>
                   </button>
+                </div>
+              </div>
+            )}
+
+            {/* Inactivity Timeout Notice Banner */}
+            {reason === 'inactivity' && !error && (
+              <div className="mb-5 p-3.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-800 text-xs flex items-start gap-2.5">
+                <Clock size={16} className="text-amber-600 shrink-0 mt-0.5" />
+                <div>
+                  <p className="font-bold text-amber-900">Sesi Berakhir Karena Tidak Ada Aktivitas</p>
+                  <p className="text-amber-700 mt-0.5 leading-relaxed">
+                    Anda otomatis dikeluarkan dari sistem karena tidak melakukan aktivitas selama 1 jam demi menjaga keamanan akun. Silakan masuk kembali.
+                  </p>
                 </div>
               </div>
             )}

@@ -111,6 +111,9 @@ export function Navbar() {
 
   const handleLogout = async () => {
     try {
+      try {
+        localStorage.removeItem('asma_last_activity');
+      } catch {}
       await fetch('/api/auth/logout', { method: 'POST' });
       setCurrentUser(null);
       router.push('/');
