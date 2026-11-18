@@ -51,6 +51,14 @@ export function SessionTimeoutManager() {
             // localStorage not available
           }
         } else {
+          res.json().then((data) => {
+            if (data?.reason === 'device_limit') {
+              try {
+                localStorage.removeItem(STORAGE_KEY);
+              } catch {}
+              window.location.href = '/login?reason=device_limit';
+            }
+          }).catch(() => {});
           setIsLoggedIn(false);
           setShowWarningModal(false);
         }
@@ -157,6 +165,22 @@ export function SessionTimeoutManager() {
     // Immediate check on tab focus or visibility change (e.g. laptop reopen after sleep)
     const handleVisibilityChange = () => {
       if (document.visibilityState === 'visible') {
+        // Check if session was invalidated remotely by another device
+        fetch('/api/auth/me')
+          .then((res) => {
+            if (!res.ok) {
+              res.json().then((data) => {
+                if (data?.reason === 'device_limit') {
+                  try {
+                    localStorage.removeItem(STORAGE_KEY);
+                  } catch {}
+                  window.location.href = '/login?reason=device_limit';
+                }
+              }).catch(() => {});
+            }
+          })
+          .catch(() => {});
+
         try {
           const stored = localStorage.getItem(STORAGE_KEY);
           if (stored) {

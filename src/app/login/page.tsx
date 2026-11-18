@@ -14,6 +14,7 @@ import {
   AlertCircle,
   LogOut,
   Clock,
+  Smartphone,
 } from 'lucide-react';
 import { FirstLoginPasswordModal } from '@/components/FirstLoginPasswordModal';
 
@@ -229,6 +230,19 @@ function LoginForm() {
                   <p className="font-bold text-amber-900">Sesi Berakhir Karena Tidak Ada Aktivitas</p>
                   <p className="text-amber-700 mt-0.5 leading-relaxed">
                     Anda otomatis dikeluarkan dari sistem karena tidak melakukan aktivitas selama 1 jam demi menjaga keamanan akun. Silakan masuk kembali.
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {/* Device Limit Exceeded Notice Banner */}
+            {reason === 'device_limit' && !error && (
+              <div className="mb-5 p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs flex items-start gap-2.5">
+                <Smartphone size={16} className="text-rose-600 shrink-0 mt-0.5" />
+                <div>
+                  <p className="font-bold text-rose-900">Sesi Dihentikan: Batas Maksimal 2 Perangkat</p>
+                  <p className="text-rose-700 mt-0.5 leading-relaxed">
+                    Akun Anda baru saja masuk dari perangkat baru. Sesuai kebijakan sistem ASMA, 1 akun maksimal hanya dapat aktif di 2 perangkat sekaligus, sehingga sesi di perangkat terlama ini otomatis dinonaktifkan. Silakan login kembali jika ingin melanjutkan di perangkat ini.
                   </p>
                 </div>
               </div>

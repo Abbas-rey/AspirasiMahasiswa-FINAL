@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
-import { verifyToken, signToken, setSessionCookie, TokenPayload } from '@/lib/auth';
+import { verifyToken, setSessionCookie, TokenPayload } from '@/lib/auth';
+import { createSessionForUser } from '@/lib/session';
 
 export async function POST(request: NextRequest) {
   try {
@@ -30,18 +31,20 @@ export async function POST(request: NextRequest) {
     }
 
     // User explicitly chose "Nanti" to postpone changing their default password.
-    // Issue official session cookie with must_change_pwd: true so they can access their dashboard
-    const sessionPayload: TokenPayload = {
-      id: user.id,
-      nim_nip: user.nim_nip,
-      name: user.name,
-      email: user.email,
-      role: user.role,
-      scope_level: user.scope_level,
-      must_change_pwd: true,
-    };
+    // Issue official session cookie enforcing max 2 devices
+    const { token, payload: sessionPayload } = await createSessionForUser(
+      {
+        id: user.id,
+        nim_nip: user.nim_nip,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        scope_level: user.scope_level,
+        must_change_pwd: true,
+      },
+      request
+    );
 
-    const token = await signToken(sessionPayload, '7d');
     const response = NextResponse.json({
       success: true,
       message: 'Berhasil masuk ke dasbor.',

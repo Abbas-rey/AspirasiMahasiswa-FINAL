@@ -40,6 +40,7 @@ model User {
 
   aspirations        Aspiration[]
   responses          Response[]
+  sessions           UserSession[]
 }
 
 model Category {
@@ -104,4 +105,19 @@ model Response {
 
   aspiration    Aspiration @relation(fields: [aspiration_id], references: [id], onDelete: Cascade)
   responder     User       @relation(fields: [responder_id], references: [id])
+}
+
+model UserSession {
+  id          String   @id @default(uuid())
+  user_id     String
+  token_id    String   @unique
+  device_info String?
+  ip_address  String?
+  last_active DateTime @default(now())
+  created_at  DateTime @default(now())
+
+  user        User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@index([user_id])
+  @@index([token_id])
 }

@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import prisma from '@/lib/prisma';
-import { getSession, signToken, verifyToken, setSessionCookie, TokenPayload } from '@/lib/auth';
+import { getSession, verifyToken, setSessionCookie, TokenPayload } from '@/lib/auth';
+import { createSessionForUser } from '@/lib/session';
 import { checkRateLimit, getClientIp } from '@/lib/security';
 import { validatePasswordRules } from '@/lib/utils';
 
@@ -104,22 +105,24 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    // Re-sign official session token with must_change_pwd: false
-    const newPayload: TokenPayload = {
-      id: updatedUser.id,
-      nim_nip: updatedUser.nim_nip,
-      name: updatedUser.name,
-      email: updatedUser.email,
-      role: updatedUser.role,
-      scope_level: updatedUser.scope_level,
-      must_change_pwd: false,
-    };
+    // Re-sign official session token with must_change_pwd: false and enforce max 2 devices
+    const { token, payload: sessionPayload } = await createSessionForUser(
+      {
+        id: updatedUser.id,
+        nim_nip: updatedUser.nim_nip,
+        name: updatedUser.name,
+        email: updatedUser.email,
+        role: updatedUser.role,
+        scope_level: updatedUser.scope_level,
+        must_change_pwd: false,
+      },
+      request
+    );
 
-    const token = await signToken(newPayload, '7d');
     const response = NextResponse.json({
       success: true,
       message: 'Password berhasil diperbarui.',
-      user: newPayload,
+      user: sessionPayload,
     });
 
     setSessionCookie(response, token);

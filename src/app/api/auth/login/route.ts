@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import prisma from '@/lib/prisma';
 import { signToken, setSessionCookie, TokenPayload } from '@/lib/auth';
+import { createSessionForUser } from '@/lib/session';
 import { checkRateLimit, resetRateLimit, getClientIp, sanitizeText } from '@/lib/security';
 
 // Pre-computed dummy hash to prevent timing attacks when user does not exist
@@ -113,13 +114,25 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    // Normal login: issue permanent session cookie
-    const token = await signToken(payload, '7d');
+    // Normal login: issue permanent session cookie enforcing max 2 devices
+    const { token, payload: sessionPayload } = await createSessionForUser(
+      {
+        id: user.id,
+        nim_nip: user.nim_nip,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        scope_level: user.scope_level,
+        must_change_pwd: false,
+      },
+      request
+    );
+
     const response = NextResponse.json({
       success: true,
       require_change_pwd: false,
       message: 'Login berhasil.',
-      user: payload,
+      user: sessionPayload,
     });
 
     setSessionCookie(response, token);

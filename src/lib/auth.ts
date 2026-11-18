@@ -24,6 +24,7 @@ export interface TokenPayload {
   role: Role;
   scope_level: TargetLevel | null;
   must_change_pwd: boolean;
+  session_id?: string;
   [key: string]: unknown;
 }
 
