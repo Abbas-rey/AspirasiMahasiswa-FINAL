@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Dokumentasi Rekayasa Perangkat Lunak - ASMA UIN Jakarta</title>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
+    
+    @page {
+      size: A4;
+      margin: 18mm 16mm;
+      @bottom-right {
+        content: counter(page);
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 10pt;
+      line-height: 1.55;
+      color: #0f172a;
+      background-color: #ffffff;
+      margin: 0;
+      padding: 0;
+    }
+
+    .cover {
+      page-break-after: always;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      text-align: center;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 12px;
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      border-radius: 999px;
+      font-size: 9pt;
+      font-weight: 700;
+      color: #334155;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    h1.title {
+      font-size: 26pt;
+      font-weight: 800;
+      color: #0f172a;
+      line-height: 1.2;
+      margin: 0 0 10px 0;
+      letter-spacing: -0.5px;
+    }
+    h2.subtitle {
+      font-size: 14pt;
+      font-weight: 600;
+      color: #475569;
+      margin: 0 0 35px 0;
+    }
+    .meta-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 20px;
+      max-width: 480px;
+      margin: 40px auto;
+      text-align: left;
+      font-size: 9.5pt;
+    }
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 6px 0;
+      border-bottom: 1px dashed #e2e8f0;
+    }
+    .meta-row:last-child {
+      border-bottom: none;
+    }
+    .meta-label {
+      color: #64748b;
+      font-weight: 600;
+    }
+    .meta-val {
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    h2 {
+      font-size: 15pt;
+      font-weight: 800;
+      color: #0f172a;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 6px;
+      margin-top: 30px;
+      margin-bottom: 14px;
+      page-break-after: avoid;
+    }
+    h3 {
+      font-size: 11.5pt;
+      font-weight: 700;
+      color: #1e293b;
+      margin-top: 20px;
+      margin-bottom: 8px;
+      page-break-after: avoid;
+    }
+
+    p {
+      margin: 0 0 10px 0;
+      text-align: justify;
+    }
+
+    ul, ol {
+      margin: 0 0 14px 0;
+      padding-left: 20px;
+    }
+    li {
+      margin-bottom: 4px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0 22px 0;
+      font-size: 8.5pt;
+      page-break-inside: avoid;
+    }
+    th, td {
+      border: 1px solid #cbd5e1;
+      padding: 7px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      background-color: #f1f5f9;
+      color: #0f172a;
+      font-weight: 700;
+    }
+    tr:nth-child(even) td {
+      background-color: #f8fafc;
+    }
+
+    .diagram-container {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 16px;
+      margin: 16px 0;
+      text-align: center;
+      page-break-inside: avoid;
+    }
+    .diagram-caption {
+      font-size: 8.5pt;
+      color: #64748b;
+      margin-top: 8px;
+      font-weight: 600;
+    }
+
+    code {
+      font-family: 'JetBrains Mono', Consolas, monospace;
+      font-size: 8.5pt;
+      background: #f1f5f9;
+      color: #0f172a;
+      padding: 2px 5px;
+      border-radius: 4px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .callout {
+      background-color: #eff6ff;
+      border-left: 4px solid #3b82f6;
+      border-radius: 0 8px 8px 0;
+      padding: 10px 14px;
+      margin: 14px 0;
+      font-size: 9pt;
+      color: #1e3a8a;
+    }
+
+    .page-break {
+      page-break-after: always;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- COVER PAGE -->
+  <div class="cover">
+    <div class="badge">Dokumentasi Rekayasa Perangkat Lunak</div>
+    <h1 class="title">SISTEM ASPIRASI MAHASISWA (ASMA)</h1>
+    <h2 class="subtitle">UIN Syarif Hidayatullah Jakarta</h2>
+    
+    <p style="text-align: center; max-width: 500px; margin: 0 auto; color: #475569;">
+      Dokumen Spesifikasi Kebutuhan Sistem, Perancangan Proses Bisnis, Model Relasional Basis Data, dan Arsitektur Keamanan Perangkat Lunak.
+    </p>
+
+    <div class="meta-box">
+      <div class="meta-row">
+        <span class="meta-label">Institusi</span>
+        <span class="meta-val">UIN Syarif Hidayatullah Jakarta</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Lingkup Wewenang</span>
+        <span class="meta-val">Jurusan • Fakultas • Universitas</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Teknologi Inti</span>
+        <span class="meta-val">Next.js 15, PostgreSQL (Supabase), Prisma</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Versi Dokumen</span>
+        <span class="meta-val">v1.2 (Production Ready)</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">Tanggal Pembaruan</span>
+        <span class="meta-val">November 2026</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 1 -->
+  <h2>1. Gambaran Umum Sistem</h2>
+  <p>
+    <strong>ASMA (Aspirasi Mahasiswa)</strong> adalah platform web terpadu resmi civitas akademika UIN Syarif Hidayatullah Jakarta yang dirancang untuk menyampaikan aspirasi, keluhan fasilitas, masukan akademik, dan saran perbaikan langsung kepada unit kerja terkait secara aman, terstruktur, transparan, dan akuntabel.
+  </p>
+  <div class="callout">
+    <strong>Fitur Utama:</strong> Mendukung pengaduan berjenjang (Jurusan, Fakultas, Universitas), mode transparansi identitas ganda (Transparan vs Anonim), multi-lampiran bukti hingga 5 berkas (JPG/PNG/PDF/WEBP maks 10MB) serta tautan Google Drive, pembatalan mandiri (*Self-Service Delete*) oleh mahasiswa, pembatasan sesi maksimal 2 perangkat aktif (FIFO), dan auto-logout 1 jam inaktivitas.
+  </div>
+
+  <!-- SECTION 2 -->
+  <h2>2. Functional Requirements (Kebutuhan Fungsional)</h2>
+
+  <h3>2.1 Modul Autentikasi & Keamanan Sesi (FR-AUTH)</h3>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 15%;">Kode FR</th>
+        <th>Deskripsi Kebutuhan Fungsional</th>
+        <th style="width: 18%;">Aktor</th>
+        <th style="width: 10%;">Prioritas</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>FR-AUTH-01</strong></td>
+        <td>Otentikasi pengguna berbasis NIM (Mahasiswa), NIP (Dosen/Akademisi), atau Username (Admin) dengan kata sandi terenkripsi Bcrypt (Salt rounds 10).</td>
+        <td>Semua Role</td>
+        <td>High</td>
+      </tr>
+      <tr>
+        <td><strong>FR-AUTH-02</strong></td>
+        <td>Pembatasan sesi login simultan maksimal <strong>2 perangkat aktif</strong> per akun pengguna. Jika perangkat ke-3 masuk, sistem secara otomatis mencabut (<em>evict</em>) sesi pada perangkat terlama (FIFO).</td>
+        <td>Semua Role</td>
+        <td>High</td>
+      </tr>
+      <tr>
+        <td><strong>FR-AUTH-03</strong></td>
+        <td>Pemantauan aktivitas dan otomatisasi <em>logout</em> apabila pengguna tidak melakukan aktivitas (<em>idle</em>) selama <strong>1 jam (60 menit)</strong>, dilengkapi modal hitung mundur (<em>countdown</em>) pada menit ke-58 dan sinkronisasi lintas-tab.</td>
+        <td>Semua Role</td>
+        <td>High</td>
+      </tr>
+      <tr>
+        <td><strong>FR-AUTH-04</strong></td>
+        <td>Kewajiban mengganti kata sandi bawaan sistem (<code>Uin&lt;NIM/NIP&gt;</code>) pada saat login pertama dengan 6 kriteria keamanan kata sandi (panjang min 8 karakter, huruf besar, huruf kecil, angka, simbol, tanpa spasi) dan opsi tunda (<em>Nanti</em>).</td>
+        <td>Semua Role</td>
+        <td>High</td>
+      </tr>
+      <tr>
+        <td><strong>FR-AUTH-05</strong></td>
+        <td>Mekanisme <em>Rate Limiting</em> perlindungan terhadap serangan <em>brute-force</em> pada rute login (maksimal 10 percobaan gagal per 5 menit per alamat IP).</td>
+        <td>Publik / Pengguna</td>
+        <td>High</td>
+      </tr>
+      <tr>
+        <td><strong>FR-AUTH-06</strong></td>
+        <td>Pencabutan sesi secara aman melalui endpoint <em>logout</em> yang menghapus cookie sesi <code>asma_session</code> dan menghapus entri sesi pada tabel <code>UserSession</code> di database.</td>
+        <td>Semua Role</td>
+        <td>High</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>2.2 Modul Pengajuan Aspirasi (FR-ASP)</h3>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 15%;">Kode FR</th>
+        <th>Deskripsi Kebutuhan Fungsional</th>
+        <th style="width: 18%;">Aktor</th>
+        <th style="width: 10%;">Prioritas</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>FR-ASP-01</strong></td>
+        <td>Penyediaan formulir pengajuan ringkas 1 halaman yang mencakup judul, deskripsi kejadian, kategori (Akademik, Dosen, Fasilitas, Administrasi, Sarpras, Lainnya), jenjang tujuan (Jurusan, Fakultas, Universitas), serta tanggal dan jam insiden.</td>
+        <td>Mahasiswa</td>
+        <td>High</td>
+      </tr>
+      <tr>
+        <td><strong>FR-ASP-02</strong></td>
+        <td>Pilihan mode privasi pengajuan: <strong>Mode Transparan</strong> (identitas pelapor terbuka) dan <strong>Mode Anonim</strong> (Nama, NIM, dan email disensor otomatis oleh sistem menjadi <code>Mahasiswa (Anonim)</code>).</td>
+        <td>Mahasiswa</td>
+        <td>High</td>
+      </tr>
+      <tr>
+        <td><strong>FR-ASP-03</strong></td>
+        <td>Dukungan unggah berkas bukti aspirasi hingga maksimal <strong>5 berkas</strong> dengan ukuran maksimal <strong>10 MB per berkas</strong> untuk format JPG, PNG, PDF, dan WEBP.</td>
+        <td>Mahasiswa</td>
+        <td>High</td>
+      </tr>
+      <tr>
+        <td><strong>FR-ASP-04</strong></td>
+        <td>Validasi tanda tangan berkas biner (<em>deep magic bytes</em>) di sisi server untuk menjamin keaslian tipe berkas dan mencegah serangan injeksi skrip atau executable berbahaya.</td>
+        <td>Sistem Backend</td>
+        <td>High</td>
+      </tr>
+      <tr>
+        <td><strong>FR-ASP-05</strong></td>
+        <td>Penyediaan kolom tautan penyimpanan cloud (Google Drive / OneDrive) sebagai bukti pendukung eksternal tanpa batasan kuota berkas fisik.</td>
+        <td>Mahasiswa</td>
+        <td>Medium</td>
+      </tr>
+      <tr>
+        <td><strong>FR-ASP-06</strong></td>
+        <td>Penerbitan Kode Tiket pelacakan acak unik terstruktur dengan format <code>ASP-YYYY-XXXXXX</code> (contoh: <code>ASP-2026-004812</code>).</td>
+        <td>Sistem Backend</td>
+        <td>High</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>2.3 Modul Pelacakan Publik & Dasbor (FR-TRK, FR-MHS, FR-AKAD, FR-ADM)</h3>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 15%;">Kode FR</th>
+        <th>Deskripsi Kebutuhan Fungsional</th>
+        <th style="width: 18%;">Aktor</th>
+        <th style="width: 10%;">Prioritas</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>FR-TRK-01</strong></td>
+        <td>Pelacakan status tiket pengaduan secara publik berbasis Kode Tiket tanpa mengharuskan login, menyajikan visualisasi timeline progres dan riwayat catatan tindak lanjut.</td>
+        <td>Publik / Civitas</td>
+        <td>High</td>
+      </tr>
+      <tr>
+        <td><strong>FR-MHS-01</strong></td>
+        <td>Dasbor pribadi mahasiswa untuk memantau seluruh riwayat pengaduan yang diajukan beserta status terkininya.</td>
+        <td>Mahasiswa</td>
+        <td>High</td>
+      </tr>
+      <tr>
+        <td><strong>FR-MHS-02</strong></td>
+        <td>Fitur pembatalan / hapus mandiri (<em>Self-Service Delete</em>) aspirasi oleh mahasiswa pemilik sah dilengkapi modal konfirmasi, proteksi Anti-IDOR, dan auto-unlink berkas fisik storage.</td>
+        <td>Mahasiswa</td>
+        <td>High</td>
+      </tr>
+      <tr>
+        <td><strong>FR-AKAD-01</strong></td>
+        <td>Dasbor pejabat peninjau yang secara otomatis menyaring aspirasi masuk berdasarkan lingkup wewenang akademisi (Jurusan, Fakultas, atau Universitas).</td>
+        <td>Akademisi</td>
+        <td>High</td>
+      </tr>
+      <tr>
+        <td><strong>FR-AKAD-02</strong></td>
+        <td>Pembaruan tahapan status aspirasi (<code>DITERIMA</code> &rarr; <code>DIPROSES</code> &rarr; <code>DITINDAKLANJUTI</code> &rarr; <code>SELESAI</code>) beserta catatan progres dan publikasi tanggapan resmi.</td>
+        <td>Akademisi</td>
+        <td>High</td>
+      </tr>
+      <tr>
+        <td><strong>FR-ADM-01</strong></td>
+        <td>Dasbor administrator yang menyajikan metrik agregat statistik kampus, manajemen CRUD pengguna, dan <em>Bulk Import</em> akun civitas via format berkas CSV/Excel.</td>
+        <td>Administrator</td>
+        <td>High</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-break"></div>
+
+  <!-- SECTION 3 -->
+  <h2>3. Use Case Diagram</h2>
+  <p>Diagram di bawah ini memetakan interaksi antara keempat aktor (Mahasiswa, Akademisi, Admin, Tamu Publik) dengan fungsionalitas inti sistem ASMA.</p>
+
+  <div class="diagram-container">
+    <pre class="mermaid">
+flowchart LR
+    subgraph Aktor
+        M["Mahasiswa"]
+        A["Akademisi / Dosen"]
+        ADM["Administrator"]
+        P["Publik / Tamu"]
+    end
+
+    subgraph "Sistem ASMA UIN Jakarta"
+        UC1(["UC-01: Autentikasi & Kelola Sesi"])
+        UC2(["UC-02: Ajukan Aspirasi Baru"])
+        UC3(["UC-03: Lacak Status Tiket"])
+        UC4(["UC-04: Kelola & Hapus Aspirasi Mandiri"])
+        UC5(["UC-05: Verifikasi & Tindak Lanjut"])
+        UC6(["UC-06: Beri Tanggapan Resmi"])
+        UC7(["UC-07: Manajemen Pengguna & Bulk Import"])
+        UC8(["UC-08: Pantau Statistik Kampus"])
+    end
+
+    M --> UC1
+    M --> UC2
+    M --> UC3
+    M --> UC4
+
+    A --> UC1
+    A --> UC5
+    A --> UC6
+
+    ADM --> UC1
+    ADM --> UC4
+    ADM --> UC5
+    ADM --> UC7
+    ADM --> UC8
+
+    P --> UC3
+    </pre>
+    <div class="diagram-caption">Gambar 1: Diagram Use Case Sistem Informasi ASMA UIN Syarif Hidayatullah Jakarta</div>
+  </div>
+
+  <!-- SECTION 4 -->
+  <h2>4. Activity Diagram (Diagram Aktivitas)</h2>
+
+  <h3>4.1 Alur Pengajuan Aspirasi oleh Mahasiswa</h3>
+  <div class="diagram-container">
+    <pre class="mermaid">
+flowchart TD
+    Start([Mulai]) --> BukaForm[Buka Halaman /ajukan]
+    BukaForm --> IsiData[Isi Judul, Deskripsi, Kategori, Jenjang, Waktu]
+    IsiData --> PilihMode{Mode Privasi}
+    PilihMode -- "Transparan" --> SetTrans[Identitas Terbuka]
+    PilihMode -- "Anonim" --> SetAnon[Identitas Disensor Sistem]
+    
+    SetTrans --> Lampirkan[Unggah Berkas Bukti maks 5 file & Link GDrive]
+    SetAnon --> Lampirkan
+    
+    Lampirkan --> Submit[Klik Kirim Aspirasi]
+    Submit --> ValBytes{Validasi Magic Bytes}
+    ValBytes -- Gagal --> TolakFile[Tolak Berkas Palsu]
+    TolakFile --> Lampirkan
+    
+    ValBytes -- Berhasil --> GenCode[Generate Tiket ASP-YYYY-XXXXXX]
+    GenCode --> SimpanDB[(Insert Aspirasi & StatusLog ke Supabase)]
+    SimpanDB --> Sukses[Arahkan ke Halaman Sukses]
+    Sukses --> End([Selesai])
+    </pre>
+    <div class="diagram-caption">Gambar 2: Activity Diagram Pengajuan Aspirasi Mahasiswa</div>
+  </div>
+
+  <div class="page-break"></div>
+
+  <h3>4.2 Alur Batas 2 Perangkat Aktif (Concurrent Device Limit FIFO)</h3>
+  <div class="diagram-container">
+    <pre class="mermaid">
+flowchart TD
+    Start([Login dari Perangkat Baru]) --> CekValid{Kredensial Valid?}
+    CekValid -- Tidak --> ErrorLogin[Tampilkan Error Login]
+    
+    CekValid -- Ya --> CekJumlah[(Query Sesi Aktif di UserSession)]
+    CekJumlah --> EvaluasiJml{Sesi Aktif >= 2?}
+    
+    EvaluasiJml -- "Ya (Sudah 2 Perangkat)" --> HapusLama[Hapus Sesi Terlama / FIFO]
+    HapusLama --> HapusDB[(DELETE Oldest Record di Supabase)]
+    HapusDB --> CreateSesi
+    
+    EvaluasiJml -- "Tidak (< 2 Perangkat)" --> CreateSesi[Buat Record Sesi Baru]
+    CreateSesi --> SimpanSesi[(INSERT Sesi Baru ke Supabase)]
+    SimpanSesi --> SignToken[Sign JWT & Set Cookie asma_session]
+    SignToken --> BukaWeb[Masuk ke Dasbor]
+    
+    subgraph "Perangkat Terlama yang Ter-evict"
+        Perangkat1[Perangkat Lama Mengakses Halaman / Tab] --> CekSesiAPI[Request ke /api/auth/me]
+        CekSesiAPI --> CekDB{Record Ada di DB?}
+        CekDB -- Tidak Ada --> ClearCookie[Hapus Cookie asma_session]
+        ClearCookie --> RedirectLimit[Redirect ke /login?reason=device_limit]
+        RedirectLimit --> Banner[Tampilkan Banner: Batas Maksimal 2 Perangkat]
+    end
+    </pre>
+    <div class="diagram-caption">Gambar 3: Activity Diagram Kebijakan Batas 2 Perangkat Aktif</div>
+  </div>
+
+  <h3>4.3 Alur Auto-Logout Inaktivitas 1 Jam</h3>
+  <div class="diagram-container">
+    <pre class="mermaid">
+flowchart TD
+    Start([Pengguna Aktif di Web]) --> Listen[Pasang Listener: Gerakan Mouse, Ketikan, Klik, Scroll]
+    Listen --> TimerLoop{Interval Pemantauan Tiap 2 Detik}
+    
+    TimerLoop --> AdaAktivitas{Ada Input Pengguna?}
+    AdaAktivitas -- Ya --> ResetTimer[Update asma_last_activity = Date.now]
+    ResetTimer --> TimerLoop
+    
+    AdaAktivitas -- Tidak --> CekElapsed{Durasi Diam}
+    CekElapsed -- ">= 58 Menit (Sisa 2 Menit)" --> ShowWarning[Munculkan Modal Peringatan Countdown]
+    ShowWarning --> KlikPerpanjang{Klik 'Tetap Masuk'?}
+    KlikPerpanjang -- Ya --> ResetTimer
+    KlikPerpanjang -- Tidak --> CekElapsed
+    
+    CekElapsed -- ">= 60 Menit (1 Jam Penuh)" --> DoLogout[Panggil API /api/auth/logout]
+    DoLogout --> RedirectInactivity[Redirect ke /login?reason=inactivity]
+    RedirectInactivity --> End([Selesai])
+    </pre>
+    <div class="diagram-caption">Gambar 4: Activity Diagram Auto-Logout Inaktivitas 1 Jam</div>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- SECTION 5 -->
+  <h2>5. Sequence Diagram (Diagram Urutan)</h2>
+
+  <h3>5.1 Sequence: Pengajuan Aspirasi Baru oleh Mahasiswa</h3>
+  <div class="diagram-container">
+    <pre class="mermaid">
+sequenceDiagram
+    autonumber
+    actor M as Mahasiswa
+    participant FE as Frontend (/ajukan)
+    participant API as API (/api/aspirations)
+    participant VAL as Magic Bytes Validator
+    participant DB as PostgreSQL (Supabase)
+
+    M->>FE: Isi Form & Unggah Bukti
+    M->>FE: Klik "Kirim Aspirasi Sekarang"
+    FE->>API: POST /api/aspirations (Multipart Form)
+    API->>API: Validasi Sesi JWT
+    API->>VAL: Validasi File Signature (JPG, PNG, PDF, WEBP)
+    VAL-->>API: Berkas Asli Valid
+    API->>API: Generate Ticket Code (ASP-2026-XXXXXX)
+    API->>DB: INSERT into Aspiration, Attachment, StatusLog
+    DB-->>API: Berhasil Disimpan
+    API-->>FE: 201 Created (Kode Tiket)
+    FE-->>M: Redirect ke /ajukan/sukses/[ticketCode]
+    </pre>
+    <div class="diagram-caption">Gambar 5: Sequence Diagram Pengajuan Aspirasi</div>
+  </div>
+
+  <h3>5.2 Sequence: Pembatasan Maksimal 2 Perangkat (Device Eviction)</h3>
+  <div class="diagram-container">
+    <pre class="mermaid">
+sequenceDiagram
+    autonumber
+    actor D3 as Perangkat 3 (Baru)
+    participant API as API (/api/auth/login)
+    participant SESS as Session Manager (session.ts)
+    participant DB as PostgreSQL (Supabase)
+    actor D1 as Perangkat 1 (Terlama)
+
+    Note over D1,DB: Akun sedang aktif di Perangkat 1 & Perangkat 2 (Total = 2)
+    D3->>API: POST /api/auth/login (NIM & Password)
+    API->>SESS: createSessionForUser(user)
+    SESS->>DB: SELECT * FROM UserSession WHERE user_id = user.id
+    DB-->>SESS: Ditemukan 2 Sesi [Device 1, Device 2]
+    SESS->>DB: DELETE FROM UserSession WHERE id = Device 1 (FIFO Eviction)
+    SESS->>DB: INSERT INTO UserSession (Device 3)
+    DB-->>SESS: Sesi Device 3 Tersimpan
+    SESS-->>API: Token JWT Berisi session_id_baru
+    API-->>D3: 200 OK + Set Cookie asma_session (Login Berhasil)
+
+    Note over D1,DB: Perangkat 1 Mencoba Beraktivitas
+    D1->>API: GET /api/auth/me (Membawa Cookie Lama)
+    API->>DB: SELECT FROM UserSession WHERE token_id = session_id_device_1
+    DB-->>API: Tidak Ditemukan (Sudah Dihapus)
+    API-->>D1: 401 Unauthorized { reason: "device_limit" } + Clear Cookie
+    D1-->>D1: Redirect ke /login?reason=device_limit
+    </pre>
+    <div class="diagram-caption">Gambar 6: Sequence Diagram Eviction Perangkat Ketiga</div>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- SECTION 6 -->
+  <h2>6. Entity Relationship Diagram (ERD) & Kamus Data</h2>
+  <p>Diagram hubungan entitas (ERD) memetakan seluruh tabel, kolom, relasi, dan kardinalitas yang diimplementasikan pada database PostgreSQL (Supabase) via Prisma ORM.</p>
+
+  <div class="diagram-container">
+    <pre class="mermaid">
+erDiagram
+    User ||--o{ UserSession : "has (max 2 active)"
+    User ||--o{ Aspiration : "submits"
+    User ||--o{ Response : "writes"
+    Category ||--o{ Aspiration : "categorizes"
+    Aspiration ||--o{ Attachment : "contains (max 5)"
+    Aspiration ||--o{ StatusLog : "tracks"
+    Aspiration ||--o{ Response : "receives"
+
+    User {
+        String id PK "UUID"
+        String nim_nip UK "NIM / NIP / Username"
+        String name "Nama Lengkap"
+        String email UK "Email Akun"
+        String password_hash "Bcrypt Hash"
+        Role role "MAHASISWA | AKADEMISI | ADMIN"
+        TargetLevel scope_level "JURUSAN | FAKULTAS | UNIVERSITAS"
+        Boolean must_change_pwd "Wajib ganti password"
+        DateTime created_at "Waktu dibuat"
+    }
+
+    UserSession {
+        String id PK "UUID"
+        String user_id FK "Relasi ke User"
+        String token_id UK "Unique Session Identifier"
+        String device_info "Browser & OS Pengguna"
+        String ip_address "Alamat IP"
+        DateTime last_active "Waktu aktif terakhir"
+        DateTime created_at "Waktu sesi dibuat"
+    }
+
+    Category {
+        Int id PK "Autoincrement"
+        String category_name UK "Nama Kategori"
+        String description "Keterangan"
+    }
+
+    Aspiration {
+        String id PK "UUID"
+        String ticket_code UK "Kode Tiket Unik"
+        String user_id FK "Relasi ke User Pelapor"
+        Int category_id FK "Relasi ke Kategori"
+        String title "Judul Aspirasi"
+        String description "Deskripsi Peristiwa"
+        TargetLevel target_level "JURUSAN | FAKULTAS | UNIVERSITAS"
+        AspirationStatus current_status "DITERIMA | DIPROSES | DITINDAKLANJUTI | SELESAI"
+        DateTime incident_date "Tanggal Kejadian"
+        String incident_time "Waktu Kejadian"
+        Boolean is_anonymous "Flag Mode Anonim"
+        String drive_link "URL Google Drive"
+        DateTime created_at "Waktu Pengajuan"
+    }
+
+    Attachment {
+        String id PK "UUID"
+        String aspiration_id FK "Relasi ke Aspirasi"
+        String file_name "Nama Asli Berkas"
+        String file_path "Jalur Berkas / Data URI"
+        String file_type "MIME Type Berkas"
+        Int file_size "Ukuran Berkas (Maks 10MB)"
+        DateTime uploaded_at "Waktu Unggah"
+    }
+
+    StatusLog {
+        String id PK "UUID"
+        String aspiration_id FK "Relasi ke Aspirasi"
+        AspirationStatus status "Tahapan Status"
+        String note "Catatan Perkembangan"
+        String updated_by_name "Nama Petugas / Sistem"
+        DateTime changed_at "Waktu Perubahan"
+    }
+
+    Response {
+        String id PK "UUID"
+        String aspiration_id FK "Relasi ke Aspirasi"
+        String responder_id FK "Relasi ke User Penanggap"
+        String response_text "Isi Tanggapan Resmi"
+        DateTime responded_at "Waktu Tanggapan"
+    }
+    </pre>
+    <div class="diagram-caption">Gambar 7: Entity Relationship Diagram (ERD) Relasional Database ASMA</div>
+  </div>
+
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'neutral',
+      fontFamily: 'Plus Jakarta Sans, sans-serif',
+      flowchart: {
+        curve: 'basis',
+        htmlLabels: true
+      }
+    });
+  </script>
+</body>
+</html>
