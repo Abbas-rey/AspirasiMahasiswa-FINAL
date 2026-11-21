@@ -90,6 +90,9 @@ function AjukanAspirasiForm() {
 
     if (selectedFiles.length + newFiles.length > MAX_FILES) {
       setError(`Maksimal ${MAX_FILES} file bukti yang dapat diunggah.`);
+      setTimeout(() => {
+        errorRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 50);
       return;
     }
 
@@ -100,6 +103,9 @@ function AjukanAspirasiForm() {
       // Strictly greater than: files of exactly 10MB (10.485.760 bytes) are accepted
       if (file.size > MAX_FILE_SIZE) {
         setError(`File "${file.name}" melebihi batas maksimal 10MB (10.485.760 bytes).`);
+        setTimeout(() => {
+          errorRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 50);
         return;
       }
 
@@ -114,6 +120,9 @@ function AjukanAspirasiForm() {
 
       if (!isValidMime && !isValidExt) {
         setError(`File "${file.name}" tidak valid. Hanya JPG, PNG, PDF, atau WEBP yang diperbolehkan.`);
+        setTimeout(() => {
+          errorRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 50);
         return;
       }
 
@@ -137,7 +146,10 @@ function AjukanAspirasiForm() {
 
   const validateStep1 = () => {
     if (!targetLevel || !categoryId) {
-      setError('Silakan pilih mode pengirim, tingkat tujuan, dan kategori aspirasi.');
+      setError('Silakan pilih mode pengirim, tingkat tujuan, dan kategori aspirasi terlebih dahulu.');
+      setTimeout(() => {
+        errorRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 50);
       return false;
     }
     setError(null);
@@ -165,29 +177,35 @@ function AjukanAspirasiForm() {
     const errors: { title?: string; description?: string; incidentDate?: string } = {};
 
     if (!title.trim()) {
-      errors.title = 'Judul aspirasi / pengaduan wajib diisi.';
+      errors.title = 'Silakan diisi terlebih dahulu';
     } else if (title.trim().length > 120) {
       errors.title = 'Judul aspirasi maksimal 120 karakter.';
     }
 
     if (!description.trim()) {
-      errors.description = 'Uraian lengkap kejadian wajib diisi.';
+      errors.description = 'Silakan diisi terlebih dahulu';
     } else if (description.trim().length > 2000) {
       errors.description = 'Uraian kejadian maksimal 2000 karakter.';
     }
 
     if (!incidentDate) {
-      errors.incidentDate = 'Tanggal kejadian wajib diisi.';
+      errors.incidentDate = 'Silakan diisi terlebih dahulu';
     }
 
     if (Object.keys(errors).length > 0) {
       setFieldErrors(errors);
-      setError('Mohon lengkapi seluruh kolom wajib yang ditandai warna merah.');
+      setError('Mohon lengkapi seluruh kolom wajib yang masih kosong (ditandai warna merah).');
+      setTimeout(() => {
+        errorRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 50);
       return;
     }
 
     if (!isAgreed) {
       setError('Anda wajib mencentang konfirmasi tanggung jawab sebelum mengirim laporan.');
+      setTimeout(() => {
+        errorRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 50);
       return;
     }
 
@@ -227,6 +245,9 @@ function AjukanAspirasiForm() {
     } catch (err: any) {
       setError(err.message || 'Terjadi kesalahan sistem saat pengiriman.');
       setLoading(false);
+      setTimeout(() => {
+        errorRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 50);
     }
   };
 
@@ -288,12 +309,12 @@ function AjukanAspirasiForm() {
       {error && (
         <div
           ref={errorRef}
-          className="mb-6 p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-900 text-xs flex items-start gap-3 shadow-xs animate-in fade-in slide-in-from-top-2 duration-200"
+          className="mb-6 p-4 rounded-xl bg-red-50 border border-red-200 text-red-900 text-xs flex items-start gap-3 shadow-xs animate-in fade-in slide-in-from-top-2 duration-200"
         >
-          <AlertCircle size={16} className="shrink-0 text-rose-600 mt-0.5" />
+          <AlertCircle size={16} className="shrink-0 text-red-600 mt-0.5" />
           <div className="flex-1">
-            <p className="font-semibold text-rose-950">Perhatian / Kendala Pengajuan:</p>
-            <p className="mt-0.5 text-rose-800 leading-relaxed">{error}</p>
+            <p className="font-semibold text-red-950">Perhatian / Kendala Pengajuan:</p>
+            <p className="mt-0.5 text-red-800 leading-relaxed">{error}</p>
           </div>
         </div>
       )}
@@ -453,7 +474,7 @@ function AjukanAspirasiForm() {
             <div>
               <div className="flex items-center justify-between mb-1">
                 <label className="block text-xs font-medium text-zinc-700">
-                  Judul aspirasi / pengaduan <span className="text-rose-500 font-bold">*</span>
+                  Judul aspirasi / pengaduan <span className="text-red-500 font-bold">*</span>
                 </label>
                 <span className={`text-[11px] font-mono ${title.length > 110 ? 'text-zinc-900 font-bold' : 'text-zinc-400'}`}>
                   {title.length}/120
@@ -471,13 +492,13 @@ function AjukanAspirasiForm() {
                 placeholder="Contoh: AC di Ruang Lab Komputer 3 Rusak dan Panas"
                 className={`w-full px-3 py-2 rounded-lg border text-xs text-zinc-900 placeholder:text-zinc-400 focus:outline-none transition-colors ${
                   fieldErrors.title
-                    ? 'border-rose-500 bg-rose-50/20 focus:border-rose-600 focus:ring-1 focus:ring-rose-500'
+                    ? 'border-red-500 bg-red-50/20 focus:border-red-500 focus:ring-1 focus:ring-red-500'
                     : 'border-zinc-200 focus:border-zinc-900'
                 }`}
               />
               {fieldErrors.title && (
-                <p className="mt-1.5 text-xs text-rose-600 flex items-center gap-1 font-medium">
-                  <AlertCircle size={13} className="shrink-0 text-rose-500" />
+                <p className="mt-1.5 text-xs text-red-600 flex items-center gap-1 font-medium">
+                  <AlertCircle size={13} className="shrink-0 text-red-500" />
                   <span>{fieldErrors.title}</span>
                 </p>
               )}
@@ -486,7 +507,7 @@ function AjukanAspirasiForm() {
             <div>
               <div className="flex items-center justify-between mb-1">
                 <label className="block text-xs font-medium text-zinc-700">
-                  Uraian lengkap kejadian <span className="text-rose-500 font-bold">*</span>
+                  Uraian lengkap kejadian <span className="text-red-500 font-bold">*</span>
                 </label>
                 <span className={`text-[11px] font-mono ${description.length > 1900 ? 'text-zinc-900 font-bold' : 'text-zinc-400'}`}>
                   {description.length}/2000
@@ -504,13 +525,13 @@ function AjukanAspirasiForm() {
                 placeholder="Ceritakan kejadian, kronologi, dampak terhadap proses belajar, atau saran konkrit yang diharapkan..."
                 className={`w-full px-3 py-2 rounded-lg border text-xs text-zinc-800 placeholder:text-zinc-400 focus:outline-none transition-colors resize-y leading-relaxed ${
                   fieldErrors.description
-                    ? 'border-rose-500 bg-rose-50/20 focus:border-rose-600 focus:ring-1 focus:ring-rose-500'
+                    ? 'border-red-500 bg-red-50/20 focus:border-red-500 focus:ring-1 focus:ring-red-500'
                     : 'border-zinc-200 focus:border-zinc-900'
                 }`}
               />
               {fieldErrors.description && (
-                <p className="mt-1.5 text-xs text-rose-600 flex items-center gap-1 font-medium">
-                  <AlertCircle size={13} className="shrink-0 text-rose-500" />
+                <p className="mt-1.5 text-xs text-red-600 flex items-center gap-1 font-medium">
+                  <AlertCircle size={13} className="shrink-0 text-red-500" />
                   <span>{fieldErrors.description}</span>
                 </p>
               )}
@@ -519,7 +540,7 @@ function AjukanAspirasiForm() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
               <div>
                 <label className="block text-xs font-medium text-zinc-700 mb-1">
-                  Tanggal kejadian <span className="text-rose-500 font-bold">*</span>
+                  Tanggal kejadian <span className="text-red-500 font-bold">*</span>
                 </label>
                 <div className="relative">
                   <Calendar size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" />
@@ -534,14 +555,14 @@ function AjukanAspirasiForm() {
                     }}
                     className={`w-full pl-9 pr-3 py-2 rounded-lg border text-xs text-zinc-900 focus:outline-none transition-colors ${
                       fieldErrors.incidentDate
-                        ? 'border-rose-500 bg-rose-50/20 focus:border-rose-600 focus:ring-1 focus:ring-rose-500'
+                        ? 'border-red-500 bg-red-50/20 focus:border-red-500 focus:ring-1 focus:ring-red-500'
                         : 'border-zinc-200 focus:border-zinc-900'
                     }`}
                   />
                 </div>
                 {fieldErrors.incidentDate && (
-                  <p className="mt-1.5 text-xs text-rose-600 flex items-center gap-1 font-medium">
-                    <AlertCircle size={13} className="shrink-0 text-rose-500" />
+                  <p className="mt-1.5 text-xs text-red-600 flex items-center gap-1 font-medium">
+                    <AlertCircle size={13} className="shrink-0 text-red-500" />
                     <span>{fieldErrors.incidentDate}</span>
                   </p>
                 )}
