@@ -29,6 +29,23 @@ function AjukanAspirasiForm() {
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [fieldErrors, setFieldErrors] = useState<{
+    title?: string;
+    description?: string;
+    incidentDate?: string;
+  }>({});
+  const errorRef = React.useRef<HTMLDivElement>(null);
+
+  // Auto-scroll smooth to error banner whenever error state appears
+  useEffect(() => {
+    if (error) {
+      if (errorRef.current) {
+        errorRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+  }, [error]);
 
   // Form states
   // Step 1: Mode, Tujuan & Kategori
@@ -64,7 +81,7 @@ function AjukanAspirasiForm() {
   }, [preselectedCategory]);
 
   const MAX_FILES = 5;
-  const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10 MB
+  const MAX_FILE_SIZE = 10 * 1024 * 1024; // Exactly 10 MiB (10.485.760 bytes)
 
   const handleFilesAdded = (files: FileList | File[]) => {
     setError(null);
@@ -80,8 +97,9 @@ function AjukanAspirasiForm() {
     const validExtensions = /\.(jpe?g|png|pdf|webp)$/i;
 
     for (const file of newFiles) {
+      // Strictly greater than: files of exactly 10MB (10.485.760 bytes) are accepted
       if (file.size > MAX_FILE_SIZE) {
-        setError(`File "${file.name}" melebihi batas maksimal 10MB.`);
+        setError(`File "${file.name}" melebihi batas maksimal 10MB (10.485.760 bytes).`);
         return;
       }
 
@@ -143,31 +161,37 @@ function AjukanAspirasiForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    const errors: { title?: string; description?: string; incidentDate?: string } = {};
+
     if (!title.trim()) {
-      setError('Judul aspirasi wajib diisi.');
-      return;
+      errors.title = 'Judul aspirasi / pengaduan wajib diisi.';
+    } else if (title.trim().length > 120) {
+      errors.title = 'Judul aspirasi maksimal 120 karakter.';
     }
-    if (title.length > 120) {
-      setError('Judul aspirasi maksimal 120 karakter.');
-      return;
-    }
+
     if (!description.trim()) {
-      setError('Uraian lengkap kejadian wajib diisi.');
-      return;
+      errors.description = 'Uraian lengkap kejadian wajib diisi.';
+    } else if (description.trim().length > 2000) {
+      errors.description = 'Uraian kejadian maksimal 2000 karakter.';
     }
-    if (description.length > 2000) {
-      setError('Uraian kejadian maksimal 2000 karakter.');
-      return;
-    }
+
     if (!incidentDate) {
-      setError('Tanggal kejadian wajib diisi.');
+      errors.incidentDate = 'Tanggal kejadian wajib diisi.';
+    }
+
+    if (Object.keys(errors).length > 0) {
+      setFieldErrors(errors);
+      setError('Mohon lengkapi seluruh kolom wajib yang ditandai warna merah.');
       return;
     }
+
     if (!isAgreed) {
       setError('Anda wajib mencentang konfirmasi tanggung jawab sebelum mengirim laporan.');
       return;
     }
 
+    setFieldErrors({});
     setLoading(true);
     setError(null);
 
@@ -260,11 +284,17 @@ function AjukanAspirasiForm() {
         </div>
       </div>
 
-      {/* Error alert */}
+      {/* Error alert with auto-scroll ref */}
       {error && (
-        <div className="mb-6 p-3.5 rounded-lg bg-zinc-100 border border-zinc-400 text-zinc-950 text-xs flex items-center gap-2.5">
-          <AlertCircle size={15} className="shrink-0 text-zinc-700" />
-          <span>{error}</span>
+        <div
+          ref={errorRef}
+          className="mb-6 p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-900 text-xs flex items-start gap-3 shadow-xs animate-in fade-in slide-in-from-top-2 duration-200"
+        >
+          <AlertCircle size={16} className="shrink-0 text-rose-600 mt-0.5" />
+          <div className="flex-1">
+            <p className="font-semibold text-rose-950">Perhatian / Kendala Pengajuan:</p>
+            <p className="mt-0.5 text-rose-800 leading-relaxed">{error}</p>
+          </div>
         </div>
       )}
 
@@ -413,7 +443,7 @@ function AjukanAspirasiForm() {
 
       {/* STEP 2: Detail Kejadian, Bukti Pendukung (File + Google Drive), & Konfirmasi Kirim */}
       {step === 2 && (
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form noValidate onSubmit={handleSubmit} className="space-y-6">
           {/* Detail Kejadian Card */}
           <div className="space-y-5 bg-white rounded-xl p-6 border border-zinc-200">
             <span className="text-xs font-mono text-zinc-500 uppercase tracking-wider block">
@@ -423,7 +453,7 @@ function AjukanAspirasiForm() {
             <div>
               <div className="flex items-center justify-between mb-1">
                 <label className="block text-xs font-medium text-zinc-700">
-                  Judul aspirasi / pengaduan <span className="text-zinc-400">*</span>
+                  Judul aspirasi / pengaduan <span className="text-rose-500 font-bold">*</span>
                 </label>
                 <span className={`text-[11px] font-mono ${title.length > 110 ? 'text-zinc-900 font-bold' : 'text-zinc-400'}`}>
                   {title.length}/120
@@ -432,17 +462,31 @@ function AjukanAspirasiForm() {
               <input
                 type="text"
                 value={title}
-                onChange={(e) => setTitle(e.target.value.slice(0, 120))}
+                onChange={(e) => {
+                  setTitle(e.target.value.slice(0, 120));
+                  if (fieldErrors.title) {
+                    setFieldErrors((prev) => ({ ...prev, title: undefined }));
+                  }
+                }}
                 placeholder="Contoh: AC di Ruang Lab Komputer 3 Rusak dan Panas"
-                required
-                className="w-full px-3 py-2 rounded-lg border border-zinc-200 text-xs text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:border-zinc-900 transition-colors"
+                className={`w-full px-3 py-2 rounded-lg border text-xs text-zinc-900 placeholder:text-zinc-400 focus:outline-none transition-colors ${
+                  fieldErrors.title
+                    ? 'border-rose-500 bg-rose-50/20 focus:border-rose-600 focus:ring-1 focus:ring-rose-500'
+                    : 'border-zinc-200 focus:border-zinc-900'
+                }`}
               />
+              {fieldErrors.title && (
+                <p className="mt-1.5 text-xs text-rose-600 flex items-center gap-1 font-medium">
+                  <AlertCircle size={13} className="shrink-0 text-rose-500" />
+                  <span>{fieldErrors.title}</span>
+                </p>
+              )}
             </div>
 
             <div>
               <div className="flex items-center justify-between mb-1">
                 <label className="block text-xs font-medium text-zinc-700">
-                  Uraian lengkap kejadian <span className="text-zinc-400">*</span>
+                  Uraian lengkap kejadian <span className="text-rose-500 font-bold">*</span>
                 </label>
                 <span className={`text-[11px] font-mono ${description.length > 1900 ? 'text-zinc-900 font-bold' : 'text-zinc-400'}`}>
                   {description.length}/2000
@@ -451,28 +495,56 @@ function AjukanAspirasiForm() {
               <textarea
                 rows={5}
                 value={description}
-                onChange={(e) => setDescription(e.target.value.slice(0, 2000))}
+                onChange={(e) => {
+                  setDescription(e.target.value.slice(0, 2000));
+                  if (fieldErrors.description) {
+                    setFieldErrors((prev) => ({ ...prev, description: undefined }));
+                  }
+                }}
                 placeholder="Ceritakan kejadian, kronologi, dampak terhadap proses belajar, atau saran konkrit yang diharapkan..."
-                required
-                className="w-full px-3 py-2 rounded-lg border border-zinc-200 text-xs text-zinc-800 placeholder:text-zinc-400 focus:outline-none focus:border-zinc-900 transition-colors resize-y leading-relaxed"
+                className={`w-full px-3 py-2 rounded-lg border text-xs text-zinc-800 placeholder:text-zinc-400 focus:outline-none transition-colors resize-y leading-relaxed ${
+                  fieldErrors.description
+                    ? 'border-rose-500 bg-rose-50/20 focus:border-rose-600 focus:ring-1 focus:ring-rose-500'
+                    : 'border-zinc-200 focus:border-zinc-900'
+                }`}
               />
+              {fieldErrors.description && (
+                <p className="mt-1.5 text-xs text-rose-600 flex items-center gap-1 font-medium">
+                  <AlertCircle size={13} className="shrink-0 text-rose-500" />
+                  <span>{fieldErrors.description}</span>
+                </p>
+              )}
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
               <div>
                 <label className="block text-xs font-medium text-zinc-700 mb-1">
-                  Tanggal kejadian <span className="text-zinc-400">*</span>
+                  Tanggal kejadian <span className="text-rose-500 font-bold">*</span>
                 </label>
                 <div className="relative">
                   <Calendar size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" />
                   <input
                     type="date"
                     value={incidentDate}
-                    onChange={(e) => setIncidentDate(e.target.value)}
-                    required
-                    className="w-full pl-9 pr-3 py-2 rounded-lg border border-zinc-200 text-xs text-zinc-900 focus:outline-none focus:border-zinc-900 transition-colors"
+                    onChange={(e) => {
+                      setIncidentDate(e.target.value);
+                      if (fieldErrors.incidentDate) {
+                        setFieldErrors((prev) => ({ ...prev, incidentDate: undefined }));
+                      }
+                    }}
+                    className={`w-full pl-9 pr-3 py-2 rounded-lg border text-xs text-zinc-900 focus:outline-none transition-colors ${
+                      fieldErrors.incidentDate
+                        ? 'border-rose-500 bg-rose-50/20 focus:border-rose-600 focus:ring-1 focus:ring-rose-500'
+                        : 'border-zinc-200 focus:border-zinc-900'
+                    }`}
                   />
                 </div>
+                {fieldErrors.incidentDate && (
+                  <p className="mt-1.5 text-xs text-rose-600 flex items-center gap-1 font-medium">
+                    <AlertCircle size={13} className="shrink-0 text-rose-500" />
+                    <span>{fieldErrors.incidentDate}</span>
+                  </p>
+                )}
               </div>
 
               <div>

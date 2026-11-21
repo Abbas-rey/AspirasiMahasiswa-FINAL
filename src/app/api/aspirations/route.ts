@@ -14,6 +14,8 @@ import {
 import fs from 'fs';
 import path from 'path';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(request: NextRequest) {
   try {
     const session = await getSession();
@@ -200,7 +202,7 @@ export async function POST(request: NextRequest) {
         );
       }
 
-      // Max size per file: 10MB
+      // Max size per file: exactly 10 MiB (10 * 1024 * 1024 = 10,485,760 bytes)
       const MAX_FILE_SIZE = 10 * 1024 * 1024;
       const uploadDir = path.join(process.cwd(), 'public', 'uploads');
       let isFilesystemWritable = true;
@@ -213,9 +215,10 @@ export async function POST(request: NextRequest) {
       }
 
       for (const file of rawFiles) {
+        // Strictly greater than: files of exactly 10MB (10,485,760 bytes) are accepted
         if (file.size > MAX_FILE_SIZE) {
           return NextResponse.json(
-            { error: `Ukuran file "${file.name}" melebihi batas maksimal 10MB.` },
+            { error: `Ukuran file "${file.name}" melebihi batas maksimal 10MB (10.485.760 bytes).` },
             { status: 400 }
           );
         }
