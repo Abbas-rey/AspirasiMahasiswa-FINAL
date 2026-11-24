@@ -251,23 +251,23 @@ export function SessionTimeoutManager() {
   const formattedCountdown = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 
   return (
-    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="bg-white rounded-3xl max-w-md w-full p-6 sm:p-7 shadow-2xl border border-slate-200 transform animate-in zoom-in-95 duration-150">
-        <div className="w-12 h-12 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-600 mb-4">
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-zinc-950/60 backdrop-blur-sm animate-in fade-in duration-200">
+      <div role="alertdialog" aria-modal="true" aria-labelledby="stm-title" className="bg-white rounded-3xl max-w-md w-full p-6 sm:p-7 shadow-2xl border border-zinc-200 transform animate-in zoom-in-95 duration-150">
+        <div className="w-12 h-12 rounded-2xl bg-zinc-50 border border-zinc-300 flex items-center justify-center text-zinc-600 mb-4">
           <Clock size={24} className="animate-pulse" />
         </div>
 
-        <h3 className="text-lg font-bold text-slate-900 mb-2">
+        <h3 id="stm-title" className="text-lg font-bold text-zinc-950 mb-2">
           Peringatan: Sesi Akan Berakhir
         </h3>
 
-        <p className="text-xs text-slate-600 leading-relaxed mb-4">
+        <p className="text-xs text-zinc-600 leading-relaxed mb-4">
           Anda tidak melakukan aktivitas selama hampir 1 jam. Demi keamanan data akun Anda, sistem akan otomatis mengeluarkan Anda dalam:
         </p>
 
         {/* Countdown Box */}
-        <div className="flex items-center justify-center py-3 px-4 rounded-xl bg-amber-50 border border-amber-200 mb-5 text-center">
-          <span className="font-mono text-2xl font-extrabold text-amber-800 tracking-wider">
+        <div className="flex items-center justify-center py-3 px-4 rounded-xl bg-zinc-50 border border-zinc-300 mb-5 text-center">
+          <span className="font-mono text-2xl font-extrabold text-zinc-800 tracking-wider" role="timer" aria-live="off">
             {formattedCountdown}
           </span>
         </div>
@@ -276,7 +276,7 @@ export function SessionTimeoutManager() {
           <button
             type="button"
             onClick={extendSession}
-            className="w-full sm:flex-1 py-3 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold shadow-md transition-all flex items-center justify-center gap-2"
+            className="w-full sm:flex-1 py-3 px-4 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-semibold shadow-md transition-all flex items-center justify-center gap-2"
           >
             <CheckCircle2 size={16} />
             <span>Tetap Masuk</span>
@@ -285,7 +285,7 @@ export function SessionTimeoutManager() {
           <button
             type="button"
             onClick={handleAutoLogout}
-            className="w-full sm:w-auto py-3 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-medium border border-slate-200 transition-colors flex items-center justify-center gap-1.5"
+            className="w-full sm:w-auto py-3 px-4 rounded-xl bg-zinc-100 hover:bg-zinc-200 text-zinc-700 text-xs font-medium border border-zinc-200 transition-colors flex items-center justify-center gap-1.5"
           >
             <LogOut size={14} />
             <span>Keluar Sekarang</span>

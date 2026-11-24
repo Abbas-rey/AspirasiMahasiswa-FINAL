@@ -5,11 +5,7 @@ import Link from 'next/link';
 import {
   Send,
   Search,
-  Shield,
-  ShieldCheck,
   CheckCircle2,
-  Clock,
-  ArrowRight,
   EyeOff,
   UserCheck,
   GraduationCap,
@@ -18,19 +14,15 @@ import {
   FileText,
   Wrench,
   HelpCircle,
-  Sparkles,
   ChevronRight,
   AlertCircle,
-  FileSearch,
-  Star,
   Check,
-  MessageSquare,
-  Activity,
-  Layers,
 } from 'lucide-react';
 import { Footer } from '@/components/Footer';
 import { StatusBadge } from '@/components/StatusBadge';
 import { Timeline } from '@/components/Timeline';
+import { LiveStats } from '@/components/LiveStats';
+import { Reveal } from '@/components/Reveal';
 import { TARGET_LEVEL_LABELS } from '@/lib/constants';
 
 export default function LandingPage() {
@@ -119,22 +111,22 @@ export default function LandingPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 flex flex-col">
+    <div className="min-h-screen bg-paper text-zinc-900 flex flex-col">
       {/* 1. HERO SECTION (Split 2-Column Layout matching Monotree reference image) */}
-      <section id="beranda" className="pt-12 pb-20 md:pt-20 md:pb-28 border-b border-slate-100 scroll-mt-8">
+      <section id="beranda" className="pt-12 pb-20 md:pt-20 md:pb-28 border-b border-zinc-100 scroll-mt-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
             {/* Left Column: Headline, Description, Quick Action Box, and Stats */}
-            <div className="lg:col-span-6 space-y-8">
-              {/* Headline with blue block highlight */}
+            <div className="lg:col-span-6 space-y-8 animate-in fade-in slide-in-from-bottom-3 duration-700">
+              {/* Headline with ink block highlight */}
               <div className="space-y-4">
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.18]">
+                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-zinc-900 tracking-tight leading-[1.18]">
                   Suaramu{' '}
-                  <span className="bg-blue-600 text-white px-2.5 py-0.5 sm:px-3 sm:py-0.5 rounded-md inline-block">
+                  <span className="bg-zinc-900 text-white px-2.5 py-0.5 sm:px-3 sm:py-0.5 rounded-md inline-block">
                     didengar.
                   </span>
                 </h1>
-                <p className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-xl">
+                <p className="text-base sm:text-lg text-zinc-600 leading-relaxed max-w-xl">
                   Sampaikan aspirasi, keluhan, kritik, dan saran konstruktif langsung ke pihak <strong>Jurusan, Fakultas, maupun Universitas</strong> secara aman, terstruktur, dan transparan.
                 </p>
               </div>
@@ -143,159 +135,130 @@ export default function LandingPage() {
               <div className="space-y-3">
                 <form
                   onSubmit={handleTrackSubmit}
-                  className="p-1.5 bg-white border border-slate-300 rounded-2xl shadow-xs flex flex-col sm:flex-row items-center gap-2 max-w-lg focus-within:border-slate-800 transition"
+                  className="p-1.5 bg-white border border-zinc-300 rounded-2xl shadow-sm flex flex-col sm:flex-row items-center gap-2 max-w-lg focus-within:border-zinc-800 transition"
                 >
                   <div className="relative flex-1 w-full">
-                    <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+                    <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400" />
                     <input
                       type="text"
                       value={trackCode}
                       onChange={(e) => setTrackCode(e.target.value)}
                       placeholder="Masukkan kode tiket (ASP-2026-XXXXXX)..."
-                      className="w-full pl-10 pr-3 py-2.5 text-xs sm:text-sm font-mono uppercase tracking-wider text-slate-900 placeholder:normal-case placeholder:font-sans placeholder:text-slate-400 focus:outline-none rounded-xl"
+                      className="w-full pl-10 pr-3 py-2.5 text-xs sm:text-sm font-mono uppercase tracking-wider text-zinc-900 placeholder:normal-case placeholder:font-sans placeholder:text-zinc-400 focus:outline-none rounded-xl"
                     />
                   </div>
                   <button
                     type="submit"
                     disabled={trackingLoading || !trackCode.trim()}
-                    className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs sm:text-sm transition disabled:opacity-50 shrink-0"
+                    className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-white font-semibold text-xs sm:text-sm transition disabled:opacity-50 shrink-0"
                   >
                     {trackingLoading ? 'Mencari...' : 'Lacak Status'}
                   </button>
                 </form>
 
-                <div className="flex items-center gap-3 text-xs text-slate-500">
+                <div className="flex items-center gap-3 text-xs text-zinc-500">
                   <Link
                     href="/ajukan"
-                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-900 font-semibold transition"
+                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-zinc-100 hover:bg-zinc-200 text-zinc-900 font-semibold transition"
                   >
                     <Send size={13} />
                     <span>Ajukan aspirasi baru</span>
                   </Link>
                   <span>•</span>
-                  <span className="text-slate-400">Dukungan mode Transparan & Anonim</span>
+                  <span className="text-zinc-400">Dukungan mode Transparan & Anonim</span>
                 </div>
               </div>
 
-              {/* Stats Metrics (75.2% and ~20k style) */}
-              <div className="pt-6 border-t border-slate-100 space-y-4">
-                <div className="grid grid-cols-2 gap-8 max-w-sm">
-                  <div>
-                    <p className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
-                      89.4%
-                    </p>
-                    <p className="text-xs sm:text-sm text-slate-500 font-medium mt-1">
-                      Aspirasi ditindaklanjuti
-                    </p>
-                  </div>
-                  <div>
-                    <p className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
-                      ~25k
-                    </p>
-                    <p className="text-xs sm:text-sm text-slate-500 font-medium mt-1">
-                      Civitas akademika aktif
-                    </p>
-                  </div>
-                </div>
-
-                {/* Rating badge */}
-                <div className="flex items-center gap-2 pt-2 text-xs text-slate-600">
-                  <div className="flex items-center text-slate-900">
-                    {[1, 2, 3, 4, 5].map((s) => (
-                      <Star key={s} size={14} className="fill-slate-900 text-slate-900" />
-                    ))}
-                  </div>
-                  <span className="font-bold text-slate-900">4.8</span>
-                  <span className="text-slate-400">•</span>
-                  <span className="text-slate-500">Tingkat kepuasan penanganan pengaduan</span>
-                </div>
-              </div>
+              {/* Statistik live dari database + count-up saat masuk viewport */}
+              <LiveStats />
             </div>
 
             {/* Right Column: Isometric Device Wireframe & Floating UI Cards (Matching Reference Style) */}
-            <div className="lg:col-span-6 relative flex items-center justify-center py-6">
+            <div className="lg:col-span-6 relative flex items-center justify-center py-6 animate-in fade-in zoom-in-95 duration-700 [animation-delay:150ms] fill-mode-both">
               {/* Isometric Wireframe Graphics Canvas */}
               <div className="relative w-full max-w-[480px] h-[460px] select-none">
+                <div aria-hidden className="absolute top-16 right-4 w-64 h-64 rounded-full bg-zinc-200/40 blur-3xl" />
+                <div aria-hidden className="absolute bottom-8 left-0 w-48 h-48 rounded-full bg-zinc-100/50 blur-3xl" />
                 {/* SVG Isometric Background Line-art / Device Shell */}
                 <svg
-                  className="absolute inset-0 w-full h-full text-slate-200 stroke-current"
+                  className="absolute inset-0 w-full h-full text-zinc-200 stroke-current"
                   viewBox="0 0 500 480"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   {/* Isometric base grid & guide lines */}
-                  <path d="M50 240 L250 360 L450 240 L250 120 Z" strokeWidth="1" strokeDasharray="4 4" />
+                  <path d="M50 240 L250 360 L450 240 L250 120 Z" strokeWidth="1" strokeDasharray="4 4" className="dash-flow" />
                   {/* Smartphone wireframe outline in isometric angle */}
-                  <path d="M310 140 L410 200 L410 380 L310 320 Z" stroke="#CBD5E1" strokeWidth="2" fill="#F8FAFC" />
-                  <path d="M310 140 L240 180 L240 360 L310 320 Z" stroke="#CBD5E1" strokeWidth="2" fill="#FFFFFF" />
+                  <path d="M310 140 L410 200 L410 380 L310 320 Z" stroke="#D4D4D8" strokeWidth="2" fill="#FAFAFA" />
+                  <path d="M310 140 L240 180 L240 360 L310 320 Z" stroke="#D4D4D8" strokeWidth="2" fill="#FFFFFF" />
                   {/* Subtle branch lines */}
-                  <line x1="240" y1="270" x2="160" y2="310" stroke="#CBD5E1" strokeWidth="1.5" />
-                  <line x1="280" y1="180" x2="180" y2="120" stroke="#CBD5E1" strokeWidth="1.5" />
+                  <line x1="240" y1="270" x2="160" y2="310" stroke="#D4D4D8" strokeWidth="1.5" />
+                  <line x1="280" y1="180" x2="180" y2="120" stroke="#D4D4D8" strokeWidth="1.5" />
                 </svg>
 
                 {/* Floating Card 1: Ticket Header Card (Top Left) */}
-                <div className="absolute top-4 left-4 sm:left-8 bg-white border border-slate-200 rounded-2xl p-4 shadow-lg w-[260px] transform -rotate-1 hover:rotate-0 transition-transform duration-300">
+                <div className="absolute top-4 left-4 sm:left-8 bg-white border border-zinc-200 rounded-2xl p-4 shadow-lg w-[260px] float-a hover:shadow-xl transition-shadow duration-300">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="font-mono text-[10px] font-bold text-slate-700 bg-slate-100 px-2 py-0.5 rounded-md">
+                    <span className="font-mono text-[10px] font-bold text-zinc-700 bg-zinc-100 px-2 py-0.5 rounded-md">
                       ASP-2026-004812
                     </span>
-                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200">
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-zinc-50 text-zinc-700 border border-zinc-300">
                       Diproses
                     </span>
                   </div>
-                  <h4 className="text-xs font-bold text-slate-900 line-clamp-1">
+                  <h4 className="text-xs font-bold text-zinc-900 line-clamp-1">
                     AC Ruang Lab Komputer 3
                   </h4>
-                  <p className="text-[11px] text-slate-500 mt-0.5">
+                  <p className="text-[11px] text-zinc-500 mt-0.5">
                     Unit: Jurusan Teknik Informatika
                   </p>
                 </div>
 
                 {/* Floating Card 2: Official Response Chat Bubble (Right Middle) */}
-                <div className="absolute top-28 right-0 sm:right-4 bg-white border border-slate-200 rounded-2xl p-4 shadow-lg w-[270px] transform rotate-1 hover:rotate-0 transition-transform duration-300">
+                <div className="absolute top-28 right-0 sm:right-4 bg-white border border-zinc-200 rounded-2xl p-4 shadow-lg w-[270px] float-b hover:shadow-xl transition-shadow duration-300">
                   <div className="flex items-center gap-2 mb-2">
-                    <div className="w-5 h-5 rounded-full bg-slate-900 text-white flex items-center justify-center text-[10px] font-bold">
+                    <div className="w-5 h-5 rounded-full bg-zinc-900 text-white flex items-center justify-center text-[10px] font-bold">
                       H
                     </div>
                     <div>
-                      <p className="text-[11px] font-bold text-slate-900">Dr. Husni Teja Sukmana</p>
-                      <p className="text-[9px] text-slate-400">Kaprodi Teknik Informatika</p>
+                      <p className="text-[11px] font-bold text-zinc-900">Dr. Husni Teja Sukmana</p>
+                      <p className="text-[10px] text-zinc-500">Kaprodi Teknik Informatika</p>
                     </div>
                   </div>
-                  <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-100 text-[11px] text-slate-700 leading-snug">
+                  <div className="p-2.5 rounded-xl bg-zinc-50 border border-zinc-100 text-[11px] text-zinc-700 leading-snug">
                     &quot;Teknisi sarana sedang memeriksa freon dan modul blower AC Lab 3.&quot;
                   </div>
                 </div>
 
                 {/* Floating Card 3: Task Progress Sheet (Bottom Left) */}
-                <div className="absolute bottom-6 left-6 sm:left-12 bg-white border border-slate-200 rounded-2xl p-4 shadow-xl w-[260px] transform rotate-2 hover:rotate-0 transition-transform duration-300">
+                <div className="absolute bottom-6 left-6 sm:left-12 bg-white border border-zinc-200 rounded-2xl p-4 shadow-xl w-[260px] float-c hover:shadow-2xl transition-shadow duration-300">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-[11px] font-bold text-slate-900 flex items-center gap-1.5">
-                      <CheckCircle2 size={13} className="text-emerald-600" />
+                    <span className="text-[11px] font-bold text-zinc-900 flex items-center gap-1.5">
+                      <CheckCircle2 size={13} className="text-zinc-900" />
                       <span>Progres Tindak Lanjut</span>
                     </span>
-                    <span className="text-[10px] font-mono font-bold text-slate-900">
+                    <span className="text-[10px] font-mono font-bold text-zinc-900">
                       85.3%
                     </span>
                   </div>
-                  <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden mb-2">
-                    <div className="bg-slate-900 h-full rounded-full" style={{ width: '85.3%' }} />
+                  <div className="w-full bg-zinc-100 h-2 rounded-full overflow-hidden mb-2">
+                    <div className="bg-zinc-900 h-full rounded-full" style={{ width: '85.3%' }} />
                   </div>
-                  <div className="flex items-center justify-between text-[10px] text-slate-500">
+                  <div className="flex items-center justify-between text-[10px] text-zinc-500">
                     <span>Verifikasi</span>
                     <span>•</span>
                     <span>Perbaikan Fisik</span>
                     <span>•</span>
-                    <span className="text-slate-900 font-semibold">Tuntas</span>
+                    <span className="text-zinc-900 font-semibold">Tuntas</span>
                   </div>
                 </div>
 
                 {/* Floating Category Dock Pill (Bottom Center) */}
-                <div className="absolute -bottom-2 right-12 bg-white border border-slate-200 rounded-2xl px-4 py-2 shadow-md flex items-center gap-3 text-slate-600">
-                  <GraduationCap size={16} className="text-slate-900" />
-                  <Users size={16} className="text-slate-900" />
-                  <Building2 size={16} className="text-slate-900" />
-                  <FileText size={16} className="text-slate-900" />
+                <div className="absolute -bottom-2 right-12 bg-white border border-zinc-200 rounded-2xl px-4 py-2 shadow-md flex items-center gap-3 text-zinc-600 float-flat">
+                  <GraduationCap size={16} className="text-zinc-900" />
+                  <Users size={16} className="text-zinc-900" />
+                  <Building2 size={16} className="text-zinc-900" />
+                  <FileText size={16} className="text-zinc-900" />
                 </div>
               </div>
             </div>
@@ -305,8 +268,8 @@ export default function LandingPage() {
 
       {/* Real-time Tracking Result preview (if user searched in hero) */}
       {trackError && (
-        <section className="py-6 bg-rose-50 border-b border-rose-200">
-          <div className="max-w-4xl mx-auto px-4 flex items-center gap-3 text-rose-700 text-xs sm:text-sm">
+        <section className="py-6 bg-zinc-100 border-b border-zinc-400">
+          <div className="max-w-4xl mx-auto px-4 flex items-center gap-3 text-zinc-900 text-xs sm:text-sm">
             <AlertCircle size={18} className="shrink-0" />
             <span>{trackError}</span>
           </div>
@@ -314,32 +277,32 @@ export default function LandingPage() {
       )}
 
       {trackResult && (
-        <section className="py-10 bg-slate-50 border-b border-slate-200 animate-in fade-in duration-300">
+        <section className="py-10 bg-zinc-50 border-b border-zinc-200 animate-in fade-in duration-300">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6">
-              <div className="flex flex-wrap items-center justify-between gap-3 pb-5 border-b border-slate-100">
+            <div className="bg-white rounded-3xl p-6 sm:p-8 border border-zinc-200 shadow-sm space-y-6">
+              <div className="flex flex-wrap items-center justify-between gap-3 pb-5 border-b border-zinc-100">
                 <div>
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="font-mono text-xs font-bold text-slate-700 bg-slate-100 px-2.5 py-0.5 rounded-md">
+                    <span className="font-mono text-xs font-bold text-zinc-700 bg-zinc-100 px-2.5 py-0.5 rounded-md">
                       {trackResult.ticket_code}
                     </span>
-                    <span className="text-xs text-slate-500 font-medium">
+                    <span className="text-xs text-zinc-500 font-medium">
                       {TARGET_LEVEL_LABELS[trackResult.target_level as keyof typeof TARGET_LEVEL_LABELS]?.label}
                     </span>
                   </div>
-                  <h3 className="text-lg sm:text-xl font-bold text-slate-900">
+                  <h3 className="text-lg sm:text-xl font-bold text-zinc-900">
                     {trackResult.title}
                   </h3>
                 </div>
                 <StatusBadge status={trackResult.current_status} size="md" />
               </div>
 
-              <p className="text-xs sm:text-sm text-slate-700 leading-relaxed">
+              <p className="text-xs sm:text-sm text-zinc-700 leading-relaxed">
                 {trackResult.description}
               </p>
 
-              <div className="pt-4 border-t border-slate-100">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-700 mb-4">
+              <div className="pt-4 border-t border-zinc-100">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-zinc-700 mb-4">
                   Perjalanan Tindak Lanjut Tiket
                 </h4>
                 <Timeline
@@ -354,79 +317,81 @@ export default function LandingPage() {
       )}
 
       {/* 2. SECTION CARA KERJA (Clean Minimalist Cards, No Gradients) */}
-      <section id="cara-kerja" className="py-20 border-b border-slate-100 scroll-mt-8">
+      <section id="cara-kerja" className="py-20 border-b border-zinc-100 scroll-mt-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-14">
-            <span className="text-xs font-bold uppercase tracking-wider text-slate-600 bg-slate-100 px-3 py-1 rounded-md">
+          <Reveal className="text-center max-w-2xl mx-auto mb-14">
+            <span className="text-xs font-bold uppercase tracking-wider text-zinc-800 bg-zinc-50 border border-zinc-200 px-3 py-1 rounded-md">
               Alur Pengaduan
             </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-3">
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-zinc-900 mt-3">
               Tiga langkah, tanpa berputar-putar.
             </h2>
-            <p className="text-slate-600 text-sm sm:text-base mt-2">
+            <p className="text-zinc-600 text-sm sm:text-base mt-2">
               Proses penyampaian aspirasi dirancang terstruktur, aman, dan mudah dipantau.
             </p>
-          </div>
+          </Reveal>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {steps.map((step) => (
-              <div
-                key={step.num}
-                className="bg-white rounded-2xl p-7 border border-slate-200 hover:border-slate-400 transition duration-200"
-              >
-                <span className="text-2xl font-mono font-bold text-slate-400 block mb-4">
-                  {step.num}
-                </span>
-                <h3 className="text-xl font-bold text-slate-900 mb-2">{step.title}</h3>
-                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">{step.desc}</p>
-              </div>
+            {steps.map((step, i) => (
+              <Reveal key={step.num} delay={i * 100} className="h-full">
+                <div
+                  className="group h-full bg-white rounded-2xl p-7 border border-zinc-200 hover:border-zinc-900/50 hover:shadow-card-hover hover:-translate-y-1 transition duration-200"
+                >
+                  <span className="text-2xl font-mono font-bold text-zinc-900 block mb-4">
+                    {step.num}
+                  </span>
+                  <h3 className="text-xl font-bold text-zinc-900 mb-2">{step.title}</h3>
+                  <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed">{step.desc}</p>
+                </div>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
       {/* 3. SECTION KATEGORI (Clean Solid Cards, No Rainbow Colors) */}
-      <section id="kategori" className="py-20 bg-slate-50/60 border-b border-slate-100 scroll-mt-8">
+      <section id="kategori" className="py-20 bg-zinc-50/60 border-b border-zinc-100 scroll-mt-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-14">
-            <span className="text-xs font-bold uppercase tracking-wider text-slate-600 bg-white border border-slate-200 px-3 py-1 rounded-md">
+          <Reveal className="text-center max-w-2xl mx-auto mb-14">
+            <span className="text-xs font-bold uppercase tracking-wider text-zinc-800 bg-white border border-zinc-200 px-3 py-1 rounded-md">
               Kategori Terstruktur
             </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-3">
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-zinc-900 mt-3">
               Apa yang ingin kamu sampaikan?
             </h2>
-            <p className="text-slate-600 text-sm sm:text-base mt-2">
+            <p className="text-zinc-600 text-sm sm:text-base mt-2">
               Setiap kategori dikelola oleh pejabat peninjau yang berwenang.
             </p>
-          </div>
+          </Reveal>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {categories.map((cat) => {
+            {categories.map((cat, i) => {
               const IconComp = cat.icon;
               return (
-                <div
-                  key={cat.id}
-                  className="bg-white rounded-2xl p-6 border border-slate-200 hover:border-slate-400 transition flex flex-col justify-between"
-                >
+                <Reveal key={cat.id} delay={i * 70} className="h-full">
+                  <div
+                    className="group h-full bg-white rounded-2xl p-6 border border-zinc-200 hover:border-zinc-900/50 hover:shadow-card-hover hover:-translate-y-1 transition flex flex-col justify-between"
+                  >
                   <div>
-                    <div className="w-10 h-10 rounded-xl bg-slate-100 text-slate-900 flex items-center justify-center mb-4">
+                    <div className="w-10 h-10 rounded-xl bg-zinc-100 text-zinc-900 group-hover:bg-zinc-50 group-hover:text-zinc-900 transition-colors flex items-center justify-center mb-4">
                       <IconComp size={20} />
                     </div>
-                    <h3 className="text-base font-bold text-slate-900 mb-1.5">{cat.name}</h3>
-                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                    <h3 className="text-base font-bold text-zinc-900 mb-1.5">{cat.name}</h3>
+                    <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed">
                       {cat.description}
                     </p>
                   </div>
-                  <div className="mt-6 pt-4 border-t border-slate-100 text-xs font-semibold text-slate-900">
+                  <div className="mt-6 pt-4 border-t border-zinc-100 text-xs font-semibold text-zinc-900">
                     <Link
                       href={`/ajukan?kategori=${encodeURIComponent(cat.name)}`}
-                      className="inline-flex items-center gap-1 hover:underline"
+                      className="inline-flex items-center gap-1 hover:text-zinc-900 hover:underline"
                     >
                       <span>Ajukan di kategori ini</span>
                       <ChevronRight size={13} />
                     </Link>
                   </div>
-                </div>
+                  </div>
+                </Reveal>
               );
             })}
           </div>
@@ -434,99 +399,146 @@ export default function LandingPage() {
       </section>
 
       {/* 4. SECTION EDUKASI PRIVASI (Clean Flat Contrast, No Rainbow Gradients) */}
-      <section className="py-20 border-b border-slate-100">
+      <section className="py-20 border-b border-zinc-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-14">
-            <span className="text-xs font-bold uppercase tracking-wider text-slate-600 bg-slate-100 px-3 py-1 rounded-md">
+          <Reveal className="text-center max-w-2xl mx-auto mb-14">
+            <span className="text-xs font-bold uppercase tracking-wider text-zinc-800 bg-zinc-50 border border-zinc-200 px-3 py-1 rounded-md">
               Keamanan & Privasi
             </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-3">
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-zinc-900 mt-3">
               Anonim bukan berarti tak tercatat.
             </h2>
-            <p className="text-slate-600 text-sm sm:text-base mt-2">
+            <p className="text-zinc-600 text-sm sm:text-base mt-2">
               Pilihlah mode yang paling sesuai dengan kebutuhan penyampaian laporan Anda.
             </p>
-          </div>
+          </Reveal>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {/* Card 1: Pakai Nama Saya */}
-            <div className="bg-white rounded-2xl p-7 border border-slate-200 flex flex-col justify-between">
+            <Reveal className="h-full">
+            <div className="bg-white h-full rounded-2xl p-7 border border-zinc-200 flex flex-col justify-between hover:shadow-card-hover transition">
               <div>
-                <div className="w-10 h-10 rounded-xl bg-slate-100 text-slate-900 flex items-center justify-center mb-4">
+                <div className="w-10 h-10 rounded-xl bg-zinc-100 text-zinc-900 flex items-center justify-center mb-4">
                   <UserCheck size={20} />
                 </div>
                 <div className="flex items-center gap-2 mb-2">
-                  <h3 className="text-lg font-bold text-slate-900">Pakai Nama Saya</h3>
-                  <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-slate-100 text-slate-700">
+                  <h3 className="text-lg font-bold text-zinc-900">Pakai Nama Saya</h3>
+                  <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-zinc-100 text-zinc-700">
                     Transparan
                   </span>
                 </div>
-                <p className="text-xs text-slate-600 leading-relaxed mb-4">
+                <p className="text-xs text-zinc-600 leading-relaxed mb-4">
                   Identitas resmi Anda (Nama & NIM) akan disampaikan langsung kepada pihak Jurusan, Fakultas, atau Universitas.
                 </p>
 
-                <ul className="space-y-2.5 text-xs text-slate-700">
+                <ul className="space-y-2.5 text-xs text-zinc-700">
                   <li className="flex items-center gap-2">
-                    <Check size={14} className="text-slate-900 shrink-0" />
+                    <Check size={14} className="text-zinc-900 shrink-0" />
                     <span>Dosen atau staf dapat mengklarifikasi kendala langsung kepada Anda.</span>
                   </li>
                   <li className="flex items-center gap-2">
-                    <Check size={14} className="text-slate-900 shrink-0" />
+                    <Check size={14} className="text-zinc-900 shrink-0" />
                     <span>Cocok untuk permohonan fasilitas, surat akademik, atau administrasi pribadi.</span>
                   </li>
                   <li className="flex items-center gap-2">
-                    <Check size={14} className="text-slate-900 shrink-0" />
+                    <Check size={14} className="text-zinc-900 shrink-0" />
                     <span>Tercatat lengkap di Dasbor Mahasiswa Anda.</span>
                   </li>
                 </ul>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-slate-100 text-[11px] text-slate-500">
+              <div className="mt-6 pt-4 border-t border-zinc-100 text-[11px] text-zinc-500">
                 Pilihan tepat untuk urusan administratif dan perkuliahan harian.
               </div>
             </div>
+            </Reveal>
 
             {/* Card 2: Kirim Anonim */}
-            <div className="bg-white rounded-2xl p-7 border-2 border-slate-900 flex flex-col justify-between shadow-xs">
+            <Reveal delay={120} className="h-full">
+            <div className="bg-white h-full rounded-2xl p-7 border-2 border-zinc-900 flex flex-col justify-between shadow-sm hover:shadow-card-hover transition">
               <div>
-                <div className="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center mb-4">
+                <div className="w-10 h-10 rounded-xl bg-zinc-900 text-white flex items-center justify-center mb-4">
                   <EyeOff size={20} />
                 </div>
                 <div className="flex items-center gap-2 mb-2">
-                  <h3 className="text-lg font-bold text-slate-900">Kirim Anonim</h3>
-                  <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-slate-900 text-white">
+                  <h3 className="text-lg font-bold text-zinc-900">Kirim Anonim</h3>
+                  <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-zinc-900 text-white">
                     Privasi 100%
                   </span>
                 </div>
-                <p className="text-xs text-slate-600 leading-relaxed mb-4">
+                <p className="text-xs text-zinc-600 leading-relaxed mb-4">
                   Sistem ASMA secara otomatis menyensor nama, NIM, dan email Anda dari seluruh tampilan akademisi dan dosen.
                 </p>
 
-                <ul className="space-y-2.5 text-xs text-slate-700">
+                <ul className="space-y-2.5 text-xs text-zinc-700">
                   <li className="flex items-center gap-2">
-                    <Check size={14} className="text-slate-900 shrink-0" />
+                    <Check size={14} className="text-zinc-900 shrink-0" />
                     <span>Peninjau hanya melihat label resmi <strong>Mahasiswa (Anonim)</strong>.</span>
                   </li>
                   <li className="flex items-center gap-2">
-                    <Check size={14} className="text-slate-900 shrink-0" />
+                    <Check size={14} className="text-zinc-900 shrink-0" />
                     <span>Aman dari kekhawatiran intimidasi atau subjektivitas penilaian nilai.</span>
                   </li>
                   <li className="flex items-center gap-2">
-                    <Check size={14} className="text-slate-900 shrink-0" />
+                    <Check size={14} className="text-zinc-900 shrink-0" />
                     <span>Anda tetap dapat memantau tiket di Dasbor Mahasiswa pribadi Anda.</span>
                   </li>
                 </ul>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-slate-100 text-[11px] text-slate-900 font-medium">
+              <div className="mt-6 pt-4 border-t border-zinc-100 text-[11px] text-zinc-900 font-medium">
                 Pilihan tepat untuk kritik pelayanan dosen, transparansi ujian, atau fasilitas darurat.
               </div>
             </div>
+            </Reveal>
           </div>
         </div>
       </section>
 
-      {/* 5. FOOTER */}
+      {/* 5. PITA CTA PENUTUP (blok tinta solid sebelum footer) */}
+      <section className="relative bg-zinc-950 text-white overflow-hidden">
+        <span
+          aria-hidden
+          className="absolute -right-8 -bottom-24 text-[11rem] sm:text-[15rem] font-extrabold tracking-tighter text-zinc-900/70 select-none leading-none"
+        >
+          ASMA
+        </span>
+        <div aria-hidden className="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-zinc-800/30 blur-3xl" />
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-24">
+          <Reveal>
+            <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-zinc-500 mb-5">
+              ASP-2026 · Transparan · Anonim · Terlacak
+            </p>
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.15] max-w-3xl">
+              Suarakan{' '}
+              <span className="bg-white text-zinc-950 px-2.5 py-0.5 sm:px-3 rounded-md inline-block">
+                sekarang.
+              </span>
+            </h2>
+            <p className="text-zinc-400 text-sm sm:text-base mt-5 max-w-xl leading-relaxed">
+              Satu tiket resmi untuk setiap suara. Tulis hari ini, pantau penanganannya sampai tuntas.
+            </p>
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 mt-9">
+              <Link
+                href="/ajukan"
+                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-white text-zinc-950 font-semibold text-sm hover:bg-zinc-200 hover:-translate-y-0.5 transition"
+              >
+                <Send size={15} />
+                <span>Ajukan aspirasi</span>
+              </Link>
+              <Link
+                href="/lacak"
+                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl border border-zinc-700 text-white font-semibold text-sm hover:border-white hover:-translate-y-0.5 transition"
+              >
+                <Search size={15} />
+                <span>Lacak status tiket</span>
+              </Link>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* 6. FOOTER */}
       <Footer />
     </div>
   );

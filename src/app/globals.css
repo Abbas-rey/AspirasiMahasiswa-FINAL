@@ -4,8 +4,8 @@
 
 @layer base {
   :root {
-    --background: #F8FAFC;
-    --foreground: #0F172A;
+    --background: #FAFAFA;
+    --foreground: #18181B;
   }
 
   body {
@@ -15,47 +15,98 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+
+  :focus-visible {
+    outline: 2px solid #18181B;
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
 }
 
-/* Glassmorphism helpers */
-.glass-pill {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(226, 232, 240, 0.8);
-  box-shadow: 0 10px 30px -10px rgba(15, 23, 42, 0.08);
-}
-
-.glass-card {
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(241, 245, 249, 0.9);
-  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
-}
-
-.glass-card-hover {
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.glass-card-hover:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 28px -4px rgba(37, 99, 235, 0.12), 0 4px 10px -2px rgba(15, 23, 42, 0.04);
-  border-color: rgba(191, 219, 254, 0.8);
-}
-
-/* Custom scrollbars */
+/* Scrollbar monokrom mengikuti palet zinc */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: #d4d4d8;
   border-radius: 9999px;
+  border: 2px solid #FAFAFA;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: #18181B;
+}
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #d4d4d8 transparent;
+}
+
+/* Transisi masuk antar halaman (template.tsx remount tiap navigasi) */
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-enter {
+  /* fill backwards: transform dibuang setelah animasi agar modal position:fixed tetap relatif viewport */
+  animation: page-enter 650ms cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-enter {
+    animation: none;
+  }
+}
+
+/* Gerak halus kolase hero: float beda fase, garis dash mengalir */
+@keyframes float-a {
+  0%, 100% { transform: translateY(0) rotate(-1deg); }
+  50% { transform: translateY(-7px) rotate(-1deg); }
+}
+@keyframes float-b {
+  0%, 100% { transform: translateY(0) rotate(1deg); }
+  50% { transform: translateY(-9px) rotate(1deg); }
+}
+@keyframes float-c {
+  0%, 100% { transform: translateY(0) rotate(2deg); }
+  50% { transform: translateY(-6px) rotate(2deg); }
+}
+@keyframes float-flat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+.float-a { animation: float-a 6s ease-in-out infinite; }
+.float-b { animation: float-b 7.5s ease-in-out infinite 0.8s; }
+.float-c { animation: float-c 6.8s ease-in-out infinite 1.6s; }
+.float-flat { animation: float-flat 8s ease-in-out infinite 0.4s; }
+
+@keyframes dash-flow {
+  to { stroke-dashoffset: -64; }
+}
+.dash-flow { animation: dash-flow 6s linear infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .float-a, .float-b, .float-c, .float-flat, .dash-flow {
+    animation: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

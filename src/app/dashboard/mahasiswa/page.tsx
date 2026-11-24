@@ -19,6 +19,7 @@ import {
   Trash2,
   AlertCircle,
   CheckCircle2,
+  RefreshCw,
 } from 'lucide-react';
 import { StatusBadge } from '@/components/StatusBadge';
 import { Timeline } from '@/components/Timeline';
@@ -38,6 +39,7 @@ export default function MahasiswaDashboard() {
   const [deleting, setDeleting] = useState(false);
   const [deleteError, setDeleteError] = useState<string | null>(null);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [fetchError, setFetchError] = useState<string | null>(null);
 
   useEffect(() => {
     fetchData();
@@ -45,6 +47,7 @@ export default function MahasiswaDashboard() {
 
   const fetchData = async () => {
     setLoading(true);
+    setFetchError(null);
     try {
       const [userRes, aspRes] = await Promise.all([
         fetch('/api/auth/me'),
@@ -58,9 +61,13 @@ export default function MahasiswaDashboard() {
       if (aspRes.ok) {
         const aData = await aspRes.json();
         setAspirations(aData.aspirations || []);
+      } else {
+        const eData = await aspRes.json().catch(() => null);
+        setFetchError(eData?.error || 'Gagal memuat daftar aspirasi dari server.');
       }
     } catch (err) {
       console.error('Fetch student dashboard error:', err);
+      setFetchError('Tidak dapat terhubung ke server. Periksa koneksi internet Anda.');
     } finally {
       setLoading(false);
     }
@@ -119,7 +126,7 @@ export default function MahasiswaDashboard() {
         <div className="flex items-center gap-3 shrink-0">
           <Link
             href="/ajukan"
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-zinc-950 text-white font-medium text-xs hover:bg-zinc-800 transition-colors"
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-zinc-900 text-white font-medium text-xs hover:bg-zinc-800 transition-colors"
           >
             <Send size={14} />
             <span>Ajukan aspirasi</span>
@@ -129,15 +136,15 @@ export default function MahasiswaDashboard() {
 
       {/* Toast Notification */}
       {toastMessage && (
-        <div className="mb-6 p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs flex items-center justify-between animate-in fade-in">
+        <div role="status" aria-live="polite" className="mb-6 p-3.5 rounded-xl bg-zinc-50 border border-zinc-200 text-zinc-800 text-xs flex items-center justify-between animate-in fade-in">
           <div className="flex items-center gap-2">
-            <CheckCircle2 size={15} className="text-emerald-600 shrink-0" />
+            <CheckCircle2 size={15} className="text-zinc-900 shrink-0" />
             <span>{toastMessage}</span>
           </div>
           <button
             type="button"
             onClick={() => setToastMessage(null)}
-            className="text-emerald-600 hover:text-emerald-900 p-1"
+            className="text-zinc-900 hover:text-zinc-900 p-1"
           >
             <X size={14} />
           </button>
@@ -146,20 +153,20 @@ export default function MahasiswaDashboard() {
 
       {/* Password Change Reminder Banner if user still uses default password */}
       {user?.must_change_pwd && (
-        <div className="mb-6 p-4 rounded-xl border border-amber-200 bg-amber-50/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div className="mb-6 p-4 rounded-xl border border-zinc-300 bg-zinc-50/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-amber-100 text-amber-800 flex items-center justify-center shrink-0">
+            <div className="w-8 h-8 rounded-lg bg-zinc-100 text-zinc-800 flex items-center justify-center shrink-0">
               <KeyRound size={16} />
             </div>
             <div>
-              <p className="text-xs font-bold text-amber-950">Akun Anda masih menggunakan password bawaan (default)</p>
-              <p className="text-[11px] text-amber-800">Tingkatkan keamanan akun dengan memperbarui password Anda sekarang.</p>
+              <p className="text-xs font-bold text-zinc-950">Akun Anda masih menggunakan password bawaan (default)</p>
+              <p className="text-[11px] text-zinc-800">Tingkatkan keamanan akun dengan memperbarui password Anda sekarang.</p>
             </div>
           </div>
           <button
             type="button"
             onClick={() => setShowPasswordModal(true)}
-            className="px-3.5 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold shrink-0 transition"
+            className="px-3.5 py-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-semibold shrink-0 transition"
           >
             Ganti Password
           </button>
@@ -219,6 +226,22 @@ export default function MahasiswaDashboard() {
                 <div key={i} className="h-28 bg-white rounded-xl border border-zinc-200 p-5 animate-pulse" />
               ))}
             </div>
+          ) : fetchError ? (
+            <div role="alert" className="bg-white rounded-xl p-12 text-center border border-zinc-400">
+              <div className="w-12 h-12 rounded-lg bg-zinc-100 text-zinc-900 flex items-center justify-center mx-auto mb-3">
+                <AlertCircle size={24} />
+              </div>
+              <h3 className="text-sm font-semibold text-zinc-900">Gagal memuat aspirasi</h3>
+              <p className="text-xs text-zinc-500 mt-1 max-w-sm mx-auto">{fetchError}</p>
+              <button
+                type="button"
+                onClick={fetchData}
+                className="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-zinc-900 text-white text-xs font-medium hover:bg-zinc-800 transition-colors"
+              >
+                <RefreshCw size={13} />
+                <span>Coba lagi</span>
+              </button>
+            </div>
           ) : filteredAspirations.length === 0 ? (
             <div className="bg-white rounded-xl p-12 text-center border border-zinc-200">
               <div className="w-12 h-12 rounded-lg bg-zinc-100 text-zinc-500 flex items-center justify-center mx-auto mb-3">
@@ -251,7 +274,7 @@ export default function MahasiswaDashboard() {
                   <div
                     key={asp.id}
                     onClick={() => setSelectedAspiration(asp)}
-                    className="bg-white rounded-xl p-5 border border-zinc-200 hover:border-zinc-400 transition-colors cursor-pointer group"
+                    className="bg-white rounded-xl p-5 border border-zinc-200 hover:border-zinc-900/50 hover:shadow-card-hover transition cursor-pointer group"
                   >
                     <div className="flex flex-wrap items-center justify-between gap-2 mb-2.5">
                       <div className="flex items-center gap-2 flex-wrap">
@@ -299,7 +322,7 @@ export default function MahasiswaDashboard() {
                             setAspirationToDelete(asp);
                           }}
                           title="Hapus aspirasi ini"
-                          className="p-1.5 rounded-md text-zinc-400 hover:text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer"
+                          className="p-1.5 rounded-md text-zinc-400 hover:text-zinc-900 hover:bg-zinc-100 transition-colors cursor-pointer"
                         >
                           <Trash2 size={13} />
                         </button>
@@ -494,7 +517,7 @@ export default function MahasiswaDashboard() {
               <button
                 type="button"
                 onClick={() => setAspirationToDelete(selectedAspiration)}
-                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-rose-600 hover:text-rose-700 hover:bg-rose-50 border border-rose-200 text-xs font-medium transition-colors cursor-pointer"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-zinc-900 hover:text-zinc-900 hover:bg-zinc-100 border border-zinc-400 text-xs font-medium transition-colors cursor-pointer"
               >
                 <Trash2 size={13} />
                 <span>Hapus aspirasi ini</span>
@@ -513,9 +536,9 @@ export default function MahasiswaDashboard() {
 
       {/* Modal Konfirmasi Hapus Aspirasi */}
       {aspirationToDelete && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-zinc-950/50 backdrop-blur-xs animate-in fade-in duration-200">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-zinc-950/50 backdrop-blur-sm animate-in fade-in duration-200">
           <div className="bg-white rounded-2xl max-w-md w-full p-6 border border-zinc-200 shadow-2xl">
-            <div className="w-10 h-10 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center mx-auto mb-3">
+            <div className="w-10 h-10 rounded-xl bg-zinc-100 text-zinc-900 flex items-center justify-center mx-auto mb-3">
               <Trash2 size={20} />
             </div>
 
@@ -529,7 +552,7 @@ export default function MahasiswaDashboard() {
             </div>
 
             {deleteError && (
-              <div className="mb-4 p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs flex items-center gap-2">
+              <div className="mb-4 p-3 rounded-xl bg-zinc-100 border border-zinc-400 text-zinc-900 text-xs flex items-center gap-2">
                 <AlertCircle size={14} className="shrink-0" />
                 <span>{deleteError}</span>
               </div>
@@ -551,7 +574,7 @@ export default function MahasiswaDashboard() {
                 type="button"
                 onClick={() => handleDeleteAspiration(aspirationToDelete.ticket_code)}
                 disabled={deleting}
-                className="flex-1 py-2.5 px-3 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-medium transition-colors disabled:opacity-50 flex items-center justify-center gap-1.5 cursor-pointer"
+                className="flex-1 py-2.5 px-3 rounded-xl bg-zinc-900 hover:bg-zinc-900 text-white text-xs font-medium transition-colors disabled:opacity-50 flex items-center justify-center gap-1.5 cursor-pointer"
               >
                 {deleting ? (
                   <span>Menghapus...</span>

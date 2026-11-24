@@ -62,6 +62,14 @@ function AjukanAspirasiForm() {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [driveLink, setDriveLink] = useState('');
   const [isAgreed, setIsAgreed] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+
+  const handleChoiceKey = (e: React.KeyboardEvent, select: () => void) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      select();
+    }
+  };
 
   useEffect(() => {
     fetch('/api/categories')
@@ -194,7 +202,7 @@ function AjukanAspirasiForm() {
 
     if (Object.keys(errors).length > 0) {
       setFieldErrors(errors);
-      setError('Mohon lengkapi seluruh kolom wajib yang masih kosong (ditandai warna merah).');
+      setError('Mohon lengkapi seluruh kolom wajib yang masih kosong (ditandai garis tebal dan pesan di bawah kolom).');
       setTimeout(() => {
         errorRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }, 50);
@@ -283,16 +291,16 @@ function AjukanAspirasiForm() {
                   isActive
                     ? 'border-zinc-900 bg-zinc-900 text-white'
                     : isCompleted
-                    ? 'border-zinc-300 bg-zinc-100 text-zinc-900'
-                    : 'border-zinc-200 bg-zinc-50 text-zinc-400'
+                    ? 'border-zinc-200 bg-zinc-50 text-zinc-900'
+                    : 'border-zinc-200 bg-zinc-50 text-zinc-500'
                 }`}
               >
                 <span
                   className={`w-5 h-5 rounded flex items-center justify-center font-mono text-xs font-medium shrink-0 ${
                     isActive
-                      ? 'bg-white text-zinc-950'
+                      ? 'bg-white text-zinc-800'
                       : isCompleted
-                      ? 'bg-zinc-800 text-white'
+                      ? 'bg-zinc-900 text-white'
                       : 'bg-zinc-200 text-zinc-500'
                   }`}
                 >
@@ -309,35 +317,40 @@ function AjukanAspirasiForm() {
       {error && (
         <div
           ref={errorRef}
-          className="mb-6 p-4 rounded-xl bg-red-50 border border-red-200 text-red-900 text-xs flex items-start gap-3 shadow-xs animate-in fade-in slide-in-from-top-2 duration-200"
+          role="alert"
+          className="mb-6 p-4 rounded-xl bg-zinc-100 border border-zinc-400 text-zinc-950 text-xs flex items-start gap-3 shadow-sm animate-in fade-in slide-in-from-top-2 duration-200"
         >
-          <AlertCircle size={16} className="shrink-0 text-red-600 mt-0.5" />
+          <AlertCircle size={16} className="shrink-0 text-zinc-900 mt-0.5" />
           <div className="flex-1">
-            <p className="font-semibold text-red-950">Perhatian / Kendala Pengajuan:</p>
-            <p className="mt-0.5 text-red-800 leading-relaxed">{error}</p>
+            <p className="font-semibold text-zinc-950">Perhatian / Kendala Pengajuan:</p>
+            <p className="mt-0.5 text-zinc-900 leading-relaxed">{error}</p>
           </div>
         </div>
       )}
 
       {/* STEP 1: Mode Pengirim, Tujuan & Kategori */}
       {step === 1 && (
-        <div className="space-y-6 bg-white rounded-xl p-6 border border-zinc-200">
+        <div className="space-y-6 bg-white rounded-xl p-6 border border-zinc-200 animate-in fade-in slide-in-from-bottom-2 duration-300">
           {/* Sub-section 1: Mode Identitas */}
           <div>
             <span className="text-xs font-mono text-zinc-500 uppercase tracking-wider block mb-2.5">
               1. Pilih mode privasi pengirim
             </span>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3" role="radiogroup" aria-label="Mode privasi pengirim">
               <div
+                role="radio"
+                aria-checked={!isAnonymous}
+                tabIndex={0}
                 onClick={() => setIsAnonymous(false)}
+                onKeyDown={(e) => handleChoiceKey(e, () => setIsAnonymous(false))}
                 className={`p-4 rounded-lg border transition-colors cursor-pointer ${
                   !isAnonymous
-                    ? 'border-zinc-900 bg-zinc-50'
-                    : 'border-zinc-200 hover:border-zinc-300 bg-white'
+                    ? 'border-zinc-900 bg-zinc-50/60 ring-1 ring-zinc-900'
+                    : 'border-zinc-200 hover:border-zinc-900/40 bg-white'
                 }`}
               >
                 <div className="flex items-center gap-2.5 mb-2">
-                  <div className={`w-8 h-8 rounded-md flex items-center justify-center ${!isAnonymous ? 'bg-zinc-900 text-white' : 'bg-zinc-100 text-zinc-600'}`}>
+                  <div className={`w-8 h-8 rounded-md flex items-center justify-center transition-colors ${!isAnonymous ? 'bg-zinc-900 text-white' : 'bg-zinc-100 text-zinc-600'}`}>
                     <UserCheck size={16} />
                   </div>
                   <div>
@@ -351,15 +364,19 @@ function AjukanAspirasiForm() {
               </div>
 
               <div
+                role="radio"
+                aria-checked={isAnonymous}
+                tabIndex={0}
                 onClick={() => setIsAnonymous(true)}
+                onKeyDown={(e) => handleChoiceKey(e, () => setIsAnonymous(true))}
                 className={`p-4 rounded-lg border transition-colors cursor-pointer ${
                   isAnonymous
-                    ? 'border-zinc-900 bg-zinc-50'
-                    : 'border-zinc-200 hover:border-zinc-300 bg-white'
+                    ? 'border-zinc-900 bg-zinc-50/60 ring-1 ring-zinc-900'
+                    : 'border-zinc-200 hover:border-zinc-900/40 bg-white'
                 }`}
               >
                 <div className="flex items-center gap-2.5 mb-2">
-                  <div className={`w-8 h-8 rounded-md flex items-center justify-center ${isAnonymous ? 'bg-zinc-900 text-white' : 'bg-zinc-100 text-zinc-600'}`}>
+                  <div className={`w-8 h-8 rounded-md flex items-center justify-center transition-colors ${isAnonymous ? 'bg-zinc-900 text-white' : 'bg-zinc-100 text-zinc-600'}`}>
                     <EyeOff size={16} />
                   </div>
                   <div>
@@ -379,7 +396,7 @@ function AjukanAspirasiForm() {
             <span className="text-xs font-mono text-zinc-500 uppercase tracking-wider block mb-2.5">
               2. Tingkat penanganan tujuan
             </span>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3" role="radiogroup" aria-label="Tingkat penanganan tujuan">
               {[
                 {
                   id: 'JURUSAN',
@@ -402,14 +419,18 @@ function AjukanAspirasiForm() {
               ].map((t) => (
                 <div
                   key={t.id}
+                  role="radio"
+                  aria-checked={targetLevel === t.id}
+                  tabIndex={0}
                   onClick={() => setTargetLevel(t.id as any)}
+                  onKeyDown={(e) => handleChoiceKey(e, () => setTargetLevel(t.id as any))}
                   className={`p-3.5 rounded-lg border transition-colors cursor-pointer text-center ${
                     targetLevel === t.id
-                      ? 'border-zinc-900 bg-zinc-50'
-                      : 'border-zinc-200 hover:border-zinc-300 bg-white'
+                      ? 'border-zinc-900 bg-zinc-50/60 ring-1 ring-zinc-900'
+                      : 'border-zinc-200 hover:border-zinc-900/40 bg-white'
                   }`}
                 >
-                  <span className="text-[10px] font-mono text-zinc-600 bg-zinc-100 px-2 py-0.5 rounded border border-zinc-200">
+                  <span className={`text-[10px] font-mono px-2 py-0.5 rounded border ${targetLevel === t.id ? 'text-zinc-800 bg-zinc-100/70 border-zinc-200' : 'text-zinc-600 bg-zinc-100 border-zinc-200'}`}>
                     {t.badge}
                   </span>
                   <h4 className="text-xs font-medium text-zinc-950 mt-2">{t.title}</h4>
@@ -424,17 +445,21 @@ function AjukanAspirasiForm() {
             <span className="text-xs font-mono text-zinc-500 uppercase tracking-wider block mb-2.5">
               3. Kategori aspirasi
             </span>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5" role="radiogroup" aria-label="Kategori aspirasi">
               {categoriesList.map((cat) => {
                 const isSelected = categoryId === cat.id;
                 return (
                   <div
                     key={cat.id}
+                    role="radio"
+                    aria-checked={isSelected}
+                    tabIndex={0}
                     onClick={() => setCategoryId(cat.id)}
+                    onKeyDown={(e) => handleChoiceKey(e, () => setCategoryId(cat.id))}
                     className={`p-3.5 rounded-lg border transition-colors cursor-pointer ${
                       isSelected
-                        ? 'border-zinc-900 bg-zinc-50'
-                        : 'border-zinc-200 hover:border-zinc-300 bg-white'
+                        ? 'border-zinc-900 bg-zinc-50/60 ring-1 ring-zinc-900'
+                        : 'border-zinc-200 hover:border-zinc-900/40 bg-white'
                     }`}
                   >
                     <h4 className="text-xs font-medium text-zinc-950 mb-1">
@@ -453,7 +478,7 @@ function AjukanAspirasiForm() {
             <button
               type="button"
               onClick={handleNext}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-zinc-950 hover:bg-zinc-800 text-white text-xs font-medium transition-colors"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-medium transition-colors"
             >
               <span>Lanjut ke detail & bukti</span>
               <ArrowRight size={14} />
@@ -464,7 +489,7 @@ function AjukanAspirasiForm() {
 
       {/* STEP 2: Detail Kejadian, Bukti Pendukung (File + Google Drive), & Konfirmasi Kirim */}
       {step === 2 && (
-        <form noValidate onSubmit={handleSubmit} className="space-y-6">
+        <form noValidate onSubmit={handleSubmit} className="space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-300">
           {/* Detail Kejadian Card */}
           <div className="space-y-5 bg-white rounded-xl p-6 border border-zinc-200">
             <span className="text-xs font-mono text-zinc-500 uppercase tracking-wider block">
@@ -473,16 +498,19 @@ function AjukanAspirasiForm() {
 
             <div>
               <div className="flex items-center justify-between mb-1">
-                <label className="block text-xs font-medium text-zinc-700">
-                  Judul aspirasi / pengaduan <span className="text-red-500 font-bold">*</span>
+                <label htmlFor="asp-title" className="block text-xs font-medium text-zinc-700">
+                  Judul aspirasi / pengaduan <span className="text-zinc-900 font-bold">*</span>
                 </label>
                 <span className={`text-[11px] font-mono ${title.length > 110 ? 'text-zinc-900 font-bold' : 'text-zinc-400'}`}>
                   {title.length}/120
                 </span>
               </div>
               <input
+                id="asp-title"
                 type="text"
                 value={title}
+                aria-invalid={!!fieldErrors.title}
+                aria-describedby={fieldErrors.title ? 'asp-title-error' : undefined}
                 onChange={(e) => {
                   setTitle(e.target.value.slice(0, 120));
                   if (fieldErrors.title) {
@@ -492,13 +520,13 @@ function AjukanAspirasiForm() {
                 placeholder="Contoh: AC di Ruang Lab Komputer 3 Rusak dan Panas"
                 className={`w-full px-3 py-2 rounded-lg border text-xs text-zinc-900 placeholder:text-zinc-400 focus:outline-none transition-colors ${
                   fieldErrors.title
-                    ? 'border-red-500 bg-red-50/20 focus:border-red-500 focus:ring-1 focus:ring-red-500'
-                    : 'border-zinc-200 focus:border-zinc-900'
+                    ? 'border-zinc-900 bg-zinc-100/20 focus:border-zinc-900 focus:ring-1 focus:ring-zinc-900'
+                    : 'border-zinc-200 focus:border-zinc-900 focus:ring-1 focus:ring-zinc-900/30'
                 }`}
               />
               {fieldErrors.title && (
-                <p className="mt-1.5 text-xs text-red-600 flex items-center gap-1 font-medium">
-                  <AlertCircle size={13} className="shrink-0 text-red-500" />
+                <p id="asp-title-error" className="mt-1.5 text-xs text-zinc-900 flex items-center gap-1 font-medium">
+                  <AlertCircle size={13} className="shrink-0 text-zinc-900" />
                   <span>{fieldErrors.title}</span>
                 </p>
               )}
@@ -506,16 +534,19 @@ function AjukanAspirasiForm() {
 
             <div>
               <div className="flex items-center justify-between mb-1">
-                <label className="block text-xs font-medium text-zinc-700">
-                  Uraian lengkap kejadian <span className="text-red-500 font-bold">*</span>
+                <label htmlFor="asp-description" className="block text-xs font-medium text-zinc-700">
+                  Uraian lengkap kejadian <span className="text-zinc-900 font-bold">*</span>
                 </label>
                 <span className={`text-[11px] font-mono ${description.length > 1900 ? 'text-zinc-900 font-bold' : 'text-zinc-400'}`}>
                   {description.length}/2000
                 </span>
               </div>
               <textarea
+                id="asp-description"
                 rows={5}
                 value={description}
+                aria-invalid={!!fieldErrors.description}
+                aria-describedby={fieldErrors.description ? 'asp-description-error' : undefined}
                 onChange={(e) => {
                   setDescription(e.target.value.slice(0, 2000));
                   if (fieldErrors.description) {
@@ -525,13 +556,13 @@ function AjukanAspirasiForm() {
                 placeholder="Ceritakan kejadian, kronologi, dampak terhadap proses belajar, atau saran konkrit yang diharapkan..."
                 className={`w-full px-3 py-2 rounded-lg border text-xs text-zinc-800 placeholder:text-zinc-400 focus:outline-none transition-colors resize-y leading-relaxed ${
                   fieldErrors.description
-                    ? 'border-red-500 bg-red-50/20 focus:border-red-500 focus:ring-1 focus:ring-red-500'
-                    : 'border-zinc-200 focus:border-zinc-900'
+                    ? 'border-zinc-900 bg-zinc-100/20 focus:border-zinc-900 focus:ring-1 focus:ring-zinc-900'
+                    : 'border-zinc-200 focus:border-zinc-900 focus:ring-1 focus:ring-zinc-900/30'
                 }`}
               />
               {fieldErrors.description && (
-                <p className="mt-1.5 text-xs text-red-600 flex items-center gap-1 font-medium">
-                  <AlertCircle size={13} className="shrink-0 text-red-500" />
+                <p id="asp-description-error" className="mt-1.5 text-xs text-zinc-900 flex items-center gap-1 font-medium">
+                  <AlertCircle size={13} className="shrink-0 text-zinc-900" />
                   <span>{fieldErrors.description}</span>
                 </p>
               )}
@@ -539,14 +570,17 @@ function AjukanAspirasiForm() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
               <div>
-                <label className="block text-xs font-medium text-zinc-700 mb-1">
-                  Tanggal kejadian <span className="text-red-500 font-bold">*</span>
+                <label htmlFor="asp-incident-date" className="block text-xs font-medium text-zinc-700 mb-1">
+                  Tanggal kejadian <span className="text-zinc-900 font-bold">*</span>
                 </label>
                 <div className="relative">
                   <Calendar size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" />
                   <input
+                    id="asp-incident-date"
                     type="date"
                     value={incidentDate}
+                    aria-invalid={!!fieldErrors.incidentDate}
+                    aria-describedby={fieldErrors.incidentDate ? 'asp-date-error' : undefined}
                     onChange={(e) => {
                       setIncidentDate(e.target.value);
                       if (fieldErrors.incidentDate) {
@@ -555,31 +589,32 @@ function AjukanAspirasiForm() {
                     }}
                     className={`w-full pl-9 pr-3 py-2 rounded-lg border text-xs text-zinc-900 focus:outline-none transition-colors ${
                       fieldErrors.incidentDate
-                        ? 'border-red-500 bg-red-50/20 focus:border-red-500 focus:ring-1 focus:ring-red-500'
-                        : 'border-zinc-200 focus:border-zinc-900'
+                        ? 'border-zinc-900 bg-zinc-100/20 focus:border-zinc-900 focus:ring-1 focus:ring-zinc-900'
+                        : 'border-zinc-200 focus:border-zinc-900 focus:ring-1 focus:ring-zinc-900/30'
                     }`}
                   />
                 </div>
                 {fieldErrors.incidentDate && (
-                  <p className="mt-1.5 text-xs text-red-600 flex items-center gap-1 font-medium">
-                    <AlertCircle size={13} className="shrink-0 text-red-500" />
+                  <p id="asp-date-error" className="mt-1.5 text-xs text-zinc-900 flex items-center gap-1 font-medium">
+                    <AlertCircle size={13} className="shrink-0 text-zinc-900" />
                     <span>{fieldErrors.incidentDate}</span>
                   </p>
                 )}
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-zinc-700 mb-1">
+                <label htmlFor="asp-incident-time" className="block text-xs font-medium text-zinc-700 mb-1">
                   Waktu kejadian <span className="text-zinc-400 font-normal">(opsional)</span>
                 </label>
                 <div className="relative">
                   <Clock size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" />
                   <input
+                    id="asp-incident-time"
                     type="text"
                     value={incidentTime}
                     onChange={(e) => setIncidentTime(e.target.value)}
                     placeholder="Contoh: 13:30 WIB atau Siang Hari"
-                    className="w-full pl-9 pr-3 py-2 rounded-lg border border-zinc-200 text-xs text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:border-zinc-900 transition-colors"
+                    className="w-full pl-9 pr-3 py-2 rounded-lg border border-zinc-200 text-xs text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:border-zinc-900 focus:ring-1 focus:ring-zinc-900/30 transition-colors"
                   />
                 </div>
               </div>
@@ -604,10 +639,31 @@ function AjukanAspirasiForm() {
 
             {/* Upload Area */}
             {selectedFiles.length < MAX_FILES && (
-              <label className="border border-dashed border-zinc-300 hover:border-zinc-500 rounded-lg p-5 flex flex-col items-center justify-center text-center cursor-pointer transition-colors bg-zinc-50/50">
-                <UploadCloud size={24} className="text-zinc-500 mb-1.5" />
+              <label
+                onDragOver={(e) => {
+                  e.preventDefault();
+                  setIsDragging(true);
+                }}
+                onDragLeave={(e) => {
+                  e.preventDefault();
+                  setIsDragging(false);
+                }}
+                onDrop={(e) => {
+                  e.preventDefault();
+                  setIsDragging(false);
+                  if (e.dataTransfer.files?.length) {
+                    handleFilesAdded(e.dataTransfer.files);
+                  }
+                }}
+                className={`border border-dashed rounded-lg p-5 flex flex-col items-center justify-center text-center cursor-pointer transition-colors ${
+                  isDragging
+                    ? 'border-zinc-900 bg-zinc-50 ring-2 ring-zinc-900/30'
+                    : 'border-zinc-300 hover:border-zinc-900/60 bg-zinc-50/50'
+                }`}
+              >
+                <UploadCloud size={24} className={`mb-1.5 transition-colors ${isDragging ? 'text-zinc-900' : 'text-zinc-500'}`} />
                 <span className="text-xs font-medium text-zinc-900">
-                  Pilih berkas bukti atau seret ke area ini
+                  {isDragging ? 'Lepaskan berkas di sini' : 'Pilih berkas bukti atau seret ke area ini'}
                 </span>
                 <span className="text-[11px] text-zinc-500 mt-0.5 font-mono">
                   JPG, JPEG, PNG, PDF, WEBP (maks. 10 MB per berkas)
@@ -661,17 +717,18 @@ function AjukanAspirasiForm() {
 
             {/* Google Drive Link Field */}
             <div className="pt-2 border-t border-zinc-100">
-              <label className="block text-xs font-medium text-zinc-700 mb-1">
+              <label htmlFor="asp-drive-link" className="block text-xs font-medium text-zinc-700 mb-1">
                 Tautan Google Drive / Cloud Storage <span className="text-zinc-400 font-normal">(opsional)</span>
               </label>
               <div className="relative">
                 <LinkIcon size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" />
                 <input
+                  id="asp-drive-link"
                   type="url"
                   value={driveLink}
                   onChange={(e) => setDriveLink(e.target.value)}
                   placeholder="https://drive.google.com/drive/folders/... atau tautan cloud lainnya"
-                  className="w-full pl-9 pr-3 py-2 rounded-lg border border-zinc-200 text-xs text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:border-zinc-900 transition-colors"
+                  className="w-full pl-9 pr-3 py-2 rounded-lg border border-zinc-200 text-xs text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:border-zinc-900 focus:ring-1 focus:ring-zinc-900/30 transition-colors"
                 />
               </div>
               <p className="text-[11px] text-zinc-500 mt-1 leading-relaxed">
@@ -682,12 +739,13 @@ function AjukanAspirasiForm() {
 
           {/* Konfirmasi Tanggung Jawab */}
           <div className="bg-white rounded-xl p-5 border border-zinc-200">
-            <label className="flex items-start gap-3 cursor-pointer">
+            <label htmlFor="asp-agree" className="flex items-start gap-3 cursor-pointer">
               <input
+                id="asp-agree"
                 type="checkbox"
                 checked={isAgreed}
                 onChange={(e) => setIsAgreed(e.target.checked)}
-                className="mt-0.5 rounded border-zinc-300 text-zinc-950 focus:ring-zinc-950 w-4 h-4 cursor-pointer"
+                className="mt-0.5 rounded border-zinc-300 accent-zinc-900 focus:ring-zinc-900 w-4 h-4 cursor-pointer"
               />
               <span className="text-xs text-zinc-700 leading-relaxed">
                 Saya menyatakan dengan sungguh-sungguh bahwa seluruh informasi dan bukti yang disampaikan adalah benar, objektif, dapat dipertanggungjawabkan, serta tidak memuat unsur fitnah di lingkungan civitas akademika UIN Syarif Hidayatullah Jakarta.
@@ -709,7 +767,7 @@ function AjukanAspirasiForm() {
             <button
               type="submit"
               disabled={loading || !isAgreed}
-              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg bg-zinc-950 hover:bg-zinc-800 text-white text-xs font-medium transition-colors disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed shadow-xs"
+              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-medium transition-colors disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed shadow-sm"
             >
               {loading ? (
                 <>

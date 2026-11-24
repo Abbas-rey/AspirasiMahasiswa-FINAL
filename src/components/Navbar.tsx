@@ -152,12 +152,11 @@ export function Navbar() {
   // Determine navigation links based on user authentication and role
   const getNavLinks = () => {
     if (!currentUser) {
-      // Guest / Landing page navigation (matching reference layout)
+      // Guest: nav tengah murni urutan seksi landing; Lacak Status jadi tombol utilitas di kanan
       return [
         { label: 'Beranda', href: '/' },
         { label: 'Cara Kerja', href: '/#cara-kerja' },
         { label: 'Kategori', href: '/#kategori' },
-        { label: 'Lacak Status', href: '/lacak' },
         { label: 'Kontak', href: '/#kontak' },
       ];
     }
@@ -245,9 +244,6 @@ export function Navbar() {
       if (link.href === '/#kontak') {
         return activeSection === 'kontak';
       }
-      if (link.href === '/lacak') {
-        return false;
-      }
     }
 
     if (link.href === '/') {
@@ -279,7 +275,7 @@ export function Navbar() {
   const brandDestination = currentUser ? getDashboardLink() : '/';
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-white border-b border-slate-200">
+    <header className="sticky top-0 z-50 w-full bg-white border-b border-zinc-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Left: Brand Logo & Name (Minimalist clean style) */}
@@ -295,14 +291,14 @@ export function Navbar() {
             }}
             className="flex items-center gap-3 group"
           >
-            <div className="w-8 h-8 rounded-lg bg-slate-900 flex items-center justify-center text-white transition-transform group-hover:scale-105">
+            <div className="w-8 h-8 rounded-lg bg-zinc-900 flex items-center justify-center text-white transition-transform group-hover:scale-105">
               <GraduationCap size={18} />
             </div>
             <div className="flex items-center gap-2">
-              <span className="font-bold text-lg text-slate-900 tracking-tight">
+              <span className="font-bold text-lg text-zinc-900 tracking-tight">
                 ASMA
               </span>
-              <span className="text-[11px] font-semibold text-slate-500 border-l border-slate-300 pl-2 hidden sm:inline-block">
+              <span className="text-[11px] font-semibold text-zinc-500 border-l border-zinc-300 pl-2 hidden lg:inline-block whitespace-nowrap">
                 {currentUser?.role === 'MAHASISWA'
                   ? 'Portal Mahasiswa'
                   : currentUser?.role === 'AKADEMISI'
@@ -315,7 +311,7 @@ export function Navbar() {
           </Link>
 
           {/* Center: Desktop Navigation Links (Clean text, no gradients) */}
-          <nav className="hidden md:flex items-center gap-6 lg:gap-8">
+          <nav className="hidden md:flex items-center gap-4 lg:gap-8">
             {navLinks.map((link) => {
               const active = isLinkActive(link);
               const IconComp = (link as any).icon;
@@ -325,13 +321,13 @@ export function Navbar() {
                   key={link.label}
                   href={link.href}
                   onClick={(e) => handleNavClick(link.href, e)}
-                  className={`text-sm transition-colors flex items-center gap-1.5 ${
+                  className={`text-sm whitespace-nowrap transition-colors flex items-center gap-1.5 ${
                     active
-                      ? 'text-slate-900 font-bold border-b-2 border-slate-900 py-1'
-                      : 'text-slate-600 hover:text-slate-900 font-medium py-1'
+                      ? 'text-zinc-900 font-bold border-b-2 border-zinc-900 py-1'
+                      : 'text-zinc-600 hover:text-zinc-900 font-medium py-1'
                   }`}
                 >
-                  {IconComp && <IconComp size={15} className={active ? 'text-slate-900' : 'text-slate-400'} />}
+                  {IconComp && <IconComp size={15} className={active ? 'text-zinc-900' : 'text-zinc-400'} />}
                   <span>{link.label}</span>
                 </Link>
               );
@@ -341,18 +337,18 @@ export function Navbar() {
           {/* Right: CTA Button / User Profile */}
           <div className="hidden sm:flex items-center gap-3">
             {loading ? (
-              <div className="w-20 h-9 bg-slate-100 animate-pulse rounded-lg" />
+              <div className="w-40 h-9 bg-zinc-100 animate-pulse rounded-lg" />
             ) : currentUser ? (
               <div className="flex items-center gap-3">
                 <Link
                   href={getDashboardLink()}
-                  className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-200 hover:border-slate-300 bg-slate-50 hover:bg-slate-100 text-slate-800 transition text-xs font-medium"
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-zinc-200 hover:border-zinc-300 bg-zinc-50 hover:bg-zinc-100 text-zinc-800 transition text-xs font-medium"
                 >
-                  <div className="w-6 h-6 rounded-md bg-slate-900 text-white flex items-center justify-center text-xs font-semibold">
+                  <div className="w-6 h-6 rounded-md bg-zinc-900 text-white flex items-center justify-center text-xs font-semibold">
                     {currentUser.name.charAt(0)}
                   </div>
                   <span className="max-w-[120px] truncate">{currentUser.name.split(' ')[0]}</span>
-                  <span className="text-[10px] font-bold uppercase px-1.5 py-0.5 rounded bg-slate-200 text-slate-700">
+                  <span className="text-[10px] font-bold uppercase px-1.5 py-0.5 rounded bg-zinc-200 text-zinc-700">
                     {getRoleLabel()}
                   </span>
                 </Link>
@@ -360,18 +356,31 @@ export function Navbar() {
                 <button
                   onClick={handleLogout}
                   title="Keluar dari akun"
-                  className="p-2 rounded-lg text-slate-500 hover:text-rose-600 hover:bg-rose-50 transition border border-transparent hover:border-rose-200"
+                  className="p-2 rounded-lg text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100 transition border border-transparent hover:border-zinc-400"
                 >
                   <LogOut size={16} />
                 </button>
               </div>
             ) : (
-              <Link
-                href="/login"
-                className="px-5 py-2 rounded-xl border border-slate-300 hover:border-slate-400 text-slate-900 hover:bg-slate-50 font-medium text-xs sm:text-sm transition"
-              >
-                Login
-              </Link>
+              <>
+                <Link
+                  href="/lacak"
+                  className={`flex items-center gap-1.5 px-4 py-2 rounded-xl border font-medium text-xs sm:text-sm transition ${
+                    pathname.startsWith('/lacak')
+                      ? 'bg-zinc-900 border-zinc-900 text-white'
+                      : 'border-zinc-300 hover:border-zinc-900 text-zinc-900 hover:bg-zinc-50'
+                  }`}
+                >
+                  <Search size={14} className={pathname.startsWith('/lacak') ? 'text-white' : 'text-zinc-500'} />
+                  <span>Lacak Status</span>
+                </Link>
+                <Link
+                  href="/login"
+                  className="px-5 py-2 rounded-xl border border-zinc-300 hover:border-zinc-900 text-zinc-900 hover:text-zinc-900 hover:bg-zinc-50 font-medium text-xs sm:text-sm transition"
+                >
+                  Login
+                </Link>
+              </>
             )}
           </div>
 
@@ -380,14 +389,14 @@ export function Navbar() {
             {currentUser && (
               <Link
                 href={getDashboardLink()}
-                className="text-xs font-semibold px-2.5 py-1 rounded-md bg-slate-100 text-slate-800"
+                className="text-xs font-semibold px-2.5 py-1 rounded-md bg-zinc-100 text-zinc-800"
               >
                 Dasbor
               </Link>
             )}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-100 transition"
+              className="p-2 rounded-lg border border-zinc-200 text-zinc-700 hover:bg-zinc-100 transition"
               aria-label="Toggle menu"
             >
               {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
@@ -398,7 +407,17 @@ export function Navbar() {
 
       {/* Mobile Menu Dropdown (Clean rectangular card) */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-slate-200 bg-white px-4 py-4 space-y-2 shadow-lg">
+        <div className="md:hidden border-t border-zinc-200 bg-white px-4 py-4 space-y-2 shadow-lg">
+          {!currentUser && !loading && (
+            <Link
+              href="/lacak"
+              onClick={() => setMobileMenuOpen(false)}
+              className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-zinc-900 text-white text-sm font-semibold hover:bg-zinc-800 transition"
+            >
+              <Search size={15} />
+              <span>Lacak Status</span>
+            </Link>
+          )}
           {navLinks.map((link) => {
             const active = isLinkActive(link);
             const IconComp = (link as any).icon;
@@ -413,31 +432,31 @@ export function Navbar() {
                 }}
                 className={`px-3 py-2.5 rounded-lg text-sm transition flex items-center justify-between ${
                   active
-                    ? 'bg-slate-100 text-slate-900 font-bold'
-                    : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900 font-medium'
+                    ? 'bg-zinc-50 text-zinc-900 font-bold'
+                    : 'text-zinc-600 hover:bg-zinc-50 hover:text-zinc-900 font-medium'
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  {IconComp && <IconComp size={16} className={active ? 'text-slate-900' : 'text-slate-400'} />}
+                  {IconComp && <IconComp size={16} className={active ? 'text-zinc-900' : 'text-zinc-400'} />}
                   <span>{link.label}</span>
                 </div>
-                <ChevronRight size={14} className="text-slate-400" />
+                <ChevronRight size={14} className="text-zinc-400" />
               </Link>
             );
           })}
 
-          <div className="pt-3 border-t border-slate-100">
+          <div className="pt-3 border-t border-zinc-100">
             {currentUser ? (
               <div className="flex flex-col gap-2">
-                <div className="p-3 rounded-lg bg-slate-50 flex items-center justify-between">
+                <div className="p-3 rounded-lg bg-zinc-50 flex items-center justify-between">
                   <div>
-                    <p className="text-xs font-bold text-slate-900">{currentUser.name}</p>
-                    <p className="text-[11px] text-slate-500">{currentUser.nim_nip} • {getRoleLabel()}</p>
+                    <p className="text-xs font-bold text-zinc-900">{currentUser.name}</p>
+                    <p className="text-[11px] text-zinc-500">{currentUser.nim_nip} • {getRoleLabel()}</p>
                   </div>
                   <Link
                     href={getDashboardLink()}
                     onClick={() => setMobileMenuOpen(false)}
-                    className="text-xs px-2.5 py-1.5 rounded-md bg-slate-900 text-white font-medium"
+                    className="text-xs px-2.5 py-1.5 rounded-md bg-zinc-900 text-white font-medium"
                   >
                     Buka Dasbor
                   </Link>
@@ -447,7 +466,7 @@ export function Navbar() {
                     setMobileMenuOpen(false);
                     handleLogout();
                   }}
-                  className="w-full flex items-center justify-center gap-2 p-2.5 text-xs font-medium text-rose-600 hover:bg-rose-50 rounded-lg transition"
+                  className="w-full flex items-center justify-center gap-2 p-2.5 text-xs font-medium text-zinc-900 hover:bg-zinc-100 rounded-lg transition"
                 >
                   <LogOut size={14} />
                   <span>Keluar dari Akun</span>
@@ -457,7 +476,7 @@ export function Navbar() {
               <Link
                 href="/login"
                 onClick={() => setMobileMenuOpen(false)}
-                className="w-full flex items-center justify-center py-2.5 rounded-xl border border-slate-300 text-slate-900 text-sm font-semibold hover:bg-slate-50 transition"
+                className="w-full flex items-center justify-center py-2.5 rounded-xl border border-zinc-300 text-zinc-900 text-sm font-semibold hover:bg-zinc-50 transition"
               >
                 Login Sistem ASMA
               </Link>

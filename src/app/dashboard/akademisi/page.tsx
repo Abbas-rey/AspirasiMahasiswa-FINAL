@@ -12,6 +12,8 @@ import {
   Building2,
   FileText,
   KeyRound,
+  AlertCircle,
+  RefreshCw,
 } from 'lucide-react';
 import { StatusBadge } from '@/components/StatusBadge';
 import { TARGET_LEVEL_LABELS } from '@/lib/constants';
@@ -30,6 +32,7 @@ export default function AkademisiDashboard() {
   const [selectedStatus, setSelectedStatus] = useState('ALL');
   const [selectedCategory, setSelectedCategory] = useState('ALL');
   const [showPasswordModal, setShowPasswordModal] = useState(false);
+  const [fetchError, setFetchError] = useState<string | null>(null);
 
   useEffect(() => {
     fetchInitialData();
@@ -53,6 +56,7 @@ export default function AkademisiDashboard() {
       await fetchAspirations();
     } catch (err) {
       console.error('Error loading reviewer dashboard:', err);
+      setFetchError('Tidak dapat terhubung ke server. Periksa koneksi internet Anda.');
     } finally {
       setLoading(false);
     }
@@ -70,9 +74,14 @@ export default function AkademisiDashboard() {
       if (res.ok) {
         const data = await res.json();
         setAspirations(data.aspirations || []);
+        setFetchError(null);
+      } else {
+        const eData = await res.json().catch(() => null);
+        setFetchError(eData?.error || 'Gagal memuat daftar aspirasi dari server.');
       }
     } catch (err) {
       console.error('Error fetching aspirations:', err);
+      setFetchError('Tidak dapat terhubung ke server. Periksa koneksi internet Anda.');
     }
   };
 
@@ -114,20 +123,20 @@ export default function AkademisiDashboard() {
 
       {/* Password Change Reminder Banner if user still uses default password */}
       {user?.must_change_pwd && (
-        <div className="mb-6 p-4 rounded-xl border border-amber-200 bg-amber-50/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div className="mb-6 p-4 rounded-xl border border-zinc-300 bg-zinc-50/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-amber-100 text-amber-800 flex items-center justify-center shrink-0">
+            <div className="w-8 h-8 rounded-lg bg-zinc-100 text-zinc-800 flex items-center justify-center shrink-0">
               <KeyRound size={16} />
             </div>
             <div>
-              <p className="text-xs font-bold text-amber-950">Akun Anda masih menggunakan password bawaan (default)</p>
-              <p className="text-[11px] text-amber-800">Tingkatkan keamanan akun peninjau dengan memperbarui password Anda sekarang.</p>
+              <p className="text-xs font-bold text-zinc-950">Akun Anda masih menggunakan password bawaan (default)</p>
+              <p className="text-[11px] text-zinc-800">Tingkatkan keamanan akun peninjau dengan memperbarui password Anda sekarang.</p>
             </div>
           </div>
           <button
             type="button"
             onClick={() => setShowPasswordModal(true)}
-            className="px-3.5 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold shrink-0 transition"
+            className="px-3.5 py-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-semibold shrink-0 transition"
           >
             Ganti Password
           </button>
@@ -234,6 +243,22 @@ export default function AkademisiDashboard() {
             <div key={i} className="h-28 bg-white rounded-xl border border-zinc-200 p-5 animate-pulse" />
           ))}
         </div>
+      ) : fetchError ? (
+        <div role="alert" className="bg-white rounded-xl p-12 text-center border border-zinc-400">
+          <div className="w-12 h-12 rounded-lg bg-zinc-100 text-zinc-900 flex items-center justify-center mx-auto mb-3">
+            <AlertCircle size={24} />
+          </div>
+          <h3 className="text-sm font-semibold text-zinc-900">Gagal memuat aspirasi</h3>
+          <p className="text-xs text-zinc-500 mt-1 max-w-sm mx-auto">{fetchError}</p>
+          <button
+            type="button"
+            onClick={fetchAspirations}
+            className="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-zinc-900 text-white text-xs font-medium hover:bg-zinc-800 transition-colors"
+          >
+            <RefreshCw size={13} />
+            <span>Coba lagi</span>
+          </button>
+        </div>
       ) : aspirations.length === 0 ? (
         <div className="bg-white rounded-xl p-12 text-center border border-zinc-200">
           <div className="w-12 h-12 rounded-lg bg-zinc-100 text-zinc-500 flex items-center justify-center mx-auto mb-3">
@@ -254,7 +279,7 @@ export default function AkademisiDashboard() {
               <Link
                 key={asp.id}
                 href={`/dashboard/akademisi/aspirasi/${asp.ticket_code}`}
-                className="block bg-white rounded-xl p-5 border border-zinc-200 hover:border-zinc-400 transition-colors group"
+                className="block bg-white rounded-xl p-5 border border-zinc-200 hover:border-zinc-900/50 hover:shadow-card-hover transition group"
               >
                 <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                   {/* Left Info */}

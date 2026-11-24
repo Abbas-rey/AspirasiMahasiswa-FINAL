@@ -25,6 +25,8 @@ export default function AdminDashboard() {
   const [users, setUsers] = useState<any[]>([]);
   const [loadingStats, setLoadingStats] = useState(true);
   const [loadingUsers, setLoadingUsers] = useState(false);
+  const [statsError, setStatsError] = useState<string | null>(null);
+  const [usersError, setUsersError] = useState<string | null>(null);
 
   // User list filters
   const [searchUser, setSearchUser] = useState('');
@@ -55,14 +57,19 @@ export default function AdminDashboard() {
 
   const fetchStats = async () => {
     setLoadingStats(true);
+    setStatsError(null);
     try {
       const res = await fetch('/api/admin/stats');
       if (res.ok) {
         const data = await res.json();
         setStats(data.stats);
+      } else {
+        const eData = await res.json().catch(() => null);
+        setStatsError(eData?.error || 'Gagal memuat statistik dari server.');
       }
     } catch (err) {
       console.error('Fetch stats error:', err);
+      setStatsError('Tidak dapat terhubung ke server. Periksa koneksi internet Anda.');
     } finally {
       setLoadingStats(false);
     }
@@ -70,6 +77,7 @@ export default function AdminDashboard() {
 
   const fetchUsers = async () => {
     setLoadingUsers(true);
+    setUsersError(null);
     try {
       const params = new URLSearchParams();
       if (searchUser) params.set('search', searchUser);
@@ -79,9 +87,13 @@ export default function AdminDashboard() {
       if (res.ok) {
         const data = await res.json();
         setUsers(data.users || []);
+      } else {
+        const eData = await res.json().catch(() => null);
+        setUsersError(eData?.error || 'Gagal memuat daftar pengguna dari server.');
       }
     } catch (err) {
       console.error('Fetch users error:', err);
+      setUsersError('Tidak dapat terhubung ke server. Periksa koneksi internet Anda.');
     } finally {
       setLoadingUsers(false);
     }
@@ -226,7 +238,7 @@ export default function AdminDashboard() {
             onClick={() => setActiveTab('stats')}
             className={`px-3.5 py-1.5 rounded-md text-xs font-medium transition-colors ${
               activeTab === 'stats'
-                ? 'bg-white text-zinc-950 shadow-xs border border-zinc-200'
+                ? 'bg-white text-zinc-950 shadow-sm border border-zinc-200'
                 : 'text-zinc-600 hover:text-zinc-900'
             }`}
           >
@@ -236,7 +248,7 @@ export default function AdminDashboard() {
             onClick={() => setActiveTab('users')}
             className={`px-3.5 py-1.5 rounded-md text-xs font-medium transition-colors ${
               activeTab === 'users'
-                ? 'bg-white text-zinc-950 shadow-xs border border-zinc-200'
+                ? 'bg-white text-zinc-950 shadow-sm border border-zinc-200'
                 : 'text-zinc-600 hover:text-zinc-900'
             }`}
           >
@@ -248,23 +260,26 @@ export default function AdminDashboard() {
       {/* Global Notice Alert */}
       {actionNotice && (
         <div
-          className={`mb-6 p-3.5 rounded-lg border flex items-center justify-between gap-3 text-xs ${
+          role={actionNotice.type === 'error' ? 'alert' : 'status'}
+          aria-live="polite"
+          className={`mb-6 p-3.5 rounded-lg border flex items-center justify-between gap-3 text-xs animate-in fade-in slide-in-from-top-2 ${
             actionNotice.type === 'success'
-              ? 'bg-zinc-100 border-zinc-300 text-zinc-900'
+              ? 'bg-zinc-50 border-zinc-200 text-zinc-900'
               : 'bg-zinc-100 border-zinc-400 text-zinc-950'
           }`}
         >
           <div className="flex items-center gap-2">
             {actionNotice.type === 'success' ? (
-              <CheckCircle2 size={15} className="shrink-0 text-zinc-800" />
+              <CheckCircle2 size={15} className="shrink-0 text-zinc-900" />
             ) : (
-              <AlertCircle size={15} className="shrink-0 text-zinc-800" />
+              <AlertCircle size={15} className="shrink-0 text-zinc-900" />
             )}
             <span>{actionNotice.message}</span>
           </div>
           <button
             onClick={() => setActionNotice(null)}
-            className="text-zinc-500 hover:text-zinc-800"
+            aria-label="Tutup notifikasi"
+            className={actionNotice.type === 'success' ? 'text-zinc-900 hover:text-zinc-900' : 'text-zinc-900 hover:text-zinc-950'}
           >
             ✕
           </button>
@@ -274,6 +289,22 @@ export default function AdminDashboard() {
       {/* TAB 1: RINGKASAN STATISTIK */}
       {activeTab === 'stats' && (
         <div className="space-y-6">
+          {statsError && (
+            <div role="alert" className="p-4 rounded-xl bg-zinc-100 border border-zinc-400 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div className="flex items-center gap-2.5 text-xs text-zinc-900">
+                <AlertCircle size={16} className="shrink-0 text-zinc-900" />
+                <span>{statsError}</span>
+              </div>
+              <button
+                type="button"
+                onClick={fetchStats}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-900 text-white text-xs font-medium hover:bg-zinc-800 transition-colors shrink-0"
+              >
+                <RefreshCw size={12} />
+                <span>Coba lagi</span>
+              </button>
+            </div>
+          )}
           {/* 4 Main Stat Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <div className="bg-white rounded-xl p-5 border border-zinc-200">
@@ -341,14 +372,17 @@ export default function AdminDashboard() {
                   {
                     name: 'Jurusan / Program Studi',
                     count: stats?.targets?.jurusan || 0,
+                    barClass: 'bg-zinc-400',
                   },
                   {
                     name: 'Tingkat Fakultas',
                     count: stats?.targets?.fakultas || 0,
+                    barClass: 'bg-zinc-600',
                   },
                   {
                     name: 'Tingkat Universitas',
                     count: stats?.targets?.universitas || 0,
+                    barClass: 'bg-zinc-900',
                   },
                 ].map((item) => {
                   const total = stats?.aspirations?.total || 1;
@@ -361,7 +395,7 @@ export default function AdminDashboard() {
                       </div>
                       <div className="h-2 w-full bg-zinc-100 rounded-full overflow-hidden">
                         <div
-                          className="h-full bg-zinc-800 rounded-full transition-all duration-300"
+                          className={`h-full rounded-full transition-all duration-300 ${item.barClass}`}
                           style={{ width: `${Math.max(pct, item.count > 0 ? 5 : 0)}%` }}
                         />
                       </div>
@@ -440,7 +474,7 @@ export default function AdminDashboard() {
               </button>
               <button
                 onClick={() => setShowAddModal(true)}
-                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-zinc-950 hover:bg-zinc-800 text-white text-xs font-medium transition-colors"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-medium transition-colors"
               >
                 <UserPlus size={13} />
                 <span>Tambah pengguna</span>
@@ -467,6 +501,23 @@ export default function AdminDashboard() {
                     <tr>
                       <td colSpan={6} className="py-8 text-center text-zinc-400 font-mono">
                         Memuat data pengguna...
+                      </td>
+                    </tr>
+                  ) : usersError ? (
+                    <tr>
+                      <td colSpan={6} className="py-8 text-center">
+                        <div className="flex flex-col items-center gap-2">
+                          <AlertCircle size={20} className="text-zinc-700" />
+                          <span className="text-xs text-zinc-900">{usersError}</span>
+                          <button
+                            type="button"
+                            onClick={fetchUsers}
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-900 text-white text-xs font-medium hover:bg-zinc-800 transition-colors"
+                          >
+                            <RefreshCw size={12} />
+                            <span>Coba lagi</span>
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   ) : users.length === 0 ? (

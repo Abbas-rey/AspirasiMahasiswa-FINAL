@@ -70,19 +70,19 @@ export function Timeline({ logs, responses = [], currentStatus }: TimelineProps)
 
   const getStepIcon = (status?: AspirationStatus, type?: 'log' | 'response') => {
     if (type === 'response') {
-      return <MessageSquare size={12} className="text-zinc-700" />;
+      return <MessageSquare size={12} className="shrink-0" />;
     }
     switch (status) {
       case 'DITERIMA':
-        return <Clock size={12} className="text-zinc-600" />;
+        return <Clock size={12} className="shrink-0" />;
       case 'DIPROSES':
-        return <RefreshCw size={12} className="text-zinc-700" />;
+        return <RefreshCw size={12} className="shrink-0" />;
       case 'DITINDAKLANJUTI':
-        return <ArrowUpRight size={12} className="text-zinc-800" />;
+        return <ArrowUpRight size={12} className="shrink-0" />;
       case 'SELESAI':
-        return <CheckCircle2 size={12} className="text-zinc-950" />;
+        return <CheckCircle2 size={12} className="shrink-0" />;
       default:
-        return <ShieldCheck size={12} className="text-zinc-600" />;
+        return <ShieldCheck size={12} className="shrink-0" />;
     }
   };
 
@@ -98,12 +98,12 @@ export function Timeline({ logs, responses = [], currentStatus }: TimelineProps)
             <div
               className={`absolute -left-6 top-0 w-6 h-6 rounded-full flex items-center justify-center border-2 border-white ring-1 ${
                 isLatest
-                  ? 'bg-zinc-900 ring-zinc-900 text-white'
-                  : 'bg-zinc-100 ring-zinc-200 text-zinc-700'
+                  ? `${meta?.bgClass || 'bg-zinc-900'} ring-zinc-200 text-white`
+                  : 'bg-zinc-100 ring-zinc-200 text-zinc-600'
               }`}
             >
               {item.type === 'response' ? (
-                <MessageSquare size={11} className={isLatest ? 'text-white' : 'text-zinc-700'} />
+                <MessageSquare size={11} className="shrink-0" />
               ) : (
                 getStepIcon(item.status, item.type)
               )}

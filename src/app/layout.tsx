@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import NextTopLoader from 'nextjs-toploader';
 import './globals.css';
 import { Navbar } from '@/components/Navbar';
 import { SessionTimeoutManager } from '@/components/SessionTimeoutManager';
@@ -23,8 +24,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="id" className={`${inter.variable} scroll-smooth`}>
-      <body className="min-h-screen bg-white text-slate-900 font-sans antialiased flex flex-col selection:bg-slate-900 selection:text-white">
+    <html lang="id" data-scroll-behavior="smooth" className={`${inter.variable} scroll-smooth`}>
+      <body className="min-h-screen bg-paper text-zinc-900 font-sans antialiased flex flex-col selection:bg-zinc-900 selection:text-white">
+        <NextTopLoader
+          color="#18181B"
+          height={2}
+          showSpinner={false}
+          shadow="none"
+          speed={350}
+          crawlSpeed={250}
+          zIndex={1600}
+        />
         <SessionTimeoutManager />
         <Navbar />
         <main className="flex-1">{children}</main>

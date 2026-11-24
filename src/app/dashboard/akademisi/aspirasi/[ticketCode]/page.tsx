@@ -101,7 +101,7 @@ export default function AkademisiAspirasiDetailPage() {
   if (error && !aspiration) {
     return (
       <div className="max-w-xl mx-auto px-4 py-16 text-center">
-        <div className="p-4 rounded-lg bg-zinc-100 border border-zinc-200 text-zinc-800 text-xs mb-4">
+        <div role="alert" className="p-4 rounded-lg bg-zinc-100 border border-zinc-400 text-zinc-900 text-xs mb-4">
           {error}
         </div>
         <Link
@@ -312,7 +312,7 @@ export default function AkademisiAspirasiDetailPage() {
                 <select
                   value={newStatus}
                   onChange={(e) => setNewStatus(e.target.value as AspirationStatus)}
-                  className="w-full px-3 py-2 rounded-lg border border-zinc-200 text-xs font-medium text-zinc-800 bg-white focus:outline-none focus:border-zinc-900 transition-colors"
+                  className="w-full px-3 py-2 rounded-lg border border-zinc-200 text-xs font-medium text-zinc-800 bg-white focus:outline-none focus:border-zinc-900 focus:ring-1 focus:ring-zinc-900/30 transition-colors"
                 >
                   <option value="DITERIMA">DITERIMA (Verifikasi awal)</option>
                   <option value="DIPROSES">DIPROSES (Sedang ditelaah/dikoordinasikan)</option>
@@ -330,14 +330,14 @@ export default function AkademisiAspirasiDetailPage() {
                   value={officialResponse}
                   onChange={(e) => setOfficialResponse(e.target.value)}
                   placeholder="Tuliskan keterangan tindakan, jawaban untuk mahasiswa pelapor, atau penjelasan penyelesaian..."
-                  className="w-full px-3 py-2 rounded-lg border border-zinc-200 text-xs text-zinc-800 placeholder:text-zinc-400 focus:outline-none focus:border-zinc-900 transition-colors leading-relaxed resize-y"
+                  className="w-full px-3 py-2 rounded-lg border border-zinc-200 text-xs text-zinc-800 placeholder:text-zinc-400 focus:outline-none focus:border-zinc-900 focus:ring-1 focus:ring-zinc-900/30 transition-colors leading-relaxed resize-y"
                 />
               </div>
 
               <button
                 type="submit"
                 disabled={updateLoading}
-                className="w-full py-2 px-4 rounded-lg bg-zinc-950 hover:bg-zinc-800 text-white text-xs font-medium transition-colors disabled:opacity-60 flex items-center justify-center gap-2"
+                className="w-full py-2 px-4 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-medium transition-colors disabled:opacity-60 flex items-center justify-center gap-2"
               >
                 {updateLoading ? (
                   <span>Menyimpan...</span>
