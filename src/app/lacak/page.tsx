@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import { StatusBadge } from '@/components/StatusBadge';
 import { Timeline } from '@/components/Timeline';
+import { PublicAspirationBoard } from '@/components/PublicAspirationBoard';
 import { TARGET_LEVEL_LABELS } from '@/lib/constants';
 import { formatDateTime } from '@/lib/utils';
 import { Footer } from '@/components/Footer';
@@ -58,6 +59,13 @@ function LacakStatusContent() {
     searchTicket(ticketCode);
   };
 
+  const trackFromBoard = (code: string) => {
+    setTicketCode(code);
+    searchTicket(code);
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+  };
+
   const targetMeta = aspiration
     ? TARGET_LEVEL_LABELS[aspiration.target_level as keyof typeof TARGET_LEVEL_LABELS]
     : null;
@@ -83,18 +91,20 @@ function LacakStatusContent() {
           <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row items-center gap-2.5">
             <div className="relative flex-1 w-full">
               <FileSearch size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" />
+              <label htmlFor="lacak-code" className="sr-only">Kode tiket aspirasi</label>
               <input
+                id="lacak-code"
                 type="text"
                 value={ticketCode}
                 onChange={(e) => setTicketCode(e.target.value)}
                 placeholder="contoh: asp-2026-xxxxx"
-                className="w-full pl-9 pr-3 py-2 rounded-lg border border-zinc-200 text-xs font-mono uppercase tracking-wider text-zinc-900 placeholder:normal-case placeholder:text-zinc-400 focus:outline-none focus:border-zinc-900 transition-colors"
+                className="w-full pl-9 pr-3 py-2 rounded-lg border border-zinc-200 text-xs font-mono uppercase tracking-wider text-zinc-900 placeholder:normal-case placeholder:text-zinc-400 focus:outline-none focus:border-zinc-900 focus:ring-1 focus:ring-zinc-900/30 transition-colors"
               />
             </div>
             <button
               type="submit"
               disabled={loading || !ticketCode.trim()}
-              className="w-full sm:w-auto px-4 py-2 rounded-lg bg-zinc-950 hover:bg-zinc-800 text-white text-xs font-medium transition-colors disabled:opacity-50 flex items-center justify-center gap-1.5 shrink-0"
+              className="w-full sm:w-auto px-4 py-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-medium transition-colors disabled:opacity-50 flex items-center justify-center gap-1.5 shrink-0"
             >
               {loading ? (
                 <span>Mencari...</span>
@@ -108,17 +118,27 @@ function LacakStatusContent() {
           </form>
         </div>
 
+        {/* Loading skeleton */}
+        {loading && (
+          <div className="bg-white rounded-xl p-6 border border-zinc-200 space-y-4 animate-pulse">
+            <div className="h-4 bg-zinc-200 rounded w-1/3" />
+            <div className="h-6 bg-zinc-200 rounded w-2/3" />
+            <div className="h-20 bg-zinc-100 rounded" />
+            <div className="h-4 bg-zinc-200 rounded w-1/2" />
+          </div>
+        )}
+
         {/* Error message */}
         {error && (
-          <div className="mb-6 p-3.5 rounded-lg bg-zinc-100 border border-zinc-400 text-zinc-950 text-xs flex items-center gap-2">
-            <AlertCircle size={15} className="shrink-0 text-zinc-700" />
+          <div role="alert" className="mb-6 p-3.5 rounded-lg bg-zinc-100 border border-zinc-400 text-zinc-900 text-xs flex items-center gap-2 animate-in fade-in slide-in-from-top-2">
+            <AlertCircle size={15} className="shrink-0 text-zinc-900" />
             <span>{error}</span>
           </div>
         )}
 
         {/* Result Card */}
         {aspiration && (
-          <div className="bg-white rounded-xl p-6 border border-zinc-200 space-y-5">
+          <div className="bg-white rounded-xl p-6 border border-zinc-200 space-y-5 animate-in fade-in slide-in-from-bottom-2 duration-300">
             {/* Header info */}
             <div className="flex flex-wrap items-center justify-between gap-2.5 pb-4 border-b border-zinc-200">
               <div className="flex items-center gap-2 flex-wrap">
@@ -207,6 +227,8 @@ function LacakStatusContent() {
             </div>
           </div>
         )}
+
+        <PublicAspirationBoard onTrack={trackFromBoard} />
       </div>
 
       <Footer />
