@@ -1,4 +1,6 @@
 import { ImageResponse } from 'next/og';
+import fs from 'fs';
+import path from 'path';
 
 export const alt = 'ASMA — Sistem Aspirasi Mahasiswa FST UIN Syarif Hidayatullah Jakarta';
 export const size = {
@@ -8,6 +10,9 @@ export const size = {
 export const contentType = 'image/png';
 
 export default async function Image() {
+  const logoBuffer = fs.readFileSync(path.join(process.cwd(), 'public/logo.png'));
+  const logoBase64 = `data:image/png;base64,${logoBuffer.toString('base64')}`;
+
   return new ImageResponse(
     (
       <div
@@ -129,33 +134,30 @@ export default async function Image() {
         >
           {/* Logo + Title lockup */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 24, marginBottom: 16 }}>
-            {/* Logo box */}
+            {/* Official Logo box */}
             <div
               style={{
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                width: 84,
-                height: 84,
+                width: 88,
+                height: 88,
                 borderRadius: 22,
-                background: 'linear-gradient(135deg, #00638E 0%, #004A6B 100%)',
-                border: '2px solid rgba(191, 216, 227, 0.45)',
+                background: '#FFFFFF',
+                border: '2px solid rgba(191, 216, 227, 0.6)',
                 boxShadow: '0 12px 30px rgba(0, 0, 0, 0.35)',
+                padding: 10,
               }}
             >
-              <svg
-                width="46"
-                height="46"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#FFFFFF"
-                strokeWidth="2.2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
-                <path d="M6 12v5c3 3 9 3 12 0v-5" />
-              </svg>
+              <img
+                src={logoBase64}
+                width={68}
+                height={68}
+                style={{
+                  objectFit: 'contain',
+                }}
+                alt="Logo ASMA"
+              />
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column' }}>

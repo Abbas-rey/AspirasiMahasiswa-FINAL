@@ -2,9 +2,9 @@
 
 import React, { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
 import {
-  GraduationCap,
   Lock,
   User,
   Eye,
@@ -172,9 +172,16 @@ function LoginForm() {
           <div>
             {/* Header */}
             <div className="mb-6">
-              <Link href="/" className="inline-flex items-center gap-2 mb-4 group">
-                <div className="w-8 h-8 rounded-lg bg-[#00638E] flex items-center justify-center text-white shadow-xs group-hover:scale-105 transition-transform">
-                  <GraduationCap size={18} />
+              <Link href="/" className="inline-flex items-center gap-2.5 mb-4 group">
+                <div className="w-9 h-9 rounded-xl bg-white border border-[#BFD8E3] shadow-xs flex items-center justify-center overflow-hidden p-1 group-hover:scale-105 transition-transform">
+                  <Image
+                    src="/logo.png"
+                    alt="Logo ASMA"
+                    width={32}
+                    height={32}
+                    priority
+                    className="w-full h-full object-contain"
+                  />
                 </div>
                 <span className="font-bold text-zinc-900 text-sm group-hover:text-[#00638E] transition-colors">ASMA UIN Jakarta</span>
               </Link>

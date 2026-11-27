@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import {
   Send,
   Search,
@@ -120,6 +121,10 @@ export default function LandingPage() {
             <div className="lg:col-span-6 space-y-8 animate-in fade-in slide-in-from-bottom-3 duration-700">
               {/* Headline with ink block highlight */}
               <div className="space-y-4">
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-[#BFD8E3] shadow-xs">
+                  <Image src="/logo.png" alt="Logo ASMA" width={18} height={18} priority className="object-contain" />
+                  <span className="text-xs font-semibold text-[#004A6B]">Sistem Aspirasi Mahasiswa FST UIN Jakarta</span>
+                </div>
                 <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-zinc-900 tracking-tight leading-[1.18]">
                   Suaramu{' '}
                   <span className="bg-[#0284c7] text-white px-2.5 py-0.5 sm:px-3 sm:py-0.5 rounded-md inline-block shadow-xs">

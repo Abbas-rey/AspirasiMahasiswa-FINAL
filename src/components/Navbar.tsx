@@ -2,13 +2,13 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import {
   Menu,
   X,
   LogOut,
   User,
-  GraduationCap,
   ChevronRight,
   Search,
   CheckCircle2,
@@ -281,8 +281,15 @@ export function Navbar() {
             }}
             className="flex items-center gap-3 group"
           >
-            <div className="w-8 h-8 rounded-lg bg-[#00638E] flex items-center justify-center text-white transition-transform group-hover:scale-105 shadow-xs">
-              <GraduationCap size={18} />
+            <div className="w-9 h-9 rounded-xl bg-white border border-[#BFD8E3] flex items-center justify-center p-1 transition-transform group-hover:scale-105 shadow-xs overflow-hidden">
+              <Image
+                src="/logo.png"
+                alt="Logo ASMA"
+                width={32}
+                height={32}
+                priority
+                className="w-full h-full object-contain"
+              />
             </div>
             <div className="flex items-center gap-2">
               <span className="font-bold text-lg text-zinc-900 tracking-tight">

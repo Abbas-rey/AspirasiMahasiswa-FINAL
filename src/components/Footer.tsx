@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
-import { GraduationCap, ShieldCheck, Mail, Phone, MapPin, ExternalLink, Heart } from 'lucide-react';
+import Image from 'next/image';
+import { ShieldCheck, Mail, Phone, MapPin, ExternalLink, Heart } from 'lucide-react';
 
 export function Footer() {
   return (
@@ -10,8 +11,14 @@ export function Footer() {
           {/* Col 1: Brand & Bio */}
           <div className="md:col-span-1 space-y-4">
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-[#00638E] flex items-center justify-center text-white shadow-xs">
-                <GraduationCap size={18} />
+              <div className="w-9 h-9 rounded-xl bg-white border border-[#BFD8E3] flex items-center justify-center p-1 shadow-xs overflow-hidden">
+                <Image
+                  src="/logo.png"
+                  alt="Logo ASMA"
+                  width={32}
+                  height={32}
+                  className="w-full h-full object-contain"
+                />
               </div>
               <div>
                 <h3 className="font-bold text-base text-zinc-900 leading-tight">ASMA UIN Jakarta</h3>
