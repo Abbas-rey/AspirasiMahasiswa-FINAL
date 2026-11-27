@@ -41,7 +41,8 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: '/og-banner.png',
+        url: 'https://aspirasimahasiswafstuinjakarta.vercel.app/og-banner.png',
+        secureUrl: 'https://aspirasimahasiswafstuinjakarta.vercel.app/og-banner.png',
         width: 1200,
         height: 630,
         alt: 'ASMA — Sistem Aspirasi Mahasiswa FST UIN Syarif Hidayatullah Jakarta',
@@ -54,7 +55,7 @@ export const metadata: Metadata = {
     title: 'ASMA — Sistem Aspirasi Mahasiswa | FST UIN Syarif Hidayatullah Jakarta',
     description:
       'Wadah resmi penyampaian aspirasi, kritik, dan keluhan mahasiswa FST UIN Syarif Hidayatullah Jakarta secara aman, transparan, dan terstruktur ke tingkat Jurusan, Fakultas, dan Universitas.',
-    images: ['/og-banner.png'],
+    images: ['https://aspirasimahasiswafstuinjakarta.vercel.app/og-banner.png'],
   },
   icons: {
     icon: [
@@ -79,6 +80,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="id" data-scroll-behavior="smooth" className={`${inter.variable} scroll-smooth`}>
+      <head>
+        <link rel="image_src" href="https://aspirasimahasiswafstuinjakarta.vercel.app/og-banner.png" />
+      </head>
       <body className="min-h-screen bg-[#F8FAFC] text-[#141414] font-sans antialiased flex flex-col selection:bg-[#00638E] selection:text-white">
         <NextTopLoader
           color="#00638E"
