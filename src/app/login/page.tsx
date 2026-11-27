@@ -9,7 +9,6 @@ import {
   User,
   Eye,
   EyeOff,
-  ShieldCheck,
   ArrowRight,
   AlertCircle,
   LogOut,
@@ -358,9 +357,6 @@ function LoginForm() {
 
           {/* Center Graphic & Text */}
           <div className="space-y-4 my-auto relative">
-            <div className="w-14 h-14 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center text-[#BFD8E3] shadow-md">
-              <ShieldCheck size={32} />
-            </div>
             <h3 className="text-2xl font-extrabold leading-snug">
               Ruang Aman Menyuarakan Perubahan.
             </h3>

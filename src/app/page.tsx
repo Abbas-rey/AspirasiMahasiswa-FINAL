@@ -122,7 +122,7 @@ export default function LandingPage() {
               <div className="space-y-4">
                 <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-zinc-900 tracking-tight leading-[1.18]">
                   Suaramu{' '}
-                  <span className="bg-[#00638E] text-white px-2.5 py-0.5 sm:px-3 sm:py-0.5 rounded-md inline-block shadow-xs">
+                  <span className="bg-[#0284c7] text-white px-2.5 py-0.5 sm:px-3 sm:py-0.5 rounded-md inline-block shadow-xs">
                     didengar.
                   </span>
                 </h1>

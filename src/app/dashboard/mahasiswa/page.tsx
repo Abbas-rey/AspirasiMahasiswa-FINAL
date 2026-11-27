@@ -11,7 +11,6 @@ import {
   FileText,
   Calendar,
   ChevronRight,
-  ShieldCheck,
   X,
   ExternalLink,
   KeyRound,
@@ -379,22 +378,19 @@ export default function MahasiswaDashboard() {
             </div>
           </div>
 
-          {/* Privacy Reassurance Card - Monochrome Dark */}
-          <div className="rounded-xl p-5 bg-zinc-900 text-zinc-100 border border-zinc-800">
-            <div className="w-8 h-8 rounded-lg bg-zinc-800 border border-zinc-700 flex items-center justify-center text-zinc-200 mb-3">
-              <ShieldCheck size={18} />
-            </div>
-            <h4 className="text-xs font-medium text-white mb-1">
+          {/* Privacy Reassurance Card - Matching Palette (#004A6B to #00638E) */}
+          <div className="rounded-xl p-5 bg-gradient-to-br from-[#004A6B] to-[#00638E] text-white border border-[#00638E]/40 shadow-xs">
+            <h4 className="text-xs font-semibold text-white mb-1.5">
               Bisa anonim, tetap terlacak olehmu
             </h4>
-            <p className="text-xs text-zinc-400 leading-relaxed mb-3">
+            <p className="text-xs text-[#BFD8E3] leading-relaxed mb-3">
               Laporan berstatus anonim hanya menyamarkan namamu dari hadapan dosen dan pimpinan kampus. Di dasbor pribadimu, laporan tetap tampil lengkap.
             </p>
             <Link
               href="/ajukan"
-              className="inline-flex items-center gap-1.5 text-xs text-zinc-200 hover:text-white underline"
+              className="inline-flex items-center gap-1.5 text-xs text-white font-medium hover:underline"
             >
-              <span>Ajukan laporan baru</span>
+              <span>Ajukan laporan baru &rarr;</span>
             </Link>
           </div>
         </div>

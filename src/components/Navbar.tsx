@@ -10,10 +10,7 @@ import {
   User,
   GraduationCap,
   ChevronRight,
-  PlusCircle,
   Search,
-  LayoutDashboard,
-  Home,
   CheckCircle2,
 } from 'lucide-react';
 
@@ -162,24 +159,21 @@ export function Navbar() {
     }
 
     if (currentUser.role === 'MAHASISWA') {
-      // Role Mahasiswa: 3 menu items
+      // Role Mahasiswa: 3 menu items (clean text labels without icons)
       return [
         {
           label: 'Beranda',
           href: '/dashboard/mahasiswa',
-          icon: Home,
           match: (p: string) => p === '/dashboard/mahasiswa',
         },
         {
           label: 'Buat Aspirasi',
           href: '/ajukan',
-          icon: PlusCircle,
           match: (p: string) => p.startsWith('/ajukan'),
         },
         {
           label: 'Lacak Aspirasi',
           href: '/lacak',
-          icon: Search,
           match: (p: string) => p.startsWith('/lacak'),
         },
       ];
@@ -191,13 +185,11 @@ export function Navbar() {
         {
           label: 'Beranda',
           href: '/dashboard/akademisi',
-          icon: LayoutDashboard,
           match: (p: string) => p.startsWith('/dashboard/akademisi'),
         },
         {
           label: 'Lacak Aspirasi',
           href: '/lacak',
-          icon: Search,
           match: (p: string) => p.startsWith('/lacak'),
         },
       ];
@@ -209,13 +201,11 @@ export function Navbar() {
         {
           label: 'Beranda',
           href: '/dashboard/admin',
-          icon: LayoutDashboard,
           match: (p: string) => p.startsWith('/dashboard/admin'),
         },
         {
           label: 'Lacak Aspirasi',
           href: '/lacak',
-          icon: Search,
           match: (p: string) => p.startsWith('/lacak'),
         },
       ];
@@ -310,24 +300,22 @@ export function Navbar() {
             </div>
           </Link>
 
-          {/* Center: Desktop Navigation Links (Clean text, no gradients) */}
+          {/* Center: Desktop Navigation Links (Clean text, no icons) */}
           <nav className="hidden md:flex items-center gap-4 lg:gap-8">
             {navLinks.map((link) => {
               const active = isLinkActive(link);
-              const IconComp = (link as any).icon;
 
               return (
                 <Link
                   key={link.label}
                   href={link.href}
                   onClick={(e) => handleNavClick(link.href, e)}
-                  className={`text-sm whitespace-nowrap transition-colors flex items-center gap-1.5 ${
+                  className={`text-sm whitespace-nowrap transition-colors ${
                     active
                       ? 'text-[#00638E] font-semibold border-b-2 border-[#00638E] py-1'
                       : 'text-zinc-600 hover:text-[#00638E] font-medium py-1'
                   }`}
                 >
-                  {IconComp && <IconComp size={15} className={active ? 'text-[#00638E]' : 'text-zinc-400'} />}
                   <span>{link.label}</span>
                 </Link>
               );
@@ -420,7 +408,6 @@ export function Navbar() {
           )}
           {navLinks.map((link) => {
             const active = isLinkActive(link);
-            const IconComp = (link as any).icon;
 
             return (
               <Link
@@ -436,10 +423,7 @@ export function Navbar() {
                     : 'text-zinc-600 hover:bg-zinc-50 hover:text-[#00638E] font-medium'
                 }`}
               >
-                <div className="flex items-center gap-2.5">
-                  {IconComp && <IconComp size={16} className={active ? 'text-[#00638E]' : 'text-zinc-400'} />}
-                  <span>{link.label}</span>
-                </div>
+                <span>{link.label}</span>
                 <ChevronRight size={14} className="text-zinc-400" />
               </Link>
             );
