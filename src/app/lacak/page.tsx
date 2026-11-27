@@ -75,7 +75,7 @@ function LacakStatusContent() {
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
         {/* Header */}
         <div className="border border-zinc-200 bg-white rounded-xl p-6 mb-6">
-          <span className="text-xs font-mono text-zinc-500 uppercase tracking-wider block mb-1">
+          <span className="text-xs font-mono text-[#00638E] uppercase tracking-wider block mb-1 font-semibold">
             Pelacakan Terbuka
           </span>
           <h1 className="text-2xl font-semibold tracking-tight text-zinc-950">
@@ -98,13 +98,13 @@ function LacakStatusContent() {
                 value={ticketCode}
                 onChange={(e) => setTicketCode(e.target.value)}
                 placeholder="contoh: asp-2026-xxxxx"
-                className="w-full pl-9 pr-3 py-2 rounded-lg border border-zinc-200 text-xs font-mono uppercase tracking-wider text-zinc-900 placeholder:normal-case placeholder:text-zinc-400 focus:outline-none focus:border-zinc-900 focus:ring-1 focus:ring-zinc-900/30 transition-colors"
+                className="w-full pl-9 pr-3 py-2 rounded-lg border border-zinc-200 text-xs font-mono uppercase tracking-wider text-zinc-900 placeholder:normal-case placeholder:text-zinc-400 focus:outline-none focus:border-[#00638E] focus:ring-1 focus:ring-[#00638E]/30 transition-colors"
               />
             </div>
             <button
               type="submit"
               disabled={loading || !ticketCode.trim()}
-              className="w-full sm:w-auto px-4 py-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-medium transition-colors disabled:opacity-50 flex items-center justify-center gap-1.5 shrink-0"
+              className="w-full sm:w-auto px-4 py-2 rounded-lg bg-[#00638E] hover:bg-[#004A6B] text-white text-xs font-medium transition-colors disabled:opacity-50 flex items-center justify-center gap-1.5 shrink-0 shadow-xs"
             >
               {loading ? (
                 <span>Mencari...</span>
@@ -142,13 +142,13 @@ function LacakStatusContent() {
             {/* Header info */}
             <div className="flex flex-wrap items-center justify-between gap-2.5 pb-4 border-b border-zinc-200">
               <div className="flex items-center gap-2 flex-wrap">
-                <span className="font-mono text-xs font-medium text-zinc-700 bg-zinc-100 px-2 py-0.5 rounded border border-zinc-200">
+                <span className="font-mono text-xs font-semibold text-[#004A6B] bg-[#BFD8E3]/35 px-2 py-0.5 rounded border border-[#8CB9CC]/50">
                   {aspiration.ticket_code}
                 </span>
-                <span className="text-xs text-zinc-600 px-2 py-0.5 rounded border border-zinc-200">
+                <span className="text-xs text-zinc-700 px-2 py-0.5 rounded border border-slate-200 bg-slate-50 font-medium">
                   {targetMeta?.label || aspiration.target_level}
                 </span>
-                <span className="text-xs text-zinc-600 px-2 py-0.5 rounded bg-zinc-50 border border-zinc-200">
+                <span className="text-xs text-zinc-700 px-2 py-0.5 rounded bg-slate-50 border border-slate-200 font-medium">
                   {aspiration.category?.category_name}
                 </span>
               </div>

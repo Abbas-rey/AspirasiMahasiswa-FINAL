@@ -337,7 +337,7 @@ export default function AkademisiAspirasiDetailPage() {
               <button
                 type="submit"
                 disabled={updateLoading}
-                className="w-full py-2 px-4 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-medium transition-colors disabled:opacity-60 flex items-center justify-center gap-2"
+                className="w-full py-2.5 px-4 rounded-lg bg-[#00638E] hover:bg-[#004A6B] text-white text-xs font-semibold transition-colors disabled:opacity-60 flex items-center justify-center gap-2 shadow-xs cursor-pointer"
               >
                 {updateLoading ? (
                   <span>Menyimpan...</span>

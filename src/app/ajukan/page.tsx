@@ -289,18 +289,18 @@ function AjukanAspirasiForm() {
                 key={s.num}
                 className={`p-3 rounded-lg border transition-colors flex items-center gap-2.5 ${
                   isActive
-                    ? 'border-zinc-900 bg-zinc-900 text-white'
+                    ? 'border-[#00638E] bg-[#00638E] text-white shadow-xs'
                     : isCompleted
-                    ? 'border-zinc-200 bg-zinc-50 text-zinc-900'
+                    ? 'border-[#8CB9CC]/50 bg-[#BFD8E3]/30 text-[#004A6B]'
                     : 'border-zinc-200 bg-zinc-50 text-zinc-500'
                 }`}
               >
                 <span
                   className={`w-5 h-5 rounded flex items-center justify-center font-mono text-xs font-medium shrink-0 ${
                     isActive
-                      ? 'bg-white text-zinc-800'
+                      ? 'bg-white text-[#00638E]'
                       : isCompleted
-                      ? 'bg-zinc-900 text-white'
+                      ? 'bg-[#00638E] text-white'
                       : 'bg-zinc-200 text-zinc-500'
                   }`}
                 >
@@ -318,12 +318,12 @@ function AjukanAspirasiForm() {
         <div
           ref={errorRef}
           role="alert"
-          className="mb-6 p-4 rounded-xl bg-zinc-100 border border-zinc-400 text-zinc-950 text-xs flex items-start gap-3 shadow-sm animate-in fade-in slide-in-from-top-2 duration-200"
+          className="mb-6 p-4 rounded-xl bg-red-50 border border-red-200 text-red-950 text-xs flex items-start gap-3 shadow-sm animate-in fade-in slide-in-from-top-2 duration-200"
         >
-          <AlertCircle size={16} className="shrink-0 text-zinc-900 mt-0.5" />
+          <AlertCircle size={16} className="shrink-0 text-red-600 mt-0.5" />
           <div className="flex-1">
-            <p className="font-semibold text-zinc-950">Perhatian / Kendala Pengajuan:</p>
-            <p className="mt-0.5 text-zinc-900 leading-relaxed">{error}</p>
+            <p className="font-semibold text-red-950">Perhatian / Kendala Pengajuan:</p>
+            <p className="mt-0.5 text-red-800 leading-relaxed">{error}</p>
           </div>
         </div>
       )}
@@ -345,17 +345,17 @@ function AjukanAspirasiForm() {
                 onKeyDown={(e) => handleChoiceKey(e, () => setIsAnonymous(false))}
                 className={`p-4 rounded-lg border transition-colors cursor-pointer ${
                   !isAnonymous
-                    ? 'border-zinc-900 bg-zinc-50/60 ring-1 ring-zinc-900'
-                    : 'border-zinc-200 hover:border-zinc-900/40 bg-white'
+                    ? 'border-[#00638E] bg-[#BFD8E3]/15 ring-1 ring-[#00638E]'
+                    : 'border-zinc-200 hover:border-[#00638E]/40 bg-white'
                 }`}
               >
                 <div className="flex items-center gap-2.5 mb-2">
-                  <div className={`w-8 h-8 rounded-md flex items-center justify-center transition-colors ${!isAnonymous ? 'bg-zinc-900 text-white' : 'bg-zinc-100 text-zinc-600'}`}>
+                  <div className={`w-8 h-8 rounded-md flex items-center justify-center transition-colors ${!isAnonymous ? 'bg-[#00638E] text-white shadow-xs' : 'bg-zinc-100 text-zinc-600'}`}>
                     <UserCheck size={16} />
                   </div>
                   <div>
                     <h3 className="text-xs font-medium text-zinc-950">Pakai Nama Saya</h3>
-                    <span className="text-[10px] font-mono text-zinc-500">Transparan</span>
+                    <span className="text-[10px] font-mono text-[#004A6B]">Transparan</span>
                   </div>
                 </div>
                 <p className="text-[11px] text-zinc-600 leading-relaxed">
@@ -371,17 +371,17 @@ function AjukanAspirasiForm() {
                 onKeyDown={(e) => handleChoiceKey(e, () => setIsAnonymous(true))}
                 className={`p-4 rounded-lg border transition-colors cursor-pointer ${
                   isAnonymous
-                    ? 'border-zinc-900 bg-zinc-50/60 ring-1 ring-zinc-900'
-                    : 'border-zinc-200 hover:border-zinc-900/40 bg-white'
+                    ? 'border-[#00638E] bg-[#BFD8E3]/15 ring-1 ring-[#00638E]'
+                    : 'border-zinc-200 hover:border-[#00638E]/40 bg-white'
                 }`}
               >
                 <div className="flex items-center gap-2.5 mb-2">
-                  <div className={`w-8 h-8 rounded-md flex items-center justify-center transition-colors ${isAnonymous ? 'bg-zinc-900 text-white' : 'bg-zinc-100 text-zinc-600'}`}>
+                  <div className={`w-8 h-8 rounded-md flex items-center justify-center transition-colors ${isAnonymous ? 'bg-[#00638E] text-white shadow-xs' : 'bg-zinc-100 text-zinc-600'}`}>
                     <EyeOff size={16} />
                   </div>
                   <div>
                     <h3 className="text-xs font-medium text-zinc-950">Kirim Anonim</h3>
-                    <span className="text-[10px] font-mono text-zinc-500">Privasi 100%</span>
+                    <span className="text-[10px] font-mono text-[#004A6B]">Privasi 100%</span>
                   </div>
                 </div>
                 <p className="text-[11px] text-zinc-600 leading-relaxed">
@@ -426,11 +426,11 @@ function AjukanAspirasiForm() {
                   onKeyDown={(e) => handleChoiceKey(e, () => setTargetLevel(t.id as any))}
                   className={`p-3.5 rounded-lg border transition-colors cursor-pointer text-center ${
                     targetLevel === t.id
-                      ? 'border-zinc-900 bg-zinc-50/60 ring-1 ring-zinc-900'
-                      : 'border-zinc-200 hover:border-zinc-900/40 bg-white'
+                      ? 'border-[#00638E] bg-[#BFD8E3]/15 ring-1 ring-[#00638E]'
+                      : 'border-zinc-200 hover:border-[#00638E]/40 bg-white'
                   }`}
                 >
-                  <span className={`text-[10px] font-mono px-2 py-0.5 rounded border ${targetLevel === t.id ? 'text-zinc-800 bg-zinc-100/70 border-zinc-200' : 'text-zinc-600 bg-zinc-100 border-zinc-200'}`}>
+                  <span className={`text-[10px] font-mono px-2 py-0.5 rounded border ${targetLevel === t.id ? 'text-[#004A6B] bg-[#BFD8E3]/40 border-[#8CB9CC]/50 font-medium' : 'text-zinc-600 bg-zinc-100 border-zinc-200'}`}>
                     {t.badge}
                   </span>
                   <h4 className="text-xs font-medium text-zinc-950 mt-2">{t.title}</h4>
@@ -458,11 +458,11 @@ function AjukanAspirasiForm() {
                     onKeyDown={(e) => handleChoiceKey(e, () => setCategoryId(cat.id))}
                     className={`p-3.5 rounded-lg border transition-colors cursor-pointer ${
                       isSelected
-                        ? 'border-zinc-900 bg-zinc-50/60 ring-1 ring-zinc-900'
-                        : 'border-zinc-200 hover:border-zinc-900/40 bg-white'
+                        ? 'border-[#00638E] bg-[#BFD8E3]/15 ring-1 ring-[#00638E]'
+                        : 'border-zinc-200 hover:border-[#00638E]/40 bg-white'
                     }`}
                   >
-                    <h4 className="text-xs font-medium text-zinc-950 mb-1">
+                    <h4 className={`text-xs font-medium mb-1 ${isSelected ? 'text-[#004A6B] font-semibold' : 'text-zinc-950'}`}>
                       {cat.category_name}
                     </h4>
                     <p className="text-[11px] text-zinc-500 leading-snug line-clamp-2">
@@ -478,7 +478,7 @@ function AjukanAspirasiForm() {
             <button
               type="button"
               onClick={handleNext}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-medium transition-colors"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#00638E] hover:bg-[#004A6B] text-white text-xs font-semibold transition-colors shadow-xs"
             >
               <span>Lanjut ke detail & bukti</span>
               <ArrowRight size={14} />
@@ -499,7 +499,7 @@ function AjukanAspirasiForm() {
             <div>
               <div className="flex items-center justify-between mb-1">
                 <label htmlFor="asp-title" className="block text-xs font-medium text-zinc-700">
-                  Judul aspirasi / pengaduan <span className="text-zinc-900 font-bold">*</span>
+                  Judul aspirasi / pengaduan <span className="text-red-500 font-bold">*</span>
                 </label>
                 <span className={`text-[11px] font-mono ${title.length > 110 ? 'text-zinc-900 font-bold' : 'text-zinc-400'}`}>
                   {title.length}/120
@@ -520,13 +520,13 @@ function AjukanAspirasiForm() {
                 placeholder="Contoh: AC di Ruang Lab Komputer 3 Rusak dan Panas"
                 className={`w-full px-3 py-2 rounded-lg border text-xs text-zinc-900 placeholder:text-zinc-400 focus:outline-none transition-colors ${
                   fieldErrors.title
-                    ? 'border-zinc-900 bg-zinc-100/20 focus:border-zinc-900 focus:ring-1 focus:ring-zinc-900'
-                    : 'border-zinc-200 focus:border-zinc-900 focus:ring-1 focus:ring-zinc-900/30'
+                    ? 'border-red-500 bg-red-50/20 focus:border-red-500 focus:ring-1 focus:ring-red-500'
+                    : 'border-zinc-200 focus:border-[#00638E] focus:ring-1 focus:ring-[#00638E]/30'
                 }`}
               />
               {fieldErrors.title && (
-                <p id="asp-title-error" className="mt-1.5 text-xs text-zinc-900 flex items-center gap-1 font-medium">
-                  <AlertCircle size={13} className="shrink-0 text-zinc-900" />
+                <p id="asp-title-error" className="mt-1.5 text-xs text-red-600 flex items-center gap-1 font-medium">
+                  <AlertCircle size={13} className="shrink-0 text-red-500" />
                   <span>{fieldErrors.title}</span>
                 </p>
               )}
@@ -535,7 +535,7 @@ function AjukanAspirasiForm() {
             <div>
               <div className="flex items-center justify-between mb-1">
                 <label htmlFor="asp-description" className="block text-xs font-medium text-zinc-700">
-                  Uraian lengkap kejadian <span className="text-zinc-900 font-bold">*</span>
+                  Uraian lengkap kejadian <span className="text-red-500 font-bold">*</span>
                 </label>
                 <span className={`text-[11px] font-mono ${description.length > 1900 ? 'text-zinc-900 font-bold' : 'text-zinc-400'}`}>
                   {description.length}/2000
@@ -556,13 +556,13 @@ function AjukanAspirasiForm() {
                 placeholder="Ceritakan kejadian, kronologi, dampak terhadap proses belajar, atau saran konkrit yang diharapkan..."
                 className={`w-full px-3 py-2 rounded-lg border text-xs text-zinc-800 placeholder:text-zinc-400 focus:outline-none transition-colors resize-y leading-relaxed ${
                   fieldErrors.description
-                    ? 'border-zinc-900 bg-zinc-100/20 focus:border-zinc-900 focus:ring-1 focus:ring-zinc-900'
-                    : 'border-zinc-200 focus:border-zinc-900 focus:ring-1 focus:ring-zinc-900/30'
+                    ? 'border-red-500 bg-red-50/20 focus:border-red-500 focus:ring-1 focus:ring-red-500'
+                    : 'border-zinc-200 focus:border-[#00638E] focus:ring-1 focus:ring-[#00638E]/30'
                 }`}
               />
               {fieldErrors.description && (
-                <p id="asp-description-error" className="mt-1.5 text-xs text-zinc-900 flex items-center gap-1 font-medium">
-                  <AlertCircle size={13} className="shrink-0 text-zinc-900" />
+                <p id="asp-description-error" className="mt-1.5 text-xs text-red-600 flex items-center gap-1 font-medium">
+                  <AlertCircle size={13} className="shrink-0 text-red-500" />
                   <span>{fieldErrors.description}</span>
                 </p>
               )}
@@ -571,7 +571,7 @@ function AjukanAspirasiForm() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
               <div>
                 <label htmlFor="asp-incident-date" className="block text-xs font-medium text-zinc-700 mb-1">
-                  Tanggal kejadian <span className="text-zinc-900 font-bold">*</span>
+                  Tanggal kejadian <span className="text-red-500 font-bold">*</span>
                 </label>
                 <div className="relative">
                   <Calendar size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" />
@@ -589,14 +589,14 @@ function AjukanAspirasiForm() {
                     }}
                     className={`w-full pl-9 pr-3 py-2 rounded-lg border text-xs text-zinc-900 focus:outline-none transition-colors ${
                       fieldErrors.incidentDate
-                        ? 'border-zinc-900 bg-zinc-100/20 focus:border-zinc-900 focus:ring-1 focus:ring-zinc-900'
-                        : 'border-zinc-200 focus:border-zinc-900 focus:ring-1 focus:ring-zinc-900/30'
+                        ? 'border-red-500 bg-red-50/20 focus:border-red-500 focus:ring-1 focus:ring-red-500'
+                        : 'border-zinc-200 focus:border-[#00638E] focus:ring-1 focus:ring-[#00638E]/30'
                     }`}
                   />
                 </div>
                 {fieldErrors.incidentDate && (
-                  <p id="asp-date-error" className="mt-1.5 text-xs text-zinc-900 flex items-center gap-1 font-medium">
-                    <AlertCircle size={13} className="shrink-0 text-zinc-900" />
+                  <p id="asp-date-error" className="mt-1.5 text-xs text-red-600 flex items-center gap-1 font-medium">
+                    <AlertCircle size={13} className="shrink-0 text-red-500" />
                     <span>{fieldErrors.incidentDate}</span>
                   </p>
                 )}
@@ -614,7 +614,7 @@ function AjukanAspirasiForm() {
                     value={incidentTime}
                     onChange={(e) => setIncidentTime(e.target.value)}
                     placeholder="Contoh: 13:30 WIB atau Siang Hari"
-                    className="w-full pl-9 pr-3 py-2 rounded-lg border border-zinc-200 text-xs text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:border-zinc-900 focus:ring-1 focus:ring-zinc-900/30 transition-colors"
+                    className="w-full pl-9 pr-3 py-2 rounded-lg border border-zinc-200 text-xs text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:border-[#00638E] focus:ring-1 focus:ring-[#00638E]/30 transition-colors"
                   />
                 </div>
               </div>
@@ -632,7 +632,7 @@ function AjukanAspirasiForm() {
                   Unggah berkas foto/dokumen (maksimal 5 file, maks 10MB per file) atau cantumkan tautan Google Drive.
                 </p>
               </div>
-              <span className="text-[11px] font-mono text-zinc-500 bg-zinc-100 px-2.5 py-1 rounded-md border border-zinc-200">
+              <span className="text-[11px] font-mono text-[#004A6B] bg-[#BFD8E3]/35 px-2.5 py-1 rounded-md border border-[#8CB9CC]/50 font-medium">
                 {selectedFiles.length}/{MAX_FILES} file
               </span>
             </div>
@@ -657,11 +657,11 @@ function AjukanAspirasiForm() {
                 }}
                 className={`border border-dashed rounded-lg p-5 flex flex-col items-center justify-center text-center cursor-pointer transition-colors ${
                   isDragging
-                    ? 'border-zinc-900 bg-zinc-50 ring-2 ring-zinc-900/30'
-                    : 'border-zinc-300 hover:border-zinc-900/60 bg-zinc-50/50'
+                    ? 'border-[#00638E] bg-[#BFD8E3]/15 ring-2 ring-[#00638E]/30'
+                    : 'border-zinc-300 hover:border-[#00638E]/60 bg-zinc-50/50'
                 }`}
               >
-                <UploadCloud size={24} className={`mb-1.5 transition-colors ${isDragging ? 'text-zinc-900' : 'text-zinc-500'}`} />
+                <UploadCloud size={24} className={`mb-1.5 transition-colors ${isDragging ? 'text-[#00638E]' : 'text-zinc-500'}`} />
                 <span className="text-xs font-medium text-zinc-900">
                   {isDragging ? 'Lepaskan berkas di sini' : 'Pilih berkas bukti atau seret ke area ini'}
                 </span>
@@ -690,7 +690,7 @@ function AjukanAspirasiForm() {
                     className="p-3 rounded-lg bg-zinc-50 border border-zinc-200 flex items-center justify-between"
                   >
                     <div className="flex items-center gap-2.5 overflow-hidden">
-                      <div className="w-7 h-7 rounded bg-zinc-200 text-zinc-700 flex items-center justify-center shrink-0">
+                      <div className="w-7 h-7 rounded bg-[#BFD8E3]/40 text-[#00638E] flex items-center justify-center shrink-0">
                         <FileText size={15} />
                       </div>
                       <div className="truncate">
@@ -706,7 +706,7 @@ function AjukanAspirasiForm() {
                       type="button"
                       onClick={() => removeFile(idx)}
                       title="Hapus berkas ini"
-                      className="p-1.5 text-zinc-400 hover:text-zinc-900 rounded transition-colors shrink-0"
+                      className="p-1.5 text-zinc-400 hover:text-red-600 rounded transition-colors shrink-0"
                     >
                       <Trash2 size={15} />
                     </button>
@@ -728,7 +728,7 @@ function AjukanAspirasiForm() {
                   value={driveLink}
                   onChange={(e) => setDriveLink(e.target.value)}
                   placeholder="https://drive.google.com/drive/folders/... atau tautan cloud lainnya"
-                  className="w-full pl-9 pr-3 py-2 rounded-lg border border-zinc-200 text-xs text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:border-zinc-900 focus:ring-1 focus:ring-zinc-900/30 transition-colors"
+                  className="w-full pl-9 pr-3 py-2 rounded-lg border border-zinc-200 text-xs text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:border-[#00638E] focus:ring-1 focus:ring-[#00638E]/30 transition-colors"
                 />
               </div>
               <p className="text-[11px] text-zinc-500 mt-1 leading-relaxed">
@@ -745,7 +745,7 @@ function AjukanAspirasiForm() {
                 type="checkbox"
                 checked={isAgreed}
                 onChange={(e) => setIsAgreed(e.target.checked)}
-                className="mt-0.5 rounded border-zinc-300 accent-zinc-900 focus:ring-zinc-900 w-4 h-4 cursor-pointer"
+                className="mt-0.5 rounded border-zinc-300 accent-[#00638E] focus:ring-[#00638E] w-4 h-4 cursor-pointer"
               />
               <span className="text-xs text-zinc-700 leading-relaxed">
                 Saya menyatakan dengan sungguh-sungguh bahwa seluruh informasi dan bukti yang disampaikan adalah benar, objektif, dapat dipertanggungjawabkan, serta tidak memuat unsur fitnah di lingkungan civitas akademika UIN Syarif Hidayatullah Jakarta.
@@ -767,7 +767,7 @@ function AjukanAspirasiForm() {
             <button
               type="submit"
               disabled={loading || !isAgreed}
-              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-medium transition-colors disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed shadow-sm"
+              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg bg-[#00638E] hover:bg-[#004A6B] text-white text-xs font-semibold transition-colors disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed shadow-xs"
             >
               {loading ? (
                 <>

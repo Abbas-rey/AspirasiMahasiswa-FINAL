@@ -236,20 +236,20 @@ export default function AdminDashboard() {
         <div className="flex items-center gap-1.5 bg-zinc-100 p-1 rounded-lg border border-zinc-200 shrink-0">
           <button
             onClick={() => setActiveTab('stats')}
-            className={`px-3.5 py-1.5 rounded-md text-xs font-medium transition-colors ${
+            className={`px-3.5 py-1.5 rounded-md text-xs font-semibold transition-colors cursor-pointer ${
               activeTab === 'stats'
-                ? 'bg-white text-zinc-950 shadow-sm border border-zinc-200'
-                : 'text-zinc-600 hover:text-zinc-900'
+                ? 'bg-[#00638E] text-white shadow-xs'
+                : 'text-zinc-600 hover:text-[#00638E]'
             }`}
           >
             Statistik sistem
           </button>
           <button
             onClick={() => setActiveTab('users')}
-            className={`px-3.5 py-1.5 rounded-md text-xs font-medium transition-colors ${
+            className={`px-3.5 py-1.5 rounded-md text-xs font-semibold transition-colors cursor-pointer ${
               activeTab === 'users'
-                ? 'bg-white text-zinc-950 shadow-sm border border-zinc-200'
-                : 'text-zinc-600 hover:text-zinc-900'
+                ? 'bg-[#00638E] text-white shadow-xs'
+                : 'text-zinc-600 hover:text-[#00638E]'
             }`}
           >
             Manajemen pengguna
@@ -467,14 +467,14 @@ export default function AdminDashboard() {
             <div className="flex items-center gap-2 w-full md:w-auto justify-end">
               <button
                 onClick={() => setShowBulkModal(true)}
-                className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-zinc-200 bg-white hover:bg-zinc-50 text-zinc-800 text-xs font-medium transition-colors"
+                className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-slate-300 bg-white hover:bg-[#BFD8E3]/20 hover:border-[#00638E] text-[#004A6B] text-xs font-semibold transition-colors cursor-pointer"
               >
                 <Upload size={13} />
                 <span>Bulk import</span>
               </button>
               <button
                 onClick={() => setShowAddModal(true)}
-                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-medium transition-colors"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-[#00638E] hover:bg-[#004A6B] text-white text-xs font-semibold transition-colors shadow-xs cursor-pointer"
               >
                 <UserPlus size={13} />
                 <span>Tambah pengguna</span>

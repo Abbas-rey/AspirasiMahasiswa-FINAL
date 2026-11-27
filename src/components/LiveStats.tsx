@@ -83,7 +83,7 @@ export function LiveStats() {
           {loading ? (
             <div className="h-9 w-24 bg-zinc-100 animate-pulse rounded-md" />
           ) : (
-            <p className="text-3xl sm:text-4xl font-extrabold text-zinc-900 tracking-tight tabular-nums">
+            <p className="text-3xl sm:text-4xl font-extrabold text-[#00638E] tracking-tight tabular-nums">
               {failed ? '—' : `${responded.toFixed(1)}%`}
             </p>
           )}
@@ -112,14 +112,14 @@ export function LiveStats() {
           <span className="text-zinc-500">Statistik belum dapat dimuat.</span>
         ) : (
           <>
-            <Clock size={14} className="text-zinc-900" />
-            <span className="font-bold text-zinc-900 tabular-nums">
+            <Clock size={14} className="text-[#00638E]" />
+            <span className="font-bold text-[#004A6B] tabular-nums">
               {stats!.avgFirstResponseHours !== null ? `${stats!.avgFirstResponseHours} jam` : '—'}
             </span>
             <span className="text-zinc-500">rata-rata respons pertama</span>
             <span className="text-zinc-400">•</span>
-            <Users size={14} className="text-zinc-900" />
-            <span className="font-bold text-zinc-900 tabular-nums">{stats!.totalUsers}</span>
+            <Users size={14} className="text-[#00638E]" />
+            <span className="font-bold text-[#004A6B] tabular-nums">{stats!.totalUsers}</span>
             <span className="text-zinc-500">civitas terdaftar</span>
           </>
         )}

@@ -173,11 +173,11 @@ function LoginForm() {
           <div>
             {/* Header */}
             <div className="mb-6">
-              <Link href="/" className="inline-flex items-center gap-2 mb-4">
-                <div className="w-8 h-8 rounded-lg bg-zinc-900 flex items-center justify-center text-white">
+              <Link href="/" className="inline-flex items-center gap-2 mb-4 group">
+                <div className="w-8 h-8 rounded-lg bg-[#00638E] flex items-center justify-center text-white shadow-xs group-hover:scale-105 transition-transform">
                   <GraduationCap size={18} />
                 </div>
-                <span className="font-bold text-zinc-900 text-sm">ASMA UIN Jakarta</span>
+                <span className="font-bold text-zinc-900 text-sm group-hover:text-[#00638E] transition-colors">ASMA UIN Jakarta</span>
               </Link>
               <h2 className="text-2xl font-extrabold text-zinc-900">
                 Masuk ke Akun Anda
@@ -193,7 +193,7 @@ function LoginForm() {
                 <div>
                   <span className="text-zinc-500">Sesi aktif: </span>
                   <strong className="text-zinc-900">{activeSession.name}</strong>{' '}
-                  <span className="text-[10px] uppercase font-bold px-1.5 py-0.5 rounded bg-zinc-200 text-zinc-700">
+                  <span className="text-[10px] uppercase font-bold px-1.5 py-0.5 rounded bg-[#BFD8E3]/50 text-[#004A6B]">
                     {activeSession.role}
                   </span>
                 </div>
@@ -206,14 +206,14 @@ function LoginForm() {
                         ? '/dashboard/akademisi'
                         : '/dashboard/admin'
                     }
-                    className="px-2.5 py-1 bg-white border border-zinc-300 rounded-lg text-zinc-800 font-semibold hover:bg-zinc-100 transition"
+                    className="px-2.5 py-1 bg-[#00638E] text-white rounded-lg font-semibold hover:bg-[#004A6B] transition shadow-xs text-xs"
                   >
                     Buka Dasbor
                   </Link>
                   <button
                     type="button"
                     onClick={handleLogoutCurrent}
-                    className="px-2.5 py-1 bg-zinc-100 border border-zinc-400 text-zinc-900 rounded-lg font-semibold hover:bg-zinc-200 transition flex items-center gap-1"
+                    className="px-2.5 py-1 bg-zinc-100 border border-zinc-300 text-zinc-900 rounded-lg font-semibold hover:bg-zinc-200 transition flex items-center gap-1 text-xs"
                   >
                     <LogOut size={12} />
                     <span>Keluar</span>
@@ -271,7 +271,7 @@ function LoginForm() {
                     onChange={(e) => setNimNip(e.target.value)}
                     placeholder="Contoh: 1251420044 (Mahasiswa) atau NIP"
                     required
-                    className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-zinc-300 text-xs text-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-900/20 focus:border-zinc-900 transition"
+                    className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-zinc-300 text-xs text-zinc-900 focus:outline-none focus:ring-2 focus:ring-[#00638E]/20 focus:border-[#00638E] transition"
                   />
                 </div>
               </div>
@@ -284,7 +284,7 @@ function LoginForm() {
                   <button
                     type="button"
                     onClick={() => setShowForgotModal(true)}
-                    className="text-[11px] text-zinc-600 hover:text-zinc-900 hover:underline"
+                    className="text-[11px] text-[#00638E] hover:text-[#004A6B] hover:underline font-medium"
                   >
                     Lupa Password?
                   </button>
@@ -298,7 +298,7 @@ function LoginForm() {
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Masukkan password..."
                     required
-                    className="w-full pl-10 pr-10 py-2.5 rounded-xl border border-zinc-300 text-xs text-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-900/20 focus:border-zinc-900 transition"
+                    className="w-full pl-10 pr-10 py-2.5 rounded-xl border border-zinc-300 text-xs text-zinc-900 focus:outline-none focus:ring-2 focus:ring-[#00638E]/20 focus:border-[#00638E] transition"
                   />
                   <button
                     type="button"
@@ -317,7 +317,7 @@ function LoginForm() {
                     type="checkbox"
                     checked={rememberMe}
                     onChange={(e) => setRememberMe(e.target.checked)}
-                    className="rounded border-zinc-300 accent-zinc-900 focus:ring-zinc-900"
+                    className="rounded border-zinc-300 accent-[#00638E] focus:ring-[#00638E]"
                   />
                   <span className="text-xs text-zinc-600">Ingat Saya</span>
                 </label>
@@ -326,7 +326,7 @@ function LoginForm() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full mt-2 py-3 px-4 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-white text-xs sm:text-sm font-semibold shadow-sm transition disabled:opacity-60 flex items-center justify-center gap-2"
+                className="w-full mt-2 py-3 px-4 rounded-xl bg-[#00638E] hover:bg-[#004A6B] text-white text-xs sm:text-sm font-semibold shadow-xs transition disabled:opacity-60 flex items-center justify-center gap-2"
               >
                 {loading ? (
                   <>
@@ -344,33 +344,33 @@ function LoginForm() {
           </div>
         </div>
 
-        {/* Right Side: Monochrome Brand Panel */}
-        <div className="hidden lg:flex lg:col-span-5 bg-gradient-to-br from-zinc-800 via-zinc-900 to-zinc-950 p-10 flex-col justify-between text-white relative overflow-hidden">
-          <div aria-hidden className="absolute -top-16 -right-16 w-56 h-56 rounded-full bg-zinc-500/20 blur-3xl" />
-          <div aria-hidden className="absolute -bottom-20 -left-10 w-56 h-56 rounded-full bg-zinc-400/10 blur-3xl" />
+        {/* Right Side: Branding Gradient Panel (#000000 via #004A6B to #00638E) */}
+        <div className="hidden lg:flex lg:col-span-5 bg-gradient-to-br from-[#000000] via-[#004A6B] to-[#00638E] p-10 flex-col justify-between text-white relative overflow-hidden">
+          <div aria-hidden className="absolute -top-16 -right-16 w-56 h-56 rounded-full bg-[#8CB9CC]/25 blur-3xl" />
+          <div aria-hidden className="absolute -bottom-20 -left-10 w-56 h-56 rounded-full bg-[#BFD8E3]/20 blur-3xl" />
           {/* Top badge */}
           <div className="flex items-center gap-2 relative">
-            <span className="w-2.5 h-2.5 rounded-full bg-zinc-400 animate-pulse" />
-            <span className="text-xs font-semibold tracking-wide text-zinc-100 uppercase">
+            <span className="w-2.5 h-2.5 rounded-full bg-[#8CB9CC] animate-pulse" />
+            <span className="text-xs font-semibold tracking-wide text-[#BFD8E3] uppercase">
               Sistem Keamanan Terpadu
             </span>
           </div>
 
           {/* Center Graphic & Text */}
           <div className="space-y-4 my-auto relative">
-            <div className="w-14 h-14 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center text-zinc-100">
+            <div className="w-14 h-14 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center text-[#BFD8E3] shadow-md">
               <ShieldCheck size={32} />
             </div>
             <h3 className="text-2xl font-extrabold leading-snug">
               Ruang Aman Menyuarakan Perubahan.
             </h3>
-            <p className="text-xs text-zinc-100/90 leading-relaxed">
+            <p className="text-xs text-[#BFD8E3] leading-relaxed">
               Setiap kritik dan keluhan dilindungi oleh enkripsi serta penegakan privasi ketat. Hak suara mahasiswa dijamin bebas intimidasi.
             </p>
           </div>
 
           {/* Bottom Card */}
-          <div className="p-4 rounded-2xl bg-white/5 border border-white/10 text-xs text-zinc-100/90 relative">
+          <div className="p-4 rounded-2xl bg-white/10 border border-white/15 text-xs text-[#BFD8E3] relative">
             <p className="italic">
               &quot;Sistem ini memangkas birokrasi dan menghubungkan keluhan langsung kepada pejabat berwenang.&quot;
             </p>

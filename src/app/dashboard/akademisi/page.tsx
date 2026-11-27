@@ -114,9 +114,9 @@ export default function AkademisiDashboard() {
         </div>
 
         <div className="flex items-center gap-3 shrink-0">
-          <div className="px-3.5 py-2 rounded-lg bg-zinc-50 border border-zinc-200 text-xs">
-            <span className="text-zinc-400 block text-[10px] uppercase font-mono">Kewenangan:</span>
-            <span className="font-medium text-zinc-900">{scopeLabel}</span>
+          <div className="px-3.5 py-2 rounded-lg bg-[#BFD8E3]/25 border border-[#8CB9CC]/40 text-xs">
+            <span className="text-[#00638E] block text-[10px] uppercase font-mono font-semibold">Kewenangan:</span>
+            <span className="font-semibold text-[#004A6B]">{scopeLabel}</span>
           </div>
         </div>
       </div>
@@ -125,7 +125,7 @@ export default function AkademisiDashboard() {
       {user?.must_change_pwd && (
         <div className="mb-6 p-4 rounded-xl border border-zinc-300 bg-zinc-50/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-zinc-100 text-zinc-800 flex items-center justify-center shrink-0">
+            <div className="w-8 h-8 rounded-lg bg-[#BFD8E3]/40 text-[#00638E] flex items-center justify-center shrink-0">
               <KeyRound size={16} />
             </div>
             <div>
@@ -136,7 +136,7 @@ export default function AkademisiDashboard() {
           <button
             type="button"
             onClick={() => setShowPasswordModal(true)}
-            className="px-3.5 py-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-semibold shrink-0 transition"
+            className="px-3.5 py-1.5 rounded-lg bg-[#00638E] hover:bg-[#004A6B] text-white text-xs font-semibold shrink-0 transition shadow-xs"
           >
             Ganti Password
           </button>
@@ -279,13 +279,13 @@ export default function AkademisiDashboard() {
               <Link
                 key={asp.id}
                 href={`/dashboard/akademisi/aspirasi/${asp.ticket_code}`}
-                className="block bg-white rounded-xl p-5 border border-zinc-200 hover:border-zinc-900/50 hover:shadow-card-hover transition group"
+                className="block bg-white rounded-xl p-5 border border-zinc-200 hover:border-[#00638E]/60 hover:shadow-card-hover transition group"
               >
                 <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                   {/* Left Info */}
                   <div className="space-y-1.5 flex-1">
                     <div className="flex flex-wrap items-center gap-2">
-                      <span className="font-mono text-xs font-medium text-zinc-700 bg-zinc-100 px-2 py-0.5 rounded">
+                      <span className="font-mono text-xs font-semibold text-[#004A6B] bg-[#BFD8E3]/35 border border-[#8CB9CC]/50 px-2 py-0.5 rounded">
                         {asp.ticket_code}
                       </span>
                       <span className="text-xs text-zinc-600 px-2 py-0.5 rounded border border-zinc-200">
@@ -297,7 +297,7 @@ export default function AkademisiDashboard() {
 
                       {/* Sender Info with strict privacy check */}
                       {isAnon ? (
-                        <span className="inline-flex items-center gap-1 text-xs text-zinc-500 px-2 py-0.5 rounded border border-zinc-200 bg-zinc-50">
+                        <span className="inline-flex items-center gap-1 text-xs text-[#004A6B] px-2 py-0.5 rounded border border-[#8CB9CC]/40 bg-[#BFD8E3]/20 font-mono text-[10px]">
                           <EyeOff size={11} />
                           <span>Mahasiswa (Anonim)</span>
                         </span>
@@ -309,7 +309,7 @@ export default function AkademisiDashboard() {
                       )}
                     </div>
 
-                    <h3 className="text-sm font-semibold text-zinc-950 group-hover:text-zinc-700 transition-colors">
+                    <h3 className="text-sm font-semibold text-zinc-950 group-hover:text-[#00638E] transition-colors">
                       {asp.title}
                     </h3>
                     <p className="text-xs text-zinc-600 line-clamp-2 leading-relaxed">
@@ -326,7 +326,7 @@ export default function AkademisiDashboard() {
                       </p>
                     </div>
 
-                    <div className="w-7 h-7 rounded-lg border border-zinc-200 group-hover:bg-zinc-100 text-zinc-400 group-hover:text-zinc-900 flex items-center justify-center transition-colors">
+                    <div className="w-7 h-7 rounded-lg border border-zinc-200 group-hover:bg-[#00638E] text-zinc-400 group-hover:text-white group-hover:border-[#00638E] flex items-center justify-center transition-colors shadow-xs">
                       <ChevronRight size={14} />
                     </div>
                   </div>

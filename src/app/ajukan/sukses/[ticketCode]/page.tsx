@@ -70,12 +70,12 @@ export default function AjukanSuksesPage() {
     <div className="max-w-xl mx-auto px-4 sm:px-6 py-12">
       <div className="bg-white rounded-xl p-6 sm:p-8 border border-zinc-200 text-center animate-in fade-in zoom-in-95 duration-500">
         {/* Success Icon */}
-        <div className="w-12 h-12 rounded-lg bg-zinc-50 text-zinc-900 border border-zinc-200 flex items-center justify-center mx-auto mb-4">
+        <div className="w-12 h-12 rounded-lg bg-[#BFD8E3]/35 text-[#00638E] border border-[#8CB9CC]/50 flex items-center justify-center mx-auto mb-4 shadow-xs">
           <CheckCircle2 size={24} />
         </div>
 
         {/* Heading */}
-        <span className="text-xs font-mono text-zinc-900 uppercase tracking-wider block mb-1">
+        <span className="text-xs font-mono text-[#00638E] uppercase tracking-wider block mb-1 font-semibold">
           Pengajuan Berhasil
         </span>
         <h1 className="text-2xl font-semibold tracking-tight text-zinc-950">
@@ -86,24 +86,24 @@ export default function AjukanSuksesPage() {
         </p>
 
         {/* Ticket Code Box */}
-        <div className="my-6 p-5 rounded-lg bg-zinc-50/50 border border-zinc-200 max-w-md mx-auto">
-          <span className="text-[11px] font-mono text-zinc-500 uppercase tracking-wider block mb-2">
+        <div className="my-6 p-5 rounded-lg bg-[#BFD8E3]/20 border border-[#8CB9CC]/40 max-w-md mx-auto">
+          <span className="text-[11px] font-mono text-[#004A6B] uppercase tracking-wider block mb-2 font-semibold">
             Kode pelacakan tiket
           </span>
           <div className="flex items-center justify-center gap-2.5">
-            <span className="font-mono text-xl sm:text-2xl font-semibold text-zinc-950 tracking-wider">
+            <span className="font-mono text-xl sm:text-2xl font-bold text-[#004A6B] tracking-wider">
               {ticketCode}
             </span>
             <button
               onClick={handleCopy}
               title="Salin kode tiket"
               aria-label={copied ? 'Kode tiket tersalin' : 'Salin kode tiket'}
-              className="p-1.5 rounded-md bg-white border border-zinc-200 hover:bg-zinc-100 text-zinc-700 transition-colors"
+              className="p-1.5 rounded-md bg-white border border-[#8CB9CC]/50 hover:bg-[#BFD8E3]/30 text-[#004A6B] transition-colors"
             >
-              {copied ? <Check size={14} className="text-zinc-900" /> : <Copy size={14} />}
+              {copied ? <Check size={14} className="text-emerald-700 font-bold" /> : <Copy size={14} />}
             </button>
           </div>
-          <p className="text-[11px] text-zinc-500 mt-2 font-mono" role="status" aria-live="polite">
+          <p className="text-[11px] text-zinc-600 mt-2 font-mono" role="status" aria-live="polite">
             {copied ? 'Kode tiket tersalin ke clipboard.' : 'Simpan kode ini untuk melacak status penanganan sewaktu-waktu.'}
           </p>
         </div>
@@ -157,14 +157,14 @@ export default function AjukanSuksesPage() {
         <div className="flex flex-col sm:flex-row items-center justify-center gap-2.5">
           <Link
             href="/dashboard/mahasiswa"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-medium transition-colors"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-lg bg-[#00638E] hover:bg-[#004A6B] text-white text-xs font-semibold transition-colors shadow-xs"
           >
             <LayoutDashboard size={14} />
             <span>Kembali ke dasbor</span>
           </Link>
           <Link
             href={`/lacak?code=${ticketCode}`}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg border border-zinc-200 bg-white hover:bg-zinc-50 text-zinc-800 text-xs font-medium transition-colors"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-lg border border-slate-300 bg-white hover:bg-[#BFD8E3]/20 text-[#004A6B] hover:border-[#00638E] text-xs font-semibold transition-colors"
           >
             <Search size={14} />
             <span>Lacak progres tiket</span>

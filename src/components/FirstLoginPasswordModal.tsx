@@ -110,7 +110,7 @@ export function FirstLoginPasswordModal({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-zinc-950/60 backdrop-blur-sm animate-in fade-in duration-200">
       <div role="dialog" aria-modal="true" aria-labelledby="flm-title" className="bg-white rounded-2xl max-w-md w-full p-6 sm:p-7 shadow-2xl border border-zinc-200 relative animate-in zoom-in-95 duration-200">
-        <div className="w-11 h-11 rounded-xl bg-zinc-50 text-zinc-900 border border-zinc-200 flex items-center justify-center mx-auto mb-3">
+        <div className="w-11 h-11 rounded-xl bg-[#BFD8E3]/35 text-[#00638E] border border-[#8CB9CC]/50 flex items-center justify-center mx-auto mb-3 shadow-xs">
           <KeyRound size={22} />
         </div>
 
@@ -143,7 +143,7 @@ export function FirstLoginPasswordModal({
                 onChange={(e) => setNewPassword(e.target.value)}
                 placeholder="Masukkan password baru..."
                 required
-                className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-300 text-xs text-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-900/20 focus:border-zinc-900 transition pr-10"
+                className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-300 text-xs text-zinc-900 focus:outline-none focus:ring-2 focus:ring-[#00638E]/20 focus:border-[#00638E] transition pr-10"
               />
               <button
                 type="button"
@@ -165,7 +165,7 @@ export function FirstLoginPasswordModal({
               {criteria.map((c) => (
                 <div key={c.label} className="flex items-center gap-1.5 text-[11px]">
                   {c.valid ? (
-                    <div className="w-3.5 h-3.5 rounded-full bg-zinc-100 text-zinc-900 flex items-center justify-center shrink-0">
+                    <div className="w-3.5 h-3.5 rounded-full bg-[#BFD8E3]/60 text-[#004A6B] flex items-center justify-center shrink-0">
                       <Check size={10} className="stroke-[3]" />
                     </div>
                   ) : (
@@ -173,7 +173,7 @@ export function FirstLoginPasswordModal({
                       <span className="w-1 h-1 rounded-full bg-zinc-400" />
                     </div>
                   )}
-                  <span className={c.valid ? 'text-zinc-800 font-medium' : 'text-zinc-500'}>
+                  <span className={c.valid ? 'text-[#004A6B] font-semibold' : 'text-zinc-500'}>
                     {c.label}
                   </span>
                 </div>
@@ -192,18 +192,18 @@ export function FirstLoginPasswordModal({
               onChange={(e) => setConfirmPassword(e.target.value)}
               placeholder="Ketik ulang password baru..."
               required
-              className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-300 text-xs text-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-900/20 focus:border-zinc-900 transition"
+              className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-300 text-xs text-zinc-900 focus:outline-none focus:ring-2 focus:ring-[#00638E]/20 focus:border-[#00638E] transition"
             />
             {confirmPassword.length > 0 && (
-              <p className={`text-[11px] mt-1 flex items-center gap-1 ${passwordsMatch ? 'text-zinc-900 font-medium' : 'text-zinc-900'}`}>
+              <p className={`text-[11px] mt-1 flex items-center gap-1 ${passwordsMatch ? 'text-emerald-700 font-medium' : 'text-red-600'}`}>
                 {passwordsMatch ? (
                   <>
-                    <Check size={12} className="text-zinc-900" />
+                    <Check size={12} className="text-emerald-700" />
                     <span>Konfirmasi password sesuai</span>
                   </>
                 ) : (
                   <>
-                    <X size={12} className="text-zinc-900" />
+                    <X size={12} className="text-red-500" />
                     <span>Konfirmasi password belum cocok</span>
                   </>
                 )}
@@ -216,7 +216,7 @@ export function FirstLoginPasswordModal({
             <button
               type="submit"
               disabled={loading || !validation.isValid || !passwordsMatch}
-              className="w-full sm:flex-1 py-2.5 px-4 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-semibold shadow-sm transition disabled:opacity-50 flex items-center justify-center gap-1.5 cursor-pointer disabled:cursor-not-allowed"
+              className="w-full sm:flex-1 py-2.5 px-4 rounded-xl bg-[#00638E] hover:bg-[#004A6B] text-white text-xs font-semibold shadow-xs transition disabled:opacity-50 flex items-center justify-center gap-1.5 cursor-pointer disabled:cursor-not-allowed"
             >
               {loading ? (
                 <>

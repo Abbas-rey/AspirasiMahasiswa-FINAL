@@ -67,7 +67,7 @@ export function PublicAspirationBoard({ onTrack }: { onTrack: (code: string) => 
       {/* Section header */}
       <div className="flex flex-wrap items-end justify-between gap-3 mb-4">
         <div>
-          <span className="text-xs font-mono text-zinc-500 uppercase tracking-wider block mb-1">
+          <span className="text-xs font-mono text-[#00638E] uppercase tracking-wider block mb-1 font-semibold">
             Papan Transparansi
           </span>
           <h2 className="text-xl font-semibold tracking-tight text-zinc-950">
@@ -78,8 +78,8 @@ export function PublicAspirationBoard({ onTrack }: { onTrack: (code: string) => 
             Klik kartu untuk melihat detail dan riwayat penyelesaiannya.
           </p>
         </div>
-        <span className="inline-flex items-center gap-1.5 text-xs font-mono text-zinc-500 border border-zinc-200 bg-white rounded-lg px-2.5 py-1.5">
-          <ShieldCheck size={13} className="text-zinc-400" />
+        <span className="inline-flex items-center gap-1.5 text-xs font-mono text-[#004A6B] border border-[#8CB9CC]/50 bg-[#BFD8E3]/20 rounded-lg px-2.5 py-1.5 font-medium">
+          <ShieldCheck size={13} className="text-[#00638E]" />
           Identitas pelapor anonim dilindungi
         </span>
       </div>
@@ -140,41 +140,41 @@ export function PublicAspirationBoard({ onTrack }: { onTrack: (code: string) => 
                 <button
                   type="button"
                   onClick={() => onTrack(item.ticket_code)}
-                  className="w-full text-left bg-white rounded-xl border border-zinc-200 p-4 hover:border-zinc-900 hover:shadow-sm transition-all group focus:outline-none focus-visible:ring-2 focus-visible:ring-zinc-900/40"
+                  className="w-full text-left bg-white rounded-xl border border-zinc-200 p-4 hover:border-[#00638E] hover:shadow-sm transition-all group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00638E]/40"
                 >
                   <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
-                    <span className="font-mono text-xs font-medium text-zinc-700 bg-zinc-100 px-2 py-0.5 rounded border border-zinc-200">
+                    <span className="font-mono text-xs font-semibold text-[#004A6B] bg-[#BFD8E3]/35 px-2 py-0.5 rounded border border-[#8CB9CC]/50">
                       {item.ticket_code}
                     </span>
                     <StatusBadge status={item.current_status} size="sm" />
                   </div>
                   <div className="flex items-start justify-between gap-3">
                     <div className="min-w-0">
-                      <h3 className="text-sm font-semibold text-zinc-950 leading-snug group-hover:underline underline-offset-4 decoration-zinc-300">
+                      <h3 className="text-sm font-semibold text-zinc-950 leading-snug group-hover:text-[#00638E] transition-colors">
                         {item.title}
                       </h3>
                       <div className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-zinc-500">
-                        <span className="px-1.5 py-px rounded bg-zinc-50 border border-zinc-200 text-zinc-600">
+                        <span className="px-1.5 py-px rounded bg-slate-50 border border-slate-200 text-slate-700">
                           {item.category?.category_name || 'Umum'}
                         </span>
                         <span>{TARGET_LEVEL_LABELS[item.target_level]?.label || item.target_level}</span>
                         {item.resolved_at && (
                           <>
                             <span aria-hidden>·</span>
-                            <span className="inline-flex items-center gap-1 text-zinc-700 font-medium">
-                              <CheckCircle2 size={12} className="text-zinc-900" />
+                            <span className="inline-flex items-center gap-1 text-emerald-800 font-medium">
+                              <CheckCircle2 size={12} className="text-emerald-600" />
                               Diselesaikan {formatDate(item.resolved_at)}
                             </span>
                           </>
                         )}
                         {item.is_anonymous && (
-                          <span className="px-1.5 py-px rounded border border-zinc-300 text-zinc-500 font-mono text-[10px] uppercase tracking-wider">
+                          <span className="px-1.5 py-px rounded border border-[#8CB9CC]/50 bg-[#BFD8E3]/20 text-[#004A6B] font-mono text-[10px] uppercase tracking-wider">
                             Anonim
                           </span>
                         )}
                       </div>
                     </div>
-                    <span className="shrink-0 inline-flex items-center gap-1 text-xs font-medium text-zinc-400 group-hover:text-zinc-900 transition-colors mt-0.5">
+                    <span className="shrink-0 inline-flex items-center gap-1 text-xs font-semibold text-zinc-400 group-hover:text-[#00638E] transition-colors mt-0.5">
                       <Search size={13} />
                       <span className="hidden sm:inline">Lacak</span>
                     </span>

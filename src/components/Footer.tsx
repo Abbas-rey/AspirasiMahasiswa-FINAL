@@ -10,7 +10,7 @@ export function Footer() {
           {/* Col 1: Brand & Bio */}
           <div className="md:col-span-1 space-y-4">
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-zinc-900 flex items-center justify-center text-white">
+              <div className="w-8 h-8 rounded-lg bg-[#00638E] flex items-center justify-center text-white shadow-xs">
                 <GraduationCap size={18} />
               </div>
               <div>
@@ -21,8 +21,8 @@ export function Footer() {
             <p className="text-xs text-zinc-600 leading-relaxed">
               Wadah resmi penyaluran kritik, saran, dan keluhan civitas akademika UIN Syarif Hidayatullah Jakarta kepada tingkat Jurusan, Fakultas, hingga Universitas dengan jaminan privasi dan transparansi pelacakan.
             </p>
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-50 border border-zinc-200 text-zinc-800 text-[11px] font-medium">
-              <ShieldCheck size={14} className="text-zinc-900" />
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#BFD8E3]/20 border border-[#8CB9CC]/40 text-[#004A6B] text-[11px] font-medium">
+              <ShieldCheck size={14} className="text-[#00638E]" />
               <span>Privasi Terenkripsi & Terlindungi</span>
             </div>
           </div>
@@ -32,27 +32,27 @@ export function Footer() {
             <h4 className="text-xs font-bold uppercase tracking-wider text-zinc-900">Navigasi Platform</h4>
             <ul className="space-y-2 text-xs">
               <li>
-                <Link href="/" className="text-zinc-600 hover:text-zinc-900 transition">
+                <Link href="/" className="text-zinc-600 hover:text-[#00638E] transition">
                   Beranda
                 </Link>
               </li>
               <li>
-                <Link href="/#cara-kerja" className="text-zinc-600 hover:text-zinc-900 transition">
+                <Link href="/#cara-kerja" className="text-zinc-600 hover:text-[#00638E] transition">
                   Cara Kerja Pelaporan
                 </Link>
               </li>
               <li>
-                <Link href="/#kategori" className="text-zinc-600 hover:text-zinc-900 transition">
+                <Link href="/#kategori" className="text-zinc-600 hover:text-[#00638E] transition">
                   Kategori Aspirasi
                 </Link>
               </li>
               <li>
-                <Link href="/lacak" className="text-zinc-600 hover:text-zinc-900 transition">
+                <Link href="/lacak" className="text-zinc-600 hover:text-[#00638E] transition">
                   Lacak Status Tiket
                 </Link>
               </li>
               <li>
-                <Link href="/login" className="text-zinc-600 hover:text-zinc-900 transition">
+                <Link href="/login" className="text-zinc-600 hover:text-[#00638E] transition">
                   Login Civitas Akademika
                 </Link>
               </li>
@@ -64,19 +64,19 @@ export function Footer() {
             <h4 className="text-xs font-bold uppercase tracking-wider text-zinc-900">Tingkat Penanganan</h4>
             <ul className="space-y-2 text-xs text-zinc-600">
               <li className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-zinc-400" />
+                <span className="w-1.5 h-1.5 rounded-full bg-slate-400" />
                 <span>Program Studi / Jurusan</span>
               </li>
               <li className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-zinc-500" />
+                <span className="w-1.5 h-1.5 rounded-full bg-[#8CB9CC]" />
                 <span>Fakultas (Dekanat & KTU)</span>
               </li>
               <li className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-zinc-700" />
+                <span className="w-1.5 h-1.5 rounded-full bg-[#00638E]" />
                 <span>Rektorat & Biro Universitas</span>
               </li>
               <li className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-zinc-900" />
+                <span className="w-1.5 h-1.5 rounded-full bg-[#004A6B]" />
                 <span>Lembaga Penjaminan Mutu (LPM)</span>
               </li>
             </ul>

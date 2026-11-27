@@ -98,7 +98,7 @@ export function Timeline({ logs, responses = [], currentStatus }: TimelineProps)
             <div
               className={`absolute -left-6 top-0 w-6 h-6 rounded-full flex items-center justify-center border-2 border-white ring-1 ${
                 isLatest
-                  ? `${meta?.bgClass || 'bg-zinc-900'} ring-zinc-200 text-white`
+                  ? `${meta?.bgClass || 'bg-[#00638E]'} ring-[#BFD8E3] text-white shadow-xs`
                   : 'bg-zinc-100 ring-zinc-200 text-zinc-600'
               }`}
             >
@@ -113,7 +113,7 @@ export function Timeline({ logs, responses = [], currentStatus }: TimelineProps)
             <div
               className={`p-3.5 rounded-lg border transition-colors ${
                 isLatest
-                  ? 'bg-white border-zinc-300'
+                  ? 'bg-white border-[#8CB9CC]/70 shadow-xs'
                   : 'bg-zinc-50 border-zinc-200'
               }`}
             >

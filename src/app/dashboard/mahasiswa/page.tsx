@@ -126,7 +126,7 @@ export default function MahasiswaDashboard() {
         <div className="flex items-center gap-3 shrink-0">
           <Link
             href="/ajukan"
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-zinc-900 text-white font-medium text-xs hover:bg-zinc-800 transition-colors"
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-[#00638E] text-white font-semibold text-xs hover:bg-[#004A6B] transition-colors shadow-xs"
           >
             <Send size={14} />
             <span>Ajukan aspirasi</span>
@@ -166,7 +166,7 @@ export default function MahasiswaDashboard() {
           <button
             type="button"
             onClick={() => setShowPasswordModal(true)}
-            className="px-3.5 py-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-semibold shrink-0 transition"
+            className="px-3.5 py-1.5 rounded-lg bg-[#00638E] hover:bg-[#004A6B] text-white text-xs font-semibold shrink-0 transition shadow-xs"
           >
             Ganti Password
           </button>
@@ -274,11 +274,11 @@ export default function MahasiswaDashboard() {
                   <div
                     key={asp.id}
                     onClick={() => setSelectedAspiration(asp)}
-                    className="bg-white rounded-xl p-5 border border-zinc-200 hover:border-zinc-900/50 hover:shadow-card-hover transition cursor-pointer group"
+                    className="bg-white rounded-xl p-5 border border-zinc-200 hover:border-[#00638E]/60 hover:shadow-card-hover transition cursor-pointer group"
                   >
                     <div className="flex flex-wrap items-center justify-between gap-2 mb-2.5">
                       <div className="flex items-center gap-2 flex-wrap">
-                        <span className="font-mono text-xs font-medium text-zinc-700 bg-zinc-100 px-2 py-0.5 rounded">
+                        <span className="font-mono text-xs font-semibold text-[#004A6B] bg-[#BFD8E3]/35 border border-[#8CB9CC]/50 px-2 py-0.5 rounded">
                           {asp.ticket_code}
                         </span>
                         <span className="text-xs text-zinc-600 px-2 py-0.5 rounded border border-zinc-200">
@@ -288,7 +288,7 @@ export default function MahasiswaDashboard() {
                           {asp.category?.category_name}
                         </span>
                         {asp.is_anonymous ? (
-                          <span className="inline-flex items-center gap-1 text-xs text-zinc-500 px-2 py-0.5 rounded border border-zinc-200 bg-zinc-50">
+                          <span className="inline-flex items-center gap-1 text-xs text-[#004A6B] px-2 py-0.5 rounded border border-[#8CB9CC]/40 bg-[#BFD8E3]/20 font-mono text-[10px]">
                             <EyeOff size={11} />
                             <span>Anonim</span>
                           </span>
@@ -302,7 +302,7 @@ export default function MahasiswaDashboard() {
                       <StatusBadge status={asp.current_status} size="sm" />
                     </div>
 
-                    <h3 className="text-sm font-semibold text-zinc-950 group-hover:text-zinc-700 transition-colors line-clamp-1 mb-1">
+                    <h3 className="text-sm font-semibold text-zinc-950 group-hover:text-[#00638E] transition-colors line-clamp-1 mb-1">
                       {asp.title}
                     </h3>
                     <p className="text-xs text-zinc-600 line-clamp-2 leading-relaxed mb-3">
@@ -322,11 +322,11 @@ export default function MahasiswaDashboard() {
                             setAspirationToDelete(asp);
                           }}
                           title="Hapus aspirasi ini"
-                          className="p-1.5 rounded-md text-zinc-400 hover:text-zinc-900 hover:bg-zinc-100 transition-colors cursor-pointer"
+                          className="p-1.5 rounded-md text-zinc-400 hover:text-red-600 hover:bg-zinc-100 transition-colors cursor-pointer"
                         >
                           <Trash2 size={13} />
                         </button>
-                        <span className="text-zinc-900 font-medium group-hover:translate-x-0.5 transition-transform inline-flex items-center gap-1">
+                        <span className="text-[#00638E] font-medium group-hover:translate-x-0.5 transition-transform inline-flex items-center gap-1">
                           <span>Detail</span>
                           <ChevronRight size={13} />
                         </span>

@@ -4,8 +4,15 @@
 
 @layer base {
   :root {
-    --background: #FAFAFA;
-    --foreground: #18181B;
+    --background: #F8FAFC;
+    --foreground: #141414;
+    --primary: #00638E;
+    --primary-dark: #004A6B;
+    --azure-light: #BFD8E3;
+    --azure-sky: #8CB9CC;
+    --onyx: #141414;
+    --charcoal: #2B2B2B;
+    --paper: #FFFFFF;
   }
 
   body {
@@ -17,13 +24,13 @@
   }
 
   :focus-visible {
-    outline: 2px solid #18181B;
+    outline: 2px solid #00638E;
     outline-offset: 2px;
     border-radius: 4px;
   }
 }
 
-/* Scrollbar monokrom mengikuti palet zinc */
+/* Scrollbar mengikuti palet Dark Azure */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -32,16 +39,16 @@
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #d4d4d8;
+  background: #cbd5e1;
   border-radius: 9999px;
-  border: 2px solid #FAFAFA;
+  border: 2px solid #F8FAFC;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #18181B;
+  background: #00638E;
 }
 * {
   scrollbar-width: thin;
-  scrollbar-color: #d4d4d8 transparent;
+  scrollbar-color: #cbd5e1 transparent;
 }
 
 /* Transisi masuk antar halaman (template.tsx remount tiap navigasi) */

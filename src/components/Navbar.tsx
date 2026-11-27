@@ -291,7 +291,7 @@ export function Navbar() {
             }}
             className="flex items-center gap-3 group"
           >
-            <div className="w-8 h-8 rounded-lg bg-zinc-900 flex items-center justify-center text-white transition-transform group-hover:scale-105">
+            <div className="w-8 h-8 rounded-lg bg-[#00638E] flex items-center justify-center text-white transition-transform group-hover:scale-105 shadow-xs">
               <GraduationCap size={18} />
             </div>
             <div className="flex items-center gap-2">
@@ -323,11 +323,11 @@ export function Navbar() {
                   onClick={(e) => handleNavClick(link.href, e)}
                   className={`text-sm whitespace-nowrap transition-colors flex items-center gap-1.5 ${
                     active
-                      ? 'text-zinc-900 font-bold border-b-2 border-zinc-900 py-1'
-                      : 'text-zinc-600 hover:text-zinc-900 font-medium py-1'
+                      ? 'text-[#00638E] font-semibold border-b-2 border-[#00638E] py-1'
+                      : 'text-zinc-600 hover:text-[#00638E] font-medium py-1'
                   }`}
                 >
-                  {IconComp && <IconComp size={15} className={active ? 'text-zinc-900' : 'text-zinc-400'} />}
+                  {IconComp && <IconComp size={15} className={active ? 'text-[#00638E]' : 'text-zinc-400'} />}
                   <span>{link.label}</span>
                 </Link>
               );
@@ -342,13 +342,13 @@ export function Navbar() {
               <div className="flex items-center gap-3">
                 <Link
                   href={getDashboardLink()}
-                  className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-zinc-200 hover:border-zinc-300 bg-zinc-50 hover:bg-zinc-100 text-zinc-800 transition text-xs font-medium"
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-zinc-200 hover:border-[#8CB9CC] bg-zinc-50 hover:bg-[#BFD8E3]/20 text-zinc-800 transition text-xs font-medium"
                 >
-                  <div className="w-6 h-6 rounded-md bg-zinc-900 text-white flex items-center justify-center text-xs font-semibold">
+                  <div className="w-6 h-6 rounded-md bg-[#00638E] text-white flex items-center justify-center text-xs font-semibold">
                     {currentUser.name.charAt(0)}
                   </div>
                   <span className="max-w-[120px] truncate">{currentUser.name.split(' ')[0]}</span>
-                  <span className="text-[10px] font-bold uppercase px-1.5 py-0.5 rounded bg-zinc-200 text-zinc-700">
+                  <span className="text-[10px] font-bold uppercase px-1.5 py-0.5 rounded bg-[#BFD8E3]/50 text-[#004A6B]">
                     {getRoleLabel()}
                   </span>
                 </Link>
@@ -367,8 +367,8 @@ export function Navbar() {
                   href="/lacak"
                   className={`flex items-center gap-1.5 px-4 py-2 rounded-xl border font-medium text-xs sm:text-sm transition ${
                     pathname.startsWith('/lacak')
-                      ? 'bg-zinc-900 border-zinc-900 text-white'
-                      : 'border-zinc-300 hover:border-zinc-900 text-zinc-900 hover:bg-zinc-50'
+                      ? 'bg-[#00638E] border-[#00638E] text-white shadow-xs'
+                      : 'border-slate-300 hover:border-[#00638E] text-zinc-800 hover:text-[#00638E] hover:bg-[#BFD8E3]/15'
                   }`}
                 >
                   <Search size={14} className={pathname.startsWith('/lacak') ? 'text-white' : 'text-zinc-500'} />
@@ -376,7 +376,7 @@ export function Navbar() {
                 </Link>
                 <Link
                   href="/login"
-                  className="px-5 py-2 rounded-xl border border-zinc-300 hover:border-zinc-900 text-zinc-900 hover:text-zinc-900 hover:bg-zinc-50 font-medium text-xs sm:text-sm transition"
+                  className="px-5 py-2 rounded-xl bg-[#00638E] hover:bg-[#004A6B] text-white font-semibold text-xs sm:text-sm transition shadow-xs"
                 >
                   Login
                 </Link>
@@ -389,7 +389,7 @@ export function Navbar() {
             {currentUser && (
               <Link
                 href={getDashboardLink()}
-                className="text-xs font-semibold px-2.5 py-1 rounded-md bg-zinc-100 text-zinc-800"
+                className="text-xs font-semibold px-2.5 py-1 rounded-md bg-[#BFD8E3]/30 text-[#004A6B]"
               >
                 Dasbor
               </Link>
@@ -412,7 +412,7 @@ export function Navbar() {
             <Link
               href="/lacak"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-zinc-900 text-white text-sm font-semibold hover:bg-zinc-800 transition"
+              className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-[#00638E] text-white text-sm font-semibold hover:bg-[#004A6B] transition shadow-xs"
             >
               <Search size={15} />
               <span>Lacak Status</span>
@@ -432,12 +432,12 @@ export function Navbar() {
                 }}
                 className={`px-3 py-2.5 rounded-lg text-sm transition flex items-center justify-between ${
                   active
-                    ? 'bg-zinc-50 text-zinc-900 font-bold'
-                    : 'text-zinc-600 hover:bg-zinc-50 hover:text-zinc-900 font-medium'
+                    ? 'bg-[#BFD8E3]/25 text-[#00638E] font-semibold'
+                    : 'text-zinc-600 hover:bg-zinc-50 hover:text-[#00638E] font-medium'
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  {IconComp && <IconComp size={16} className={active ? 'text-zinc-900' : 'text-zinc-400'} />}
+                  {IconComp && <IconComp size={16} className={active ? 'text-[#00638E]' : 'text-zinc-400'} />}
                   <span>{link.label}</span>
                 </div>
                 <ChevronRight size={14} className="text-zinc-400" />
@@ -456,7 +456,7 @@ export function Navbar() {
                   <Link
                     href={getDashboardLink()}
                     onClick={() => setMobileMenuOpen(false)}
-                    className="text-xs px-2.5 py-1.5 rounded-md bg-zinc-900 text-white font-medium"
+                    className="text-xs px-2.5 py-1.5 rounded-md bg-[#00638E] text-white font-medium"
                   >
                     Buka Dasbor
                   </Link>
@@ -476,7 +476,7 @@ export function Navbar() {
               <Link
                 href="/login"
                 onClick={() => setMobileMenuOpen(false)}
-                className="w-full flex items-center justify-center py-2.5 rounded-xl border border-zinc-300 text-zinc-900 text-sm font-semibold hover:bg-zinc-50 transition"
+                className="w-full flex items-center justify-center py-2.5 rounded-xl bg-[#00638E] text-white text-sm font-semibold hover:bg-[#004A6B] transition shadow-xs"
               >
                 Login Sistem ASMA
               </Link>

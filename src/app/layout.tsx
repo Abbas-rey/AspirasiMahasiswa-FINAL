@@ -25,12 +25,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="id" data-scroll-behavior="smooth" className={`${inter.variable} scroll-smooth`}>
-      <body className="min-h-screen bg-paper text-zinc-900 font-sans antialiased flex flex-col selection:bg-zinc-900 selection:text-white">
+      <body className="min-h-screen bg-[#F8FAFC] text-[#141414] font-sans antialiased flex flex-col selection:bg-[#00638E] selection:text-white">
         <NextTopLoader
-          color="#18181B"
-          height={2}
+          color="#00638E"
+          height={2.5}
           showSpinner={false}
-          shadow="none"
+          shadow="0 0 10px #00638E,0 0 5px #004A6B"
           speed={350}
           crawlSpeed={250}
           zIndex={1600}
