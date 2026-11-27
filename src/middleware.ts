@@ -18,6 +18,17 @@ export async function middleware(request: NextRequest) {
     }
   }
 
+  // Allow public assets, open graph images, and static files unconditionally
+  if (
+    pathname.startsWith('/opengraph-image') ||
+    pathname.startsWith('/twitter-image') ||
+    pathname === '/og-banner.png' ||
+    pathname.startsWith('/_next') ||
+    pathname.startsWith('/favicon')
+  ) {
+    return NextResponse.next();
+  }
+
   // Allow direct access to /login so users can always switch accounts or log in cleanly.
   if (pathname === '/login') {
     return NextResponse.next();

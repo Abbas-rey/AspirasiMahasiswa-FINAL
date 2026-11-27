@@ -12,10 +12,54 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'ASMA - Sistem Aspirasi Mahasiswa | UIN Syarif Hidayatullah Jakarta',
+  metadataBase: new URL('https://aspirasimahasiswafstuinjakarta.vercel.app'),
+  title: {
+    default: 'ASMA — Sistem Aspirasi Mahasiswa | FST UIN Syarif Hidayatullah Jakarta',
+    template: '%s | ASMA FST UIN Jakarta',
+  },
   description:
-    'Platform penyampaian aspirasi, kritik, dan saran mahasiswa UIN Syarif Hidayatullah Jakarta secara aman, transparan, dan terstruktur ke tingkat Jurusan, Fakultas, dan Universitas.',
-  keywords: ['ASMA', 'UIN Jakarta', 'Aspirasi Mahasiswa', 'Syarif Hidayatullah', 'Pengaduan Kampus'],
+    'Wadah resmi penyampaian aspirasi, kritik, dan keluhan mahasiswa FST UIN Syarif Hidayatullah Jakarta secara aman, transparan, dan terstruktur ke tingkat Jurusan, Fakultas, dan Universitas.',
+  keywords: [
+    'ASMA',
+    'UIN Jakarta',
+    'FST UIN Jakarta',
+    'Aspirasi Mahasiswa',
+    'Syarif Hidayatullah',
+    'Pengaduan Kampus',
+    'Sistem Aspirasi',
+  ],
+  authors: [{ name: 'FST UIN Syarif Hidayatullah Jakarta' }],
+  creator: 'Pusat Sistem ASMA FST UIN Jakarta',
+  publisher: 'UIN Syarif Hidayatullah Jakarta',
+  openGraph: {
+    title: 'ASMA — Sistem Aspirasi Mahasiswa | FST UIN Syarif Hidayatullah Jakarta',
+    description:
+      'Wadah resmi penyampaian aspirasi, kritik, dan keluhan mahasiswa FST UIN Syarif Hidayatullah Jakarta secara aman, transparan, dan terstruktur ke tingkat Jurusan, Fakultas, dan Universitas.',
+    url: 'https://aspirasimahasiswafstuinjakarta.vercel.app',
+    siteName: 'ASMA FST UIN Jakarta',
+    locale: 'id_ID',
+    type: 'website',
+    images: [
+      {
+        url: '/og-banner.png',
+        width: 1200,
+        height: 630,
+        alt: 'ASMA — Sistem Aspirasi Mahasiswa FST UIN Syarif Hidayatullah Jakarta',
+        type: 'image/png',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'ASMA — Sistem Aspirasi Mahasiswa | FST UIN Syarif Hidayatullah Jakarta',
+    description:
+      'Wadah resmi penyampaian aspirasi, kritik, dan keluhan mahasiswa FST UIN Syarif Hidayatullah Jakarta secara aman, transparan, dan terstruktur ke tingkat Jurusan, Fakultas, dan Universitas.',
+    images: ['/og-banner.png'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({
