@@ -123,7 +123,7 @@ export default function LandingPage() {
                 <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-zinc-900 tracking-tight leading-[1.18]">
                   Suaramu{' '}
                   <span className="bg-[#0284c7] text-white px-2.5 py-0.5 sm:px-3 sm:py-0.5 rounded-md inline-block shadow-xs">
-                    didengar.
+                    Didengar
                   </span>
                 </h1>
                 <p className="text-base sm:text-lg text-zinc-600 leading-relaxed max-w-xl">
@@ -372,24 +372,24 @@ export default function LandingPage() {
                   <div
                     className="group h-full bg-white rounded-2xl p-6 border border-zinc-200 hover:border-[#00638E]/50 hover:shadow-card-hover hover:-translate-y-1 transition flex flex-col justify-between"
                   >
-                  <div>
-                    <div className="w-10 h-10 rounded-xl bg-[#BFD8E3]/30 text-[#00638E] group-hover:bg-[#00638E] group-hover:text-white transition-colors flex items-center justify-center mb-4">
-                      <IconComp size={20} />
+                    <div>
+                      <div className="w-10 h-10 rounded-xl bg-[#BFD8E3]/30 text-[#00638E] group-hover:bg-[#00638E] group-hover:text-white transition-colors flex items-center justify-center mb-4">
+                        <IconComp size={20} />
+                      </div>
+                      <h3 className="text-base font-bold text-zinc-900 mb-1.5">{cat.name}</h3>
+                      <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed">
+                        {cat.description}
+                      </p>
                     </div>
-                    <h3 className="text-base font-bold text-zinc-900 mb-1.5">{cat.name}</h3>
-                    <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed">
-                      {cat.description}
-                    </p>
-                  </div>
-                  <div className="mt-6 pt-4 border-t border-zinc-100 text-xs font-semibold text-[#00638E]">
-                    <Link
-                      href={`/ajukan?kategori=${encodeURIComponent(cat.name)}`}
-                      className="inline-flex items-center gap-1 hover:text-[#004A6B] hover:underline"
-                    >
-                      <span>Ajukan di kategori ini</span>
-                      <ChevronRight size={13} />
-                    </Link>
-                  </div>
+                    <div className="mt-6 pt-4 border-t border-zinc-100 text-xs font-semibold text-[#00638E]">
+                      <Link
+                        href={`/ajukan?kategori=${encodeURIComponent(cat.name)}`}
+                        className="inline-flex items-center gap-1 hover:text-[#004A6B] hover:underline"
+                      >
+                        <span>Ajukan di kategori ini</span>
+                        <ChevronRight size={13} />
+                      </Link>
+                    </div>
                   </div>
                 </Reveal>
               );
@@ -416,80 +416,80 @@ export default function LandingPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {/* Card 1: Pakai Nama Saya */}
             <Reveal className="h-full">
-            <div className="bg-white h-full rounded-2xl p-7 border border-zinc-200 flex flex-col justify-between hover:shadow-card-hover transition">
-              <div>
-                <div className="w-10 h-10 rounded-xl bg-slate-100 text-[#00638E] flex items-center justify-center mb-4">
-                  <UserCheck size={20} />
-                </div>
-                <div className="flex items-center gap-2 mb-2">
-                  <h3 className="text-lg font-bold text-zinc-900">Pakai Nama Saya</h3>
-                  <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-slate-100 text-slate-800">
-                    Transparan
-                  </span>
-                </div>
-                <p className="text-xs text-zinc-600 leading-relaxed mb-4">
-                  Identitas resmi Anda (Nama & NIM) akan disampaikan langsung kepada pihak Jurusan, Fakultas, atau Universitas.
-                </p>
+              <div className="bg-white h-full rounded-2xl p-7 border border-zinc-200 flex flex-col justify-between hover:shadow-card-hover transition">
+                <div>
+                  <div className="w-10 h-10 rounded-xl bg-slate-100 text-[#00638E] flex items-center justify-center mb-4">
+                    <UserCheck size={20} />
+                  </div>
+                  <div className="flex items-center gap-2 mb-2">
+                    <h3 className="text-lg font-bold text-zinc-900">Pakai Nama Saya</h3>
+                    <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-slate-100 text-slate-800">
+                      Transparan
+                    </span>
+                  </div>
+                  <p className="text-xs text-zinc-600 leading-relaxed mb-4">
+                    Identitas resmi Anda (Nama & NIM) akan disampaikan langsung kepada pihak Jurusan, Fakultas, atau Universitas.
+                  </p>
 
-                <ul className="space-y-2.5 text-xs text-zinc-700">
-                  <li className="flex items-center gap-2">
-                    <Check size={14} className="text-[#00638E] shrink-0" />
-                    <span>Dosen atau staf dapat mengklarifikasi kendala langsung kepada Anda.</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Check size={14} className="text-[#00638E] shrink-0" />
-                    <span>Cocok untuk permohonan fasilitas, surat akademik, atau administrasi pribadi.</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Check size={14} className="text-[#00638E] shrink-0" />
-                    <span>Tercatat lengkap di Dasbor Mahasiswa Anda.</span>
-                  </li>
-                </ul>
-              </div>
+                  <ul className="space-y-2.5 text-xs text-zinc-700">
+                    <li className="flex items-center gap-2">
+                      <Check size={14} className="text-[#00638E] shrink-0" />
+                      <span>Dosen atau staf dapat mengklarifikasi kendala langsung kepada Anda.</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <Check size={14} className="text-[#00638E] shrink-0" />
+                      <span>Cocok untuk permohonan fasilitas, surat akademik, atau administrasi pribadi.</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <Check size={14} className="text-[#00638E] shrink-0" />
+                      <span>Tercatat lengkap di Dasbor Mahasiswa Anda.</span>
+                    </li>
+                  </ul>
+                </div>
 
-              <div className="mt-6 pt-4 border-t border-zinc-100 text-[11px] text-zinc-500">
-                Pilihan tepat untuk urusan administratif dan perkuliahan harian.
+                <div className="mt-6 pt-4 border-t border-zinc-100 text-[11px] text-zinc-500">
+                  Pilihan tepat untuk urusan administratif dan perkuliahan harian.
+                </div>
               </div>
-            </div>
             </Reveal>
 
             {/* Card 2: Kirim Anonim */}
             <Reveal delay={120} className="h-full">
-            <div className="bg-white h-full rounded-2xl p-7 border-2 border-[#00638E] flex flex-col justify-between shadow-sm hover:shadow-card-hover transition">
-              <div>
-                <div className="w-10 h-10 rounded-xl bg-[#00638E] text-white flex items-center justify-center mb-4">
-                  <EyeOff size={20} />
-                </div>
-                <div className="flex items-center gap-2 mb-2">
-                  <h3 className="text-lg font-bold text-zinc-900">Kirim Anonim</h3>
-                  <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-[#00638E] text-white">
-                    Privasi 100%
-                  </span>
-                </div>
-                <p className="text-xs text-zinc-600 leading-relaxed mb-4">
-                  Sistem ASMA secara otomatis menyensor nama, NIM, dan email Anda dari seluruh tampilan akademisi dan dosen.
-                </p>
+              <div className="bg-white h-full rounded-2xl p-7 border-2 border-[#00638E] flex flex-col justify-between shadow-sm hover:shadow-card-hover transition">
+                <div>
+                  <div className="w-10 h-10 rounded-xl bg-[#00638E] text-white flex items-center justify-center mb-4">
+                    <EyeOff size={20} />
+                  </div>
+                  <div className="flex items-center gap-2 mb-2">
+                    <h3 className="text-lg font-bold text-zinc-900">Kirim Anonim</h3>
+                    <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-[#00638E] text-white">
+                      Privasi 100%
+                    </span>
+                  </div>
+                  <p className="text-xs text-zinc-600 leading-relaxed mb-4">
+                    Sistem ASMA secara otomatis menyensor nama, NIM, dan email Anda dari seluruh tampilan akademisi dan dosen.
+                  </p>
 
-                <ul className="space-y-2.5 text-xs text-zinc-700">
-                  <li className="flex items-center gap-2">
-                    <Check size={14} className="text-[#00638E] shrink-0" />
-                    <span>Peninjau hanya melihat label resmi <strong>Mahasiswa (Anonim)</strong>.</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Check size={14} className="text-[#00638E] shrink-0" />
-                    <span>Aman dari kekhawatiran intimidasi atau subjektivitas penilaian nilai.</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Check size={14} className="text-[#00638E] shrink-0" />
-                    <span>Anda tetap dapat memantau tiket di Dasbor Mahasiswa pribadi Anda.</span>
-                  </li>
-                </ul>
-              </div>
+                  <ul className="space-y-2.5 text-xs text-zinc-700">
+                    <li className="flex items-center gap-2">
+                      <Check size={14} className="text-[#00638E] shrink-0" />
+                      <span>Peninjau hanya melihat label resmi <strong>Mahasiswa (Anonim)</strong>.</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <Check size={14} className="text-[#00638E] shrink-0" />
+                      <span>Aman dari kekhawatiran intimidasi atau subjektivitas penilaian nilai.</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <Check size={14} className="text-[#00638E] shrink-0" />
+                      <span>Anda tetap dapat memantau tiket di Dasbor Mahasiswa pribadi Anda.</span>
+                    </li>
+                  </ul>
+                </div>
 
-              <div className="mt-6 pt-4 border-t border-zinc-100 text-[11px] text-[#00638E] font-medium">
-                Pilihan tepat untuk kritik pelayanan dosen, transparansi ujian, atau fasilitas darurat.
+                <div className="mt-6 pt-4 border-t border-zinc-100 text-[11px] text-[#00638E] font-medium">
+                  Pilihan tepat untuk kritik pelayanan dosen, transparansi ujian, atau fasilitas darurat.
+                </div>
               </div>
-            </div>
             </Reveal>
           </div>
         </div>
