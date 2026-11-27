@@ -47,15 +47,29 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Find user by nim_nip or email
-    const user = await prisma.user.findFirst({
-      where: {
-        OR: [
-          { nim_nip: trimmedIdentifier },
-          { email: trimmedIdentifier.toLowerCase() },
-        ],
-      },
-    });
+    // Find user by nim_nip or email (with resilient retry for Supabase serverless cold-start)
+    let user = null;
+    try {
+      user = await prisma.user.findFirst({
+        where: {
+          OR: [
+            { nim_nip: trimmedIdentifier },
+            { email: trimmedIdentifier.toLowerCase() },
+          ],
+        },
+      });
+    } catch (dbErr: any) {
+      console.warn('First DB attempt on login failed (likely cold start), retrying...', dbErr?.message);
+      await new Promise((resolve) => setTimeout(resolve, 600));
+      user = await prisma.user.findFirst({
+        where: {
+          OR: [
+            { nim_nip: trimmedIdentifier },
+            { email: trimmedIdentifier.toLowerCase() },
+          ],
+        },
+      });
+    }
 
     // Constant-time execution: compare against actual hash if found, or dummy hash if not
     const hashToCompare = user ? user.password_hash : DUMMY_HASH;
