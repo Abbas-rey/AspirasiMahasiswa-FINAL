@@ -293,7 +293,7 @@ export default function AkademisiAspirasiDetailPage() {
         <div className="lg:col-span-5 space-y-6">
           {/* Card Perbarui Status & Tanggapan Resmi */}
           <div className="bg-white rounded-xl p-6 border border-zinc-200">
-            <span className="text-xs font-mono text-zinc-500 uppercase tracking-wider block mb-4">
+            <span className="text-xs font-mono text-zinc-800 font-bold uppercase tracking-wider block mb-4">
               Tindak lanjut & tanggapan
             </span>
 
@@ -306,13 +306,13 @@ export default function AkademisiAspirasiDetailPage() {
 
             <form onSubmit={handleUpdateSubmit} className="space-y-4">
               <div>
-                <label className="block text-xs font-medium text-zinc-700 mb-1">
+                <label className="block text-xs font-semibold text-zinc-900 mb-1.5">
                   Ubah status laporan
                 </label>
                 <select
                   value={newStatus}
                   onChange={(e) => setNewStatus(e.target.value as AspirationStatus)}
-                  className="w-full px-3 py-2 rounded-lg border border-zinc-200 text-xs font-medium text-zinc-800 bg-white focus:outline-none focus:border-zinc-900 focus:ring-1 focus:ring-zinc-900/30 transition-colors"
+                  className="w-full px-3 py-2.5 rounded-lg border border-zinc-300 text-xs font-medium text-zinc-900 bg-white focus:outline-none focus:border-[#00638E] focus:ring-1 focus:ring-[#00638E]/30 transition-colors"
                 >
                   <option value="DITERIMA">DITERIMA (Verifikasi awal)</option>
                   <option value="DIPROSES">DIPROSES (Sedang ditelaah/dikoordinasikan)</option>
@@ -322,7 +322,7 @@ export default function AkademisiAspirasiDetailPage() {
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-zinc-700 mb-1">
+                <label className="block text-xs font-semibold text-zinc-900 mb-1.5">
                   Tuliskan tanggapan resmi
                 </label>
                 <textarea
@@ -330,7 +330,7 @@ export default function AkademisiAspirasiDetailPage() {
                   value={officialResponse}
                   onChange={(e) => setOfficialResponse(e.target.value)}
                   placeholder="Tuliskan keterangan tindakan, jawaban untuk mahasiswa pelapor, atau penjelasan penyelesaian..."
-                  className="w-full px-3 py-2 rounded-lg border border-zinc-200 text-xs text-zinc-800 placeholder:text-zinc-400 focus:outline-none focus:border-zinc-900 focus:ring-1 focus:ring-zinc-900/30 transition-colors leading-relaxed resize-y"
+                  className="w-full px-3 py-2.5 rounded-lg border border-zinc-300 text-xs font-medium text-zinc-900 placeholder:text-zinc-500 focus:outline-none focus:border-[#00638E] focus:ring-1 focus:ring-[#00638E]/30 transition-colors leading-relaxed resize-y"
                 />
               </div>
 

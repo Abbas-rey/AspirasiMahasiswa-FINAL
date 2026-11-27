@@ -608,7 +608,7 @@ export default function AdminDashboard() {
 
             <form onSubmit={handleAddUser} className="space-y-3.5 text-xs">
               <div>
-                <label className="block font-medium text-zinc-700 mb-1">
+                <label className="block font-semibold text-zinc-900 mb-1.5">
                   Pilih role pengguna
                 </label>
                 <div className="grid grid-cols-2 gap-2">
@@ -618,7 +618,7 @@ export default function AdminDashboard() {
                     className={`py-2 rounded-lg border text-center font-medium transition-colors ${
                       newRole === 'MAHASISWA'
                         ? 'border-zinc-900 bg-zinc-900 text-white'
-                        : 'border-zinc-200 text-zinc-700 hover:bg-zinc-50'
+                        : 'border-zinc-300 text-zinc-800 hover:bg-zinc-50'
                     }`}
                   >
                     Mahasiswa
@@ -629,7 +629,7 @@ export default function AdminDashboard() {
                     className={`py-2 rounded-lg border text-center font-medium transition-colors ${
                       newRole === 'AKADEMISI'
                         ? 'border-zinc-900 bg-zinc-900 text-white'
-                        : 'border-zinc-200 text-zinc-700 hover:bg-zinc-50'
+                        : 'border-zinc-300 text-zinc-800 hover:bg-zinc-50'
                     }`}
                   >
                     Akademisi / Dosen
@@ -638,8 +638,8 @@ export default function AdminDashboard() {
               </div>
 
               <div>
-                <label className="block font-medium text-zinc-700 mb-1">
-                  {newRole === 'MAHASISWA' ? 'NIM Mahasiswa' : 'NIP Dosen / Staf'} <span className="text-zinc-400">*</span>
+                <label className="block font-semibold text-zinc-900 mb-1.5">
+                  {newRole === 'MAHASISWA' ? 'NIM Mahasiswa' : 'NIP Dosen / Staf'} <span className="text-red-600 font-bold">*</span>
                 </label>
                 <input
                   type="text"
@@ -647,13 +647,13 @@ export default function AdminDashboard() {
                   onChange={(e) => setNewNimNip(e.target.value)}
                   placeholder={newRole === 'MAHASISWA' ? 'Contoh: 1251420044' : 'Contoh: 19850315...'}
                   required
-                  className="w-full px-3 py-2 rounded-lg border border-zinc-200 text-xs text-zinc-900 focus:outline-none focus:border-zinc-900 transition-colors"
+                  className="w-full px-3 py-2 rounded-lg border border-zinc-300 text-xs font-medium text-zinc-900 placeholder:text-zinc-500 focus:outline-none focus:border-[#00638E] focus:ring-1 focus:ring-[#00638E]/30 transition-colors"
                 />
               </div>
 
               <div>
-                <label className="block font-medium text-zinc-700 mb-1">
-                  Nama lengkap civitas <span className="text-zinc-400">*</span>
+                <label className="block font-semibold text-zinc-900 mb-1.5">
+                  Nama lengkap civitas <span className="text-red-600 font-bold">*</span>
                 </label>
                 <input
                   type="text"
@@ -661,19 +661,19 @@ export default function AdminDashboard() {
                   onChange={(e) => setNewName(e.target.value)}
                   placeholder="Nama lengkap beserta gelar jika ada..."
                   required
-                  className="w-full px-3 py-2 rounded-lg border border-zinc-200 text-xs text-zinc-900 focus:outline-none focus:border-zinc-900 transition-colors"
+                  className="w-full px-3 py-2 rounded-lg border border-zinc-300 text-xs font-medium text-zinc-900 placeholder:text-zinc-500 focus:outline-none focus:border-[#00638E] focus:ring-1 focus:ring-[#00638E]/30 transition-colors"
                 />
               </div>
 
               {newRole === 'AKADEMISI' && (
                 <div>
-                  <label className="block font-medium text-zinc-700 mb-1">
+                  <label className="block font-semibold text-zinc-900 mb-1.5">
                     Lingkup peninjauan (scope)
                   </label>
                   <select
                     value={newScope}
                     onChange={(e) => setNewScope(e.target.value as TargetLevel)}
-                    className="w-full px-3 py-2 rounded-lg border border-zinc-200 text-xs text-zinc-900 focus:outline-none focus:border-zinc-900 transition-colors"
+                    className="w-full px-3 py-2 rounded-lg border border-zinc-300 text-xs font-medium text-zinc-900 focus:outline-none focus:border-[#00638E] focus:ring-1 focus:ring-[#00638E]/30 transition-colors"
                   >
                     <option value="JURUSAN">Jurusan / Program Studi</option>
                     <option value="FAKULTAS">Fakultas</option>
@@ -683,7 +683,7 @@ export default function AdminDashboard() {
               )}
 
               <div>
-                <label className="block font-medium text-zinc-700 mb-1">
+                <label className="block font-semibold text-zinc-900 mb-1.5">
                   Email kampus (opsional)
                 </label>
                 <input
@@ -691,12 +691,12 @@ export default function AdminDashboard() {
                   value={newEmail}
                   onChange={(e) => setNewEmail(e.target.value)}
                   placeholder="user@uinjkt.ac.id"
-                  className="w-full px-3 py-2 rounded-lg border border-zinc-200 text-xs text-zinc-900 focus:outline-none focus:border-zinc-900 transition-colors"
+                  className="w-full px-3 py-2 rounded-lg border border-zinc-300 text-xs font-medium text-zinc-900 placeholder:text-zinc-500 focus:outline-none focus:border-[#00638E] focus:ring-1 focus:ring-[#00638E]/30 transition-colors"
                 />
               </div>
 
               <div>
-                <label className="block font-medium text-zinc-700 mb-1">
+                <label className="block font-semibold text-zinc-900 mb-1.5">
                   Password awal
                 </label>
                 <input
@@ -704,9 +704,9 @@ export default function AdminDashboard() {
                   value={customPassword}
                   onChange={(e) => setCustomPassword(e.target.value)}
                   placeholder={`Default otomatis: Uin${newNimNip || '<NIM/NIP>'}`}
-                  className="w-full px-3 py-2 rounded-lg border border-zinc-200 text-xs text-zinc-900 focus:outline-none focus:border-zinc-900 transition-colors"
+                  className="w-full px-3 py-2 rounded-lg border border-zinc-300 text-xs font-medium text-zinc-900 placeholder:text-zinc-500 focus:outline-none focus:border-[#00638E] focus:ring-1 focus:ring-[#00638E]/30 transition-colors"
                 />
-                <p className="text-[11px] text-zinc-400 mt-1 font-mono">
+                <p className="text-xs text-zinc-700 mt-1 font-mono font-medium">
                   Kosongkan untuk menggunakan format default sistem (<code>Uin&lt;NIM/NIP&gt;</code>).
                 </p>
               </div>
@@ -746,20 +746,20 @@ export default function AdminDashboard() {
               </button>
             </div>
 
-            <p className="text-xs text-zinc-500 mb-3 leading-relaxed">
+            <p className="text-xs text-zinc-700 mb-3 leading-relaxed font-medium">
               Unggah atau tempel data CSV pengguna massal. Password default otomatis diset ke <code>Uin&lt;NIM/NIP&gt;</code>.
             </p>
 
             <form onSubmit={handleBulkImport} className="space-y-3.5 text-xs">
               <div>
-                <div className="flex items-center justify-between mb-1">
-                  <label className="font-medium text-zinc-700">
+                <div className="flex items-center justify-between mb-1.5">
+                  <label className="font-semibold text-zinc-900">
                     Format & isi CSV
                   </label>
                   <button
                     type="button"
                     onClick={() => setBulkCsv(sampleCsvExample)}
-                    className="text-zinc-600 hover:text-zinc-950 underline text-[11px]"
+                    className="text-[#00638E] hover:text-[#004A6B] underline text-xs font-semibold"
                   >
                     Gunakan contoh format
                   </button>
@@ -769,12 +769,12 @@ export default function AdminDashboard() {
                   value={bulkCsv}
                   onChange={(e) => setBulkCsv(e.target.value)}
                   placeholder={`nim_nip,nama,role,scope,email\n1251420101,Budi Santoso,MAHASISWA,,budi@mhs.uinjkt.ac.id\n198801012015011005,Dr. Ahmad Fauzi,AKADEMISI,JURUSAN,fauzi@uinjkt.ac.id`}
-                  className="w-full font-mono text-[11px] px-3 py-2 rounded-lg border border-zinc-200 text-zinc-800 placeholder:text-zinc-400 focus:outline-none focus:border-zinc-900 resize-y leading-normal transition-colors"
+                  className="w-full font-mono text-xs px-3 py-2 rounded-lg border border-zinc-300 text-zinc-900 placeholder:text-zinc-500 focus:outline-none focus:border-[#00638E] focus:ring-1 focus:ring-[#00638E]/30 resize-y leading-normal transition-colors"
                 />
               </div>
 
-              <div className="p-3 rounded-lg bg-zinc-50 border border-zinc-200 text-[11px] text-zinc-600 space-y-1 font-mono">
-                <p className="font-medium text-zinc-800">Petunjuk kolom CSV:</p>
+              <div className="p-3 rounded-lg bg-zinc-50 border border-zinc-200 text-xs text-zinc-800 space-y-1 font-mono font-medium">
+                <p className="font-bold text-zinc-950">Petunjuk kolom CSV:</p>
                 <p>• nim_nip: NIM atau NIP</p>
                 <p>• nama: Nama lengkap</p>
                 <p>• role: MAHASISWA atau AKADEMISI</p>

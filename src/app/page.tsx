@@ -138,13 +138,13 @@ export default function LandingPage() {
                   className="p-1.5 bg-white border border-zinc-300 rounded-2xl shadow-sm flex flex-col sm:flex-row items-center gap-2 max-w-lg focus-within:border-[#00638E] focus-within:ring-2 focus-within:ring-[#00638E]/20 transition"
                 >
                   <div className="relative flex-1 w-full">
-                    <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400" />
+                    <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-500" />
                     <input
                       type="text"
                       value={trackCode}
                       onChange={(e) => setTrackCode(e.target.value)}
                       placeholder="Masukkan kode tiket (ASP-2026-XXXXXX)..."
-                      className="w-full pl-10 pr-3 py-2.5 text-xs sm:text-sm font-mono uppercase tracking-wider text-zinc-900 placeholder:normal-case placeholder:font-sans placeholder:text-zinc-400 focus:outline-none rounded-xl"
+                      className="w-full pl-10 pr-3 py-2.5 text-xs sm:text-sm font-mono font-medium uppercase tracking-wider text-zinc-900 placeholder:normal-case placeholder:font-sans placeholder:text-zinc-500 focus:outline-none rounded-xl"
                     />
                   </div>
                   <button

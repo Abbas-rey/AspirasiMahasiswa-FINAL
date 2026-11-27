@@ -161,13 +161,13 @@ export default function AkademisiDashboard() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           {/* Search Box */}
           <div className="relative">
-            <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" />
+            <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500" />
             <input
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Cari judul, tiket, isi..."
-              className="w-full pl-9 pr-3 py-2 rounded-lg border border-zinc-200 text-xs text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:border-zinc-900 transition-colors"
+              className="w-full pl-9 pr-3 py-2 rounded-lg border border-zinc-300 text-xs font-medium text-zinc-900 placeholder:text-zinc-500 focus:outline-none focus:border-[#00638E] focus:ring-1 focus:ring-[#00638E]/30 transition-colors"
             />
           </div>
 
@@ -176,7 +176,7 @@ export default function AkademisiDashboard() {
             <select
               value={selectedTarget}
               onChange={(e) => setSelectedTarget(e.target.value)}
-              className="w-full px-3 py-2 rounded-lg border border-zinc-200 text-xs text-zinc-800 bg-white focus:outline-none focus:border-zinc-900 transition-colors"
+              className="w-full px-3 py-2 rounded-lg border border-zinc-300 text-xs font-medium text-zinc-900 bg-white focus:outline-none focus:border-[#00638E] focus:ring-1 focus:ring-[#00638E]/30 transition-colors"
             >
               <option value="ALL">Semua tingkat tujuan</option>
               <option value="JURUSAN">Jurusan / Program Studi</option>
@@ -190,7 +190,7 @@ export default function AkademisiDashboard() {
             <select
               value={selectedStatus}
               onChange={(e) => setSelectedStatus(e.target.value)}
-              className="w-full px-3 py-2 rounded-lg border border-zinc-200 text-xs text-zinc-800 bg-white focus:outline-none focus:border-zinc-900 transition-colors"
+              className="w-full px-3 py-2 rounded-lg border border-zinc-300 text-xs font-medium text-zinc-900 bg-white focus:outline-none focus:border-[#00638E] focus:ring-1 focus:ring-[#00638E]/30 transition-colors"
             >
               <option value="ALL">Semua status</option>
               <option value="DITERIMA">Diterima</option>

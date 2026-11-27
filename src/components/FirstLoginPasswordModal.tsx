@@ -118,8 +118,8 @@ export function FirstLoginPasswordModal({
           <h3 id="flm-title" className="text-lg font-bold text-zinc-950 tracking-tight">
             Perbarui Password Akun
           </h3>
-          <p className="text-xs text-zinc-600 mt-1 leading-relaxed">
-            Halo <span className="font-semibold text-zinc-900">{userName}</span>, akun Anda masih menggunakan default password sistem. Disarankan untuk menggantinya sekarang demi keamanan akun Anda.
+          <p className="text-xs text-zinc-700 mt-1 leading-relaxed font-medium">
+            Halo <span className="font-semibold text-zinc-950">{userName}</span>, akun Anda masih menggunakan default password sistem. Disarankan untuk menggantinya sekarang demi keamanan akun Anda.
           </p>
         </div>
 
@@ -132,7 +132,7 @@ export function FirstLoginPasswordModal({
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label htmlFor="flm-new-password" className="block text-xs font-semibold text-zinc-700 mb-1.5">
+            <label htmlFor="flm-new-password" className="block text-xs font-semibold text-zinc-900 mb-1.5">
               Password Baru
             </label>
             <div className="relative">
@@ -143,13 +143,13 @@ export function FirstLoginPasswordModal({
                 onChange={(e) => setNewPassword(e.target.value)}
                 placeholder="Masukkan password baru..."
                 required
-                className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-300 text-xs text-zinc-900 focus:outline-none focus:ring-2 focus:ring-[#00638E]/20 focus:border-[#00638E] transition pr-10"
+                className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-300 text-xs font-medium text-zinc-900 placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-[#00638E]/20 focus:border-[#00638E] transition pr-10"
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
                 aria-label={showPassword ? 'Sembunyikan password' : 'Tampilkan password'}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-600"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-zinc-700"
               >
                 {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
               </button>
@@ -158,22 +158,22 @@ export function FirstLoginPasswordModal({
 
           {/* Real-time Checklist Criteria */}
           <div className="p-3 bg-zinc-50 border border-zinc-200 rounded-xl space-y-1.5">
-            <span className="text-[11px] font-mono text-zinc-500 uppercase tracking-wider block mb-1">
+            <span className="text-xs font-mono text-zinc-800 font-bold uppercase tracking-wider block mb-1">
               Syarat Keamanan Password:
             </span>
             <div className="grid grid-cols-2 gap-x-2 gap-y-1">
               {criteria.map((c) => (
-                <div key={c.label} className="flex items-center gap-1.5 text-[11px]">
+                <div key={c.label} className="flex items-center gap-1.5 text-xs">
                   {c.valid ? (
                     <div className="w-3.5 h-3.5 rounded-full bg-[#BFD8E3]/60 text-[#004A6B] flex items-center justify-center shrink-0">
                       <Check size={10} className="stroke-[3]" />
                     </div>
                   ) : (
-                    <div className="w-3.5 h-3.5 rounded-full bg-zinc-200 text-zinc-400 flex items-center justify-center shrink-0">
-                      <span className="w-1 h-1 rounded-full bg-zinc-400" />
+                    <div className="w-3.5 h-3.5 rounded-full bg-zinc-200 text-zinc-500 flex items-center justify-center shrink-0">
+                      <span className="w-1 h-1 rounded-full bg-zinc-500" />
                     </div>
                   )}
-                  <span className={c.valid ? 'text-[#004A6B] font-semibold' : 'text-zinc-500'}>
+                  <span className={c.valid ? 'text-[#004A6B] font-bold' : 'text-zinc-700 font-medium'}>
                     {c.label}
                   </span>
                 </div>
@@ -182,7 +182,7 @@ export function FirstLoginPasswordModal({
           </div>
 
           <div>
-            <label htmlFor="flm-confirm-password" className="block text-xs font-semibold text-zinc-700 mb-1.5">
+            <label htmlFor="flm-confirm-password" className="block text-xs font-semibold text-zinc-900 mb-1.5">
               Konfirmasi Password Baru
             </label>
             <input
@@ -192,7 +192,7 @@ export function FirstLoginPasswordModal({
               onChange={(e) => setConfirmPassword(e.target.value)}
               placeholder="Ketik ulang password baru..."
               required
-              className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-300 text-xs text-zinc-900 focus:outline-none focus:ring-2 focus:ring-[#00638E]/20 focus:border-[#00638E] transition"
+              className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-300 text-xs font-medium text-zinc-900 placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-[#00638E]/20 focus:border-[#00638E] transition"
             />
             {confirmPassword.length > 0 && (
               <p className={`text-[11px] mt-1 flex items-center gap-1 ${passwordsMatch ? 'text-emerald-700 font-medium' : 'text-red-600'}`}>

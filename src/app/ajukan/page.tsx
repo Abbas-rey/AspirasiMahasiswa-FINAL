@@ -333,7 +333,7 @@ function AjukanAspirasiForm() {
         <div className="space-y-6 bg-white rounded-xl p-6 border border-zinc-200 animate-in fade-in slide-in-from-bottom-2 duration-300">
           {/* Sub-section 1: Mode Identitas */}
           <div>
-            <span className="text-xs font-mono text-zinc-500 uppercase tracking-wider block mb-2.5">
+            <span className="text-xs font-mono text-zinc-800 font-bold uppercase tracking-wider block mb-2.5">
               1. Pilih mode privasi pengirim
             </span>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3" role="radiogroup" aria-label="Mode privasi pengirim">
@@ -346,19 +346,19 @@ function AjukanAspirasiForm() {
                 className={`p-4 rounded-lg border transition-colors cursor-pointer ${
                   !isAnonymous
                     ? 'border-[#00638E] bg-[#BFD8E3]/15 ring-1 ring-[#00638E]'
-                    : 'border-zinc-200 hover:border-[#00638E]/40 bg-white'
+                    : 'border-zinc-300 hover:border-[#00638E]/50 bg-white'
                 }`}
               >
                 <div className="flex items-center gap-2.5 mb-2">
-                  <div className={`w-8 h-8 rounded-md flex items-center justify-center transition-colors ${!isAnonymous ? 'bg-[#00638E] text-white shadow-xs' : 'bg-zinc-100 text-zinc-600'}`}>
+                  <div className={`w-8 h-8 rounded-md flex items-center justify-center transition-colors ${!isAnonymous ? 'bg-[#00638E] text-white shadow-xs' : 'bg-zinc-100 text-zinc-700'}`}>
                     <UserCheck size={16} />
                   </div>
                   <div>
-                    <h3 className="text-xs font-medium text-zinc-950">Pakai Nama Saya</h3>
-                    <span className="text-[10px] font-mono text-[#004A6B]">Transparan</span>
+                    <h3 className="text-xs font-semibold text-zinc-950">Pakai Nama Saya</h3>
+                    <span className="text-[10px] font-mono text-[#004A6B] font-semibold">Transparan</span>
                   </div>
                 </div>
-                <p className="text-[11px] text-zinc-600 leading-relaxed">
+                <p className="text-xs text-zinc-700 leading-relaxed">
                   Identitas resmi (Nama & NIM) ditampilkan kepada peninjau untuk memudahkan klarifikasi langsung.
                 </p>
               </div>
@@ -372,19 +372,19 @@ function AjukanAspirasiForm() {
                 className={`p-4 rounded-lg border transition-colors cursor-pointer ${
                   isAnonymous
                     ? 'border-[#00638E] bg-[#BFD8E3]/15 ring-1 ring-[#00638E]'
-                    : 'border-zinc-200 hover:border-[#00638E]/40 bg-white'
+                    : 'border-zinc-300 hover:border-[#00638E]/50 bg-white'
                 }`}
               >
                 <div className="flex items-center gap-2.5 mb-2">
-                  <div className={`w-8 h-8 rounded-md flex items-center justify-center transition-colors ${isAnonymous ? 'bg-[#00638E] text-white shadow-xs' : 'bg-zinc-100 text-zinc-600'}`}>
+                  <div className={`w-8 h-8 rounded-md flex items-center justify-center transition-colors ${isAnonymous ? 'bg-[#00638E] text-white shadow-xs' : 'bg-zinc-100 text-zinc-700'}`}>
                     <EyeOff size={16} />
                   </div>
                   <div>
-                    <h3 className="text-xs font-medium text-zinc-950">Kirim Anonim</h3>
-                    <span className="text-[10px] font-mono text-[#004A6B]">Privasi 100%</span>
+                    <h3 className="text-xs font-semibold text-zinc-950">Kirim Anonim</h3>
+                    <span className="text-[10px] font-mono text-[#004A6B] font-semibold">Privasi 100%</span>
                   </div>
                 </div>
-                <p className="text-[11px] text-zinc-600 leading-relaxed">
+                <p className="text-xs text-zinc-700 leading-relaxed">
                   Sistem menyamarkan nama dan NIM menjadi Anonim untuk melindungi privasi Anda seutuhnya.
                 </p>
               </div>
@@ -393,7 +393,7 @@ function AjukanAspirasiForm() {
 
           {/* Sub-section 2: Tingkat Penanganan */}
           <div>
-            <span className="text-xs font-mono text-zinc-500 uppercase tracking-wider block mb-2.5">
+            <span className="text-xs font-mono text-zinc-800 font-bold uppercase tracking-wider block mb-2.5">
               2. Tingkat penanganan tujuan
             </span>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3" role="radiogroup" aria-label="Tingkat penanganan tujuan">
@@ -427,14 +427,14 @@ function AjukanAspirasiForm() {
                   className={`p-3.5 rounded-lg border transition-colors cursor-pointer text-center ${
                     targetLevel === t.id
                       ? 'border-[#00638E] bg-[#BFD8E3]/15 ring-1 ring-[#00638E]'
-                      : 'border-zinc-200 hover:border-[#00638E]/40 bg-white'
+                      : 'border-zinc-300 hover:border-[#00638E]/50 bg-white'
                   }`}
                 >
-                  <span className={`text-[10px] font-mono px-2 py-0.5 rounded border ${targetLevel === t.id ? 'text-[#004A6B] bg-[#BFD8E3]/40 border-[#8CB9CC]/50 font-medium' : 'text-zinc-600 bg-zinc-100 border-zinc-200'}`}>
+                  <span className={`text-[10px] font-mono px-2 py-0.5 rounded border ${targetLevel === t.id ? 'text-[#004A6B] bg-[#BFD8E3]/40 border-[#8CB9CC]/50 font-semibold' : 'text-zinc-700 bg-zinc-100 border-zinc-300 font-medium'}`}>
                     {t.badge}
                   </span>
-                  <h4 className="text-xs font-medium text-zinc-950 mt-2">{t.title}</h4>
-                  <p className="text-[11px] text-zinc-500 mt-0.5">{t.sub}</p>
+                  <h4 className="text-xs font-semibold text-zinc-950 mt-2">{t.title}</h4>
+                  <p className="text-xs text-zinc-600 mt-0.5 font-medium">{t.sub}</p>
                 </div>
               ))}
             </div>
@@ -442,7 +442,7 @@ function AjukanAspirasiForm() {
 
           {/* Sub-section 3: Kategori Aspirasi */}
           <div>
-            <span className="text-xs font-mono text-zinc-500 uppercase tracking-wider block mb-2.5">
+            <span className="text-xs font-mono text-zinc-800 font-bold uppercase tracking-wider block mb-2.5">
               3. Kategori aspirasi
             </span>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5" role="radiogroup" aria-label="Kategori aspirasi">
@@ -459,13 +459,13 @@ function AjukanAspirasiForm() {
                     className={`p-3.5 rounded-lg border transition-colors cursor-pointer ${
                       isSelected
                         ? 'border-[#00638E] bg-[#BFD8E3]/15 ring-1 ring-[#00638E]'
-                        : 'border-zinc-200 hover:border-[#00638E]/40 bg-white'
+                        : 'border-zinc-300 hover:border-[#00638E]/50 bg-white'
                     }`}
                   >
-                    <h4 className={`text-xs font-medium mb-1 ${isSelected ? 'text-[#004A6B] font-semibold' : 'text-zinc-950'}`}>
+                    <h4 className={`text-xs mb-1 ${isSelected ? 'text-[#004A6B] font-bold' : 'text-zinc-950 font-semibold'}`}>
                       {cat.category_name}
                     </h4>
-                    <p className="text-[11px] text-zinc-500 leading-snug line-clamp-2">
+                    <p className="text-xs text-zinc-600 leading-snug line-clamp-2">
                       {cat.description || 'Topik terkait'}
                     </p>
                   </div>
@@ -492,16 +492,16 @@ function AjukanAspirasiForm() {
         <form noValidate onSubmit={handleSubmit} className="space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-300">
           {/* Detail Kejadian Card */}
           <div className="space-y-5 bg-white rounded-xl p-6 border border-zinc-200">
-            <span className="text-xs font-mono text-zinc-500 uppercase tracking-wider block">
+            <span className="text-xs font-mono text-zinc-800 font-bold uppercase tracking-wider block">
               1. Isi dan uraian aspirasi
             </span>
 
             <div>
-              <div className="flex items-center justify-between mb-1">
-                <label htmlFor="asp-title" className="block text-xs font-medium text-zinc-700">
-                  Judul aspirasi / pengaduan <span className="text-red-500 font-bold">*</span>
+              <div className="flex items-center justify-between mb-1.5">
+                <label htmlFor="asp-title" className="block text-xs font-semibold text-zinc-900">
+                  Judul aspirasi / pengaduan <span className="text-red-600 font-bold">*</span>
                 </label>
-                <span className={`text-[11px] font-mono ${title.length > 110 ? 'text-zinc-900 font-bold' : 'text-zinc-400'}`}>
+                <span className={`text-xs font-mono font-medium ${title.length > 110 ? 'text-zinc-950 font-bold' : 'text-zinc-600'}`}>
                   {title.length}/120
                 </span>
               </div>
@@ -518,26 +518,26 @@ function AjukanAspirasiForm() {
                   }
                 }}
                 placeholder="Contoh: AC di Ruang Lab Komputer 3 Rusak dan Panas"
-                className={`w-full px-3 py-2 rounded-lg border text-xs text-zinc-900 placeholder:text-zinc-400 focus:outline-none transition-colors ${
+                className={`w-full px-3.5 py-2.5 rounded-lg border text-xs font-medium text-zinc-900 placeholder:text-zinc-500 focus:outline-none transition-colors ${
                   fieldErrors.title
                     ? 'border-red-500 bg-red-50/20 focus:border-red-500 focus:ring-1 focus:ring-red-500'
-                    : 'border-zinc-200 focus:border-[#00638E] focus:ring-1 focus:ring-[#00638E]/30'
+                    : 'border-zinc-300 focus:border-[#00638E] focus:ring-1 focus:ring-[#00638E]/30'
                 }`}
               />
               {fieldErrors.title && (
-                <p id="asp-title-error" className="mt-1.5 text-xs text-red-600 flex items-center gap-1 font-medium">
-                  <AlertCircle size={13} className="shrink-0 text-red-500" />
+                <p id="asp-title-error" className="mt-1.5 text-xs text-red-700 flex items-center gap-1 font-semibold">
+                  <AlertCircle size={13} className="shrink-0 text-red-600" />
                   <span>{fieldErrors.title}</span>
                 </p>
               )}
             </div>
 
             <div>
-              <div className="flex items-center justify-between mb-1">
-                <label htmlFor="asp-description" className="block text-xs font-medium text-zinc-700">
-                  Uraian lengkap kejadian <span className="text-red-500 font-bold">*</span>
+              <div className="flex items-center justify-between mb-1.5">
+                <label htmlFor="asp-description" className="block text-xs font-semibold text-zinc-900">
+                  Uraian lengkap kejadian <span className="text-red-600 font-bold">*</span>
                 </label>
-                <span className={`text-[11px] font-mono ${description.length > 1900 ? 'text-zinc-900 font-bold' : 'text-zinc-400'}`}>
+                <span className={`text-xs font-mono font-medium ${description.length > 1900 ? 'text-zinc-950 font-bold' : 'text-zinc-600'}`}>
                   {description.length}/2000
                 </span>
               </div>
@@ -554,15 +554,15 @@ function AjukanAspirasiForm() {
                   }
                 }}
                 placeholder="Ceritakan kejadian, kronologi, dampak terhadap proses belajar, atau saran konkrit yang diharapkan..."
-                className={`w-full px-3 py-2 rounded-lg border text-xs text-zinc-800 placeholder:text-zinc-400 focus:outline-none transition-colors resize-y leading-relaxed ${
+                className={`w-full px-3.5 py-2.5 rounded-lg border text-xs font-medium text-zinc-900 placeholder:text-zinc-500 focus:outline-none transition-colors resize-y leading-relaxed ${
                   fieldErrors.description
                     ? 'border-red-500 bg-red-50/20 focus:border-red-500 focus:ring-1 focus:ring-red-500'
-                    : 'border-zinc-200 focus:border-[#00638E] focus:ring-1 focus:ring-[#00638E]/30'
+                    : 'border-zinc-300 focus:border-[#00638E] focus:ring-1 focus:ring-[#00638E]/30'
                 }`}
               />
               {fieldErrors.description && (
-                <p id="asp-description-error" className="mt-1.5 text-xs text-red-600 flex items-center gap-1 font-medium">
-                  <AlertCircle size={13} className="shrink-0 text-red-500" />
+                <p id="asp-description-error" className="mt-1.5 text-xs text-red-700 flex items-center gap-1 font-semibold">
+                  <AlertCircle size={13} className="shrink-0 text-red-600" />
                   <span>{fieldErrors.description}</span>
                 </p>
               )}
@@ -570,11 +570,11 @@ function AjukanAspirasiForm() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
               <div>
-                <label htmlFor="asp-incident-date" className="block text-xs font-medium text-zinc-700 mb-1">
-                  Tanggal kejadian <span className="text-red-500 font-bold">*</span>
+                <label htmlFor="asp-incident-date" className="block text-xs font-semibold text-zinc-900 mb-1.5">
+                  Tanggal kejadian <span className="text-red-600 font-bold">*</span>
                 </label>
                 <div className="relative">
-                  <Calendar size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" />
+                  <Calendar size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500" />
                   <input
                     id="asp-incident-date"
                     type="date"
@@ -587,34 +587,34 @@ function AjukanAspirasiForm() {
                         setFieldErrors((prev) => ({ ...prev, incidentDate: undefined }));
                       }
                     }}
-                    className={`w-full pl-9 pr-3 py-2 rounded-lg border text-xs text-zinc-900 focus:outline-none transition-colors ${
+                    className={`w-full pl-9 pr-3 py-2.5 rounded-lg border text-xs font-medium text-zinc-900 focus:outline-none transition-colors ${
                       fieldErrors.incidentDate
                         ? 'border-red-500 bg-red-50/20 focus:border-red-500 focus:ring-1 focus:ring-red-500'
-                        : 'border-zinc-200 focus:border-[#00638E] focus:ring-1 focus:ring-[#00638E]/30'
+                        : 'border-zinc-300 focus:border-[#00638E] focus:ring-1 focus:ring-[#00638E]/30'
                     }`}
                   />
                 </div>
                 {fieldErrors.incidentDate && (
-                  <p id="asp-date-error" className="mt-1.5 text-xs text-red-600 flex items-center gap-1 font-medium">
-                    <AlertCircle size={13} className="shrink-0 text-red-500" />
+                  <p id="asp-date-error" className="mt-1.5 text-xs text-red-700 flex items-center gap-1 font-semibold">
+                    <AlertCircle size={13} className="shrink-0 text-red-600" />
                     <span>{fieldErrors.incidentDate}</span>
                   </p>
                 )}
               </div>
 
               <div>
-                <label htmlFor="asp-incident-time" className="block text-xs font-medium text-zinc-700 mb-1">
-                  Waktu kejadian <span className="text-zinc-400 font-normal">(opsional)</span>
+                <label htmlFor="asp-incident-time" className="block text-xs font-semibold text-zinc-900 mb-1.5">
+                  Waktu kejadian <span className="text-zinc-600 font-normal">(opsional)</span>
                 </label>
                 <div className="relative">
-                  <Clock size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" />
+                  <Clock size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500" />
                   <input
                     id="asp-incident-time"
                     type="text"
                     value={incidentTime}
                     onChange={(e) => setIncidentTime(e.target.value)}
                     placeholder="Contoh: 13:30 WIB atau Siang Hari"
-                    className="w-full pl-9 pr-3 py-2 rounded-lg border border-zinc-200 text-xs text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:border-[#00638E] focus:ring-1 focus:ring-[#00638E]/30 transition-colors"
+                    className="w-full pl-9 pr-3 py-2.5 rounded-lg border border-zinc-300 text-xs font-medium text-zinc-900 placeholder:text-zinc-500 focus:outline-none focus:border-[#00638E] focus:ring-1 focus:ring-[#00638E]/30 transition-colors"
                   />
                 </div>
               </div>
@@ -625,14 +625,14 @@ function AjukanAspirasiForm() {
           <div className="space-y-4 bg-white rounded-xl p-6 border border-zinc-200">
             <div className="flex items-center justify-between">
               <div>
-                <span className="text-xs font-mono text-zinc-500 uppercase tracking-wider block mb-0.5">
-                  2. Bukti pendukung aspirasi <span className="text-zinc-400 lowercase">(opsional)</span>
+                <span className="text-xs font-mono text-zinc-800 font-bold uppercase tracking-wider block mb-0.5">
+                  2. Bukti pendukung aspirasi <span className="text-zinc-600 font-medium lowercase">(opsional)</span>
                 </span>
-                <p className="text-xs text-zinc-600">
+                <p className="text-xs text-zinc-700 font-medium">
                   Unggah berkas foto/dokumen (maksimal 5 file, maks 10MB per file) atau cantumkan tautan Google Drive.
                 </p>
               </div>
-              <span className="text-[11px] font-mono text-[#004A6B] bg-[#BFD8E3]/35 px-2.5 py-1 rounded-md border border-[#8CB9CC]/50 font-medium">
+              <span className="text-xs font-mono text-[#004A6B] bg-[#BFD8E3]/35 px-2.5 py-1 rounded-md border border-[#8CB9CC]/50 font-bold">
                 {selectedFiles.length}/{MAX_FILES} file
               </span>
             </div>
@@ -655,17 +655,17 @@ function AjukanAspirasiForm() {
                     handleFilesAdded(e.dataTransfer.files);
                   }
                 }}
-                className={`border border-dashed rounded-lg p-5 flex flex-col items-center justify-center text-center cursor-pointer transition-colors ${
+                className={`border-2 border-dashed rounded-lg p-5 flex flex-col items-center justify-center text-center cursor-pointer transition-colors ${
                   isDragging
                     ? 'border-[#00638E] bg-[#BFD8E3]/15 ring-2 ring-[#00638E]/30'
-                    : 'border-zinc-300 hover:border-[#00638E]/60 bg-zinc-50/50'
+                    : 'border-zinc-300 hover:border-[#00638E] bg-zinc-50/70'
                 }`}
               >
-                <UploadCloud size={24} className={`mb-1.5 transition-colors ${isDragging ? 'text-[#00638E]' : 'text-zinc-500'}`} />
-                <span className="text-xs font-medium text-zinc-900">
+                <UploadCloud size={26} className={`mb-1.5 transition-colors ${isDragging ? 'text-[#00638E]' : 'text-zinc-600'}`} />
+                <span className="text-xs font-semibold text-zinc-900">
                   {isDragging ? 'Lepaskan berkas di sini' : 'Pilih berkas bukti atau seret ke area ini'}
                 </span>
-                <span className="text-[11px] text-zinc-500 mt-0.5 font-mono">
+                <span className="text-xs text-zinc-700 mt-1 font-mono font-medium">
                   JPG, JPEG, PNG, PDF, WEBP (maks. 10 MB per berkas)
                 </span>
                 <input
@@ -681,7 +681,7 @@ function AjukanAspirasiForm() {
             {/* Selected Files List */}
             {selectedFiles.length > 0 && (
               <div className="space-y-2 pt-1">
-                <span className="text-[11px] font-mono text-zinc-500 block">
+                <span className="text-xs font-mono text-zinc-800 font-semibold block">
                   Daftar berkas terlampir:
                 </span>
                 {selectedFiles.map((file, idx) => (
@@ -694,10 +694,10 @@ function AjukanAspirasiForm() {
                         <FileText size={15} />
                       </div>
                       <div className="truncate">
-                        <p className="text-xs font-medium text-zinc-900 truncate max-w-xs sm:max-w-md">
+                        <p className="text-xs font-semibold text-zinc-950 truncate max-w-xs sm:max-w-md">
                           {file.name}
                         </p>
-                        <p className="text-[10px] font-mono text-zinc-500">
+                        <p className="text-xs font-mono text-zinc-700 font-medium">
                           {(file.size / (1024 * 1024)).toFixed(2)} MB • {file.type || 'dokumen'}
                         </p>
                       </div>
@@ -706,7 +706,7 @@ function AjukanAspirasiForm() {
                       type="button"
                       onClick={() => removeFile(idx)}
                       title="Hapus berkas ini"
-                      className="p-1.5 text-zinc-400 hover:text-red-600 rounded transition-colors shrink-0"
+                      className="p-1.5 text-zinc-500 hover:text-red-600 rounded transition-colors shrink-0"
                     >
                       <Trash2 size={15} />
                     </button>
@@ -717,21 +717,21 @@ function AjukanAspirasiForm() {
 
             {/* Google Drive Link Field */}
             <div className="pt-2 border-t border-zinc-100">
-              <label htmlFor="asp-drive-link" className="block text-xs font-medium text-zinc-700 mb-1">
-                Tautan Google Drive / Cloud Storage <span className="text-zinc-400 font-normal">(opsional)</span>
+              <label htmlFor="asp-drive-link" className="block text-xs font-semibold text-zinc-900 mb-1.5">
+                Tautan Google Drive / Cloud Storage <span className="text-zinc-600 font-normal">(opsional)</span>
               </label>
               <div className="relative">
-                <LinkIcon size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" />
+                <LinkIcon size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500" />
                 <input
                   id="asp-drive-link"
                   type="url"
                   value={driveLink}
                   onChange={(e) => setDriveLink(e.target.value)}
                   placeholder="https://drive.google.com/drive/folders/... atau tautan cloud lainnya"
-                  className="w-full pl-9 pr-3 py-2 rounded-lg border border-zinc-200 text-xs text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:border-[#00638E] focus:ring-1 focus:ring-[#00638E]/30 transition-colors"
+                  className="w-full pl-9 pr-3 py-2.5 rounded-lg border border-zinc-300 text-xs font-medium text-zinc-900 placeholder:text-zinc-500 focus:outline-none focus:border-[#00638E] focus:ring-1 focus:ring-[#00638E]/30 transition-colors"
                 />
               </div>
-              <p className="text-[11px] text-zinc-500 mt-1 leading-relaxed">
+              <p className="text-xs text-zinc-700 mt-1.5 leading-relaxed font-normal">
                 Gunakan jika Anda ingin menyertakan lebih dari 5 bukti atau berkas berukuran besar. Pastikan izin akses tautan Google Drive disetel ke <em>&quot;Siapa saja yang memiliki tautan dapat melihat&quot;</em>.
               </p>
             </div>
@@ -747,7 +747,7 @@ function AjukanAspirasiForm() {
                 onChange={(e) => setIsAgreed(e.target.checked)}
                 className="mt-0.5 rounded border-zinc-300 accent-[#00638E] focus:ring-[#00638E] w-4 h-4 cursor-pointer"
               />
-              <span className="text-xs text-zinc-700 leading-relaxed">
+              <span className="text-xs text-zinc-900 font-medium leading-relaxed">
                 Saya menyatakan dengan sungguh-sungguh bahwa seluruh informasi dan bukti yang disampaikan adalah benar, objektif, dapat dipertanggungjawabkan, serta tidak memuat unsur fitnah di lingkungan civitas akademika UIN Syarif Hidayatullah Jakarta.
               </span>
             </label>

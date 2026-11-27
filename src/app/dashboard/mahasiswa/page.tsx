@@ -198,16 +198,16 @@ export default function MahasiswaDashboard() {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Cari judul atau kode tiket..."
-                className="w-full pl-9 pr-3 py-2 rounded-lg border border-zinc-200 text-xs text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:border-zinc-900 transition-colors"
+                className="w-full pl-9 pr-3 py-2 rounded-lg border border-zinc-300 text-xs font-medium text-zinc-900 placeholder:text-zinc-500 focus:outline-none focus:border-[#00638E] focus:ring-1 focus:ring-[#00638E]/30 transition-colors"
               />
             </div>
 
             <div className="flex items-center gap-2 w-full sm:w-auto">
-              <Filter size={14} className="text-zinc-400 shrink-0" />
+              <Filter size={14} className="text-zinc-500 shrink-0" />
               <select
                 value={selectedStatus}
                 onChange={(e) => setSelectedStatus(e.target.value)}
-                className="px-3 py-2 rounded-lg border border-zinc-200 text-xs text-zinc-800 bg-white focus:outline-none focus:border-zinc-900 w-full sm:w-auto"
+                className="px-3 py-2 rounded-lg border border-zinc-300 text-xs font-medium text-zinc-900 bg-white focus:outline-none focus:border-[#00638E] focus:ring-1 focus:ring-[#00638E]/30 w-full sm:w-auto"
               >
                 <option value="ALL">Semua status</option>
                 <option value="DITERIMA">Diterima</option>

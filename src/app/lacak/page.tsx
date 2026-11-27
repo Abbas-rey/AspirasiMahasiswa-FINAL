@@ -81,7 +81,7 @@ function LacakStatusContent() {
           <h1 className="text-2xl font-semibold tracking-tight text-zinc-950">
             Lacak Status Aspirasi
           </h1>
-          <p className="text-sm text-zinc-600 mt-1 max-w-xl">
+          <p className="text-sm text-zinc-700 mt-1 max-w-xl font-normal">
             Pantau transparansi penanganan laporan Anda di lingkungan UIN Syarif Hidayatullah Jakarta menggunakan kode tiket resmi.
           </p>
         </div>
@@ -90,7 +90,7 @@ function LacakStatusContent() {
         <div className="bg-white rounded-xl p-4 border border-zinc-200 mb-6">
           <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row items-center gap-2.5">
             <div className="relative flex-1 w-full">
-              <FileSearch size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" />
+              <FileSearch size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500" />
               <label htmlFor="lacak-code" className="sr-only">Kode tiket aspirasi</label>
               <input
                 id="lacak-code"
@@ -98,7 +98,7 @@ function LacakStatusContent() {
                 value={ticketCode}
                 onChange={(e) => setTicketCode(e.target.value)}
                 placeholder="contoh: asp-2026-xxxxx"
-                className="w-full pl-9 pr-3 py-2 rounded-lg border border-zinc-200 text-xs font-mono uppercase tracking-wider text-zinc-900 placeholder:normal-case placeholder:text-zinc-400 focus:outline-none focus:border-[#00638E] focus:ring-1 focus:ring-[#00638E]/30 transition-colors"
+                className="w-full pl-9 pr-3 py-2.5 rounded-lg border border-zinc-300 text-xs font-mono font-medium uppercase tracking-wider text-zinc-900 placeholder:normal-case placeholder:font-sans placeholder:text-zinc-500 focus:outline-none focus:border-[#00638E] focus:ring-1 focus:ring-[#00638E]/30 transition-colors"
               />
             </div>
             <button

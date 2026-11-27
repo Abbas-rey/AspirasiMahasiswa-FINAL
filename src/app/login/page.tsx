@@ -181,7 +181,7 @@ function LoginForm() {
               <h2 className="text-2xl font-extrabold text-zinc-900">
                 Masuk ke Akun Anda
               </h2>
-              <p className="text-xs text-zinc-500 mt-1">
+              <p className="text-xs text-zinc-700 mt-1 font-medium">
                 Gunakan NIM bagi Mahasiswa atau NIP bagi Dosen / Tenaga Kependidikan.
               </p>
             </div>
@@ -258,11 +258,11 @@ function LoginForm() {
             {/* Form */}
             <form onSubmit={handleLogin} className="space-y-4">
               <div>
-                <label htmlFor="login-nim" className="block text-xs font-semibold text-zinc-700 mb-1.5">
+                <label htmlFor="login-nim" className="block text-xs font-semibold text-zinc-900 mb-1.5">
                   NIM / NIP / Username
                 </label>
                 <div className="relative">
-                  <User size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400" />
+                  <User size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-500" />
                   <input
                     id="login-nim"
                     type="text"
@@ -270,26 +270,26 @@ function LoginForm() {
                     onChange={(e) => setNimNip(e.target.value)}
                     placeholder="Contoh: 1251420044 (Mahasiswa) atau NIP"
                     required
-                    className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-zinc-300 text-xs text-zinc-900 focus:outline-none focus:ring-2 focus:ring-[#00638E]/20 focus:border-[#00638E] transition"
+                    className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-zinc-300 text-xs font-medium text-zinc-900 placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-[#00638E]/20 focus:border-[#00638E] transition"
                   />
                 </div>
               </div>
 
               <div>
                 <div className="flex items-center justify-between mb-1.5">
-                  <label htmlFor="login-password" className="block text-xs font-semibold text-zinc-700">
+                  <label htmlFor="login-password" className="block text-xs font-semibold text-zinc-900">
                     Password
                   </label>
                   <button
                     type="button"
                     onClick={() => setShowForgotModal(true)}
-                    className="text-[11px] text-[#00638E] hover:text-[#004A6B] hover:underline font-medium"
+                    className="text-xs text-[#00638E] hover:text-[#004A6B] hover:underline font-semibold"
                   >
                     Lupa Password?
                   </button>
                 </div>
                 <div className="relative">
-                  <Lock size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400" />
+                  <Lock size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-500" />
                   <input
                     id="login-password"
                     type={showPassword ? 'text' : 'password'}
@@ -297,12 +297,12 @@ function LoginForm() {
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Masukkan password..."
                     required
-                    className="w-full pl-10 pr-10 py-2.5 rounded-xl border border-zinc-300 text-xs text-zinc-900 focus:outline-none focus:ring-2 focus:ring-[#00638E]/20 focus:border-[#00638E] transition"
+                    className="w-full pl-10 pr-10 py-2.5 rounded-xl border border-zinc-300 text-xs font-medium text-zinc-900 placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-[#00638E]/20 focus:border-[#00638E] transition"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3.5 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-600"
+                    className="absolute right-3.5 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-zinc-700"
                   >
                     {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                   </button>
@@ -318,7 +318,7 @@ function LoginForm() {
                     onChange={(e) => setRememberMe(e.target.checked)}
                     className="rounded border-zinc-300 accent-[#00638E] focus:ring-[#00638E]"
                   />
-                  <span className="text-xs text-zinc-600">Ingat Saya</span>
+                  <span className="text-xs font-medium text-zinc-800">Ingat Saya</span>
                 </label>
               </div>
 
